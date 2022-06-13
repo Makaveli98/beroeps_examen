@@ -1,0 +1,19 @@
+.home_page_img {
+    display: flex;
+    justify-content: center;
+}
+   
+.image_box {
+    /* border: solid 0.1px white; */
+    height: 60vh;
+    width: 100%;
+    margin-bottom: -10vh;
+}
+
+.image_box div {
+    content: "";
+    background: url("../IMG/airplane.png") no-repeat center center  ;
+    background-size: cover;
+    background-color: rgba(000, 0, 0, 1);
+    height: 100%;
+}

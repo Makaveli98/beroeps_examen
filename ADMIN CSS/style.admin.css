@@ -1,0 +1,228 @@
+#container_a {
+    min-height: 100%;
+}
+
+#main_a {
+    width: 85%;
+    margin-left: auto;
+}
+
+#main_a h1 {
+    letter-spacing: 3px;
+    font-size: 2rem;
+    margin-left: 5vw;
+    position: relative;
+    top: 5vh;
+}
+
+.input {
+    columns: 3;
+    padding: 150px;
+    position: relative;
+}   
+
+.input div {
+    width: 15vw;
+    border: solid 1px #1b228c;
+    border-radius: 10px;
+    width: 15vw;
+    padding: 15px;
+    margin-bottom: 2vh;
+}
+
+.input select {
+    width: 100%;
+    background-color: #fffbde;
+}
+
+.input label {
+    width: 100%;
+    margin-bottom: 2vh;
+    display: inline-block;
+    width: 100px;
+    padding: 5px;
+}
+
+.input select {
+    border: solid 2px #1b228c;
+    padding: 5px;
+    border-radius: 5px;
+
+}
+
+.input input {
+    border: solid 2px #1b228c;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #fffbde;
+}
+
+.dummy_div {
+    height: 20vh;
+}
+
+.dummy_div2 {
+    height: 10vh;
+}
+
+#checkbox_container {
+    width: unset;
+    padding: unset;
+    margin-bottom: unset;
+    display: flex;
+    flex-wrap: wrap;
+
+    position: absolute;
+    left: 0;
+    top: 35vh;
+    gap: 1em;
+
+    margin-left: 150px;
+    padding: 20px;
+    width: 37vw;
+}
+
+#checkbox_div {
+    display: flex;
+    gap: 0.5em;
+    padding: 5px;
+}
+
+#checkbox_container input {
+    padding: unset;
+    width: unset;
+}
+
+.submit_btn {
+    border: none;
+    padding: 0;
+    background-color: #1b228c;
+}
+
+.submit_btn button {
+    width: 100%;
+    padding: 10px;
+    border: solid 2px #bdc1412e;
+    background-color: #bdc1412e;
+    color: #fffbde;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    font-size: 1rem;
+}
+
+/* reis */
+#reis_btn {
+    width: 80%;
+    padding: 0;
+    margin-top: 10vh;
+}
+
+/* bestemming */
+#bstm_btn {
+    width: 80%;
+    padding: 0;
+    margin-top: 3.5vh;
+}
+
+/* accommodatie */
+#acco_btn {
+    width: 80%;
+    padding: 0;
+}
+
+/* faciliteit */
+#input_fac {
+    columns: 1;
+}
+
+#fac_btn {
+    width: 26%;
+    padding: 0;
+    margin-top: 2.5vh;
+}
+
+
+/* overview */
+
+#overview_btns {
+    position: fixed;
+    bottom: .2vh;
+    width: 85%;
+    display: flex;
+    right: 0;
+    left: 0;
+    margin-left: 14.9%;
+    justify-content: space-between;
+}
+
+.overview_btn {
+    background: #1b228c;
+    border-radius: 5px;
+}
+
+.overview_btn button {
+    padding: 10px;
+    font-size: 0.9rem;
+    border: solid 1px #1b228c;
+    background: #1b228c;
+    color: #fffbde;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+#overview_bstm {
+    position: relative;
+    left: 0.2vw;
+}
+
+
+#ov_btn {
+    position: absolute;
+    right: .1vw;
+    bottom: 0.3vh;
+    width: 8vw;
+}
+
+#ov_btn button {
+    padding: 10px;
+    width: 100%;
+    font-size: 0.9rem;
+    border: solid 1px #1b228c;
+    background: #1b228c;
+    color: #fffbde;
+}
+
+.redirect_home {
+    position: absolute;
+    left: 15vw;
+    top: 0px;
+    width: 8vw;
+}
+
+.redirect_home button {
+    font-size: .9rem;
+    border: solid 1px #1b228c;
+    background: #1b228c;
+    color: #fffbde;
+    padding: 10px;
+    width: 100%;
+}
+
+#input_search {
+    padding: 10px;
+    width: 15vw;
+}
+
+#search_form {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    right: 12.5vw;
+    gap: 0.2em;
+}
+
+#search_form button {
+    padding: 10px;
+    width: 5.5vw;
+}

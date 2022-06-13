@@ -1,0 +1,22 @@
+.navbar {
+    margin-bottom: 5vh;
+    margin-top: 5vh;
+}
+
+.navbar_wrapper ul {
+    display: flex;
+    gap: 3em;
+    list-style: none;
+    padding: 20px;
+    justify-content: center;
+}
+
+.navbar_wrapper li {
+    text-align: center;
+    padding: 5px;
+}
+
+.linkbox {
+    text-decoration: none;
+}
+

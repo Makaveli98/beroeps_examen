@@ -1,0 +1,25 @@
+/* .admin_image {
+    border: solid 2px blue;
+    position: absolute;
+    left: 0;
+    top: 16em;
+    left: 0;
+    right: 0;
+    bottom: 6em;
+
+}
+
+.admin_image figure {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.admin_image_box {
+    content: "";
+    background: url("../IMG/ichigo.png") no-repeat center center;
+    background-size: cover;
+    background-color: rgba(000, 0, 0, 1);
+    height: 100%;
+} */

@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+#container {
+    min-height: 100%;
+}
+
+#main {
+    overflow: auto;
+    padding-bottom: 120px;
+}
+
+#footer {
+    background-color: #bdc1412e;
+    position: relative;
+    height: 75px;
+    margin-top: -75px;
+    clear: both;
+}
+
+#header {
+    background-color: #fffdd9;
+    position: relative;
+    height: 7vh;
+}
+
+
+.header_wrapper {
+    display: flex;
+    justify-content: flex-start;
+    gap: 3em;
+    position: relative;
+    align-items: center;
+}
+   
+
+.header_wrapper figure {
+    height: 7vh;
+    border: solid 1px black;
+    width: 5vw;
+}
+
+.logo {
+    content: "";
+    background: url("../IMG/logo.png") no-repeat center 40%;
+    background-size: cover;
+    background-color: rgba(000, 0, 0, 1);
+    height: 100%;
+}
+
+.login_form {
+    display: flex;
+    /* border: solid 1px black; */
+    height: 100%;
+    align-items: flex-end;
+    gap: 1em;
+    position: relative;
+    bottom: 9px;
+}
+
+.login_form div {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+}
+
+.login_form label {
+    display: inline-block;
+}
+
+.login_form input {
+    padding: 3px;
+}
+
+.login_form button {
+    padding: 3px;
+    width: 5vw;
+}
+
+.logout_btn {
+    padding: 3px;
+    width: 5vw;
+}
+
+#role {
+    position: absolute;
+    right: 1vw;
+    top: 4vh;
+    display: flex;
+    gap: 1em;
+    font-size: 1.5rem;
+}
+
+.header h3 {
+    font-size: 1.5rem;
+}
+
+.h1 {
+    position: relative;
+    bottom: 3vh;
+    margin-left: 2vw;
+}
+
+.info_card_reizen {
+    width: 50%; 
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.card_box {
+    border: solid 1px black;
+    display: flex;
+    justify-content: space-around;
+    padding: 25px;
+    width: 65%;
+    margin: auto;
+}
+
+.box {
+    min-width: 15vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.info_card {
+    display: flex;
+}
+
+.info_card_accommodatie {
+    border: solid 2px blue;
+    width: 45%;
+}
+
+#acco_box {
+    border: solid 1px black;
+    width: unset;
+}
+
+.acco_box > * {
+    padding: 15px;
+}
