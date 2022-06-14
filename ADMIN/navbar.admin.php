@@ -37,6 +37,10 @@
             <li>
                 <a href="boeking.admin.php" id="boeking_link"> <h3>Boeking</h3> </a>
             </li>
+
+              <li>
+                <a href="../php/index.php" id=""> <h3>User Page</h3> </a>
+            </li>
         </ul>
     </div>
 

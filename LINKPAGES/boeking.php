@@ -11,10 +11,9 @@
                 <div class="info_card_reizen">
                     <?php 
                     $get_reis_id = $_POST['id_reis'];
+                    $get_reis_nr = $_POST['nr_reis'];
                     $query_reizen = mysqli_query($conn, "SELECT * FROM reis WHERE idReis = $get_reis_id");
 
-                    $qet_fk_acco = $_POST['id_acco'];
-                    $query_bstm = mysqli_query($conn, "SELECT * FROM bestemming WHERE accommodatieID = $qet_fk_acco");
                     if(mysqli_num_rows($query_reizen) > 0) 
                     {
                         while($reis_data = mysqli_fetch_array($query_reizen)) 
@@ -24,20 +23,6 @@
                                 <div class="box">
                                     <h3>Bestemming</h3>
                                     <div class="info_box"><?=$reis_data['bestemming'];?></div>
-                                    <div class="info_bstm">
-                                        <?php
-                                        if(mysqli_num_rows($query_bstm) > 0)
-                                        {
-                                            while($bstm_data = mysqli_fetch_array($query_bstm))
-                                            {
-                                                ?>
-                                                <h4>Land</h4>
-                                                <div><?=$bstm_data['land'];?></div>
-                                                <?php
-                                            }
-                                        }
-                                        ?>
-                                    </div>
                                 </div>
                                 <div class="box">
                                     <h3>Periode</h3>
@@ -92,6 +77,11 @@
                     while($acco_data = mysqli_fetch_array($query_acco))
                     {
                         ?>
+                        <div></div>
+                        <!-- <div class="card_box" id="acco_box">
+                            <h4>ID</h4>                        
+                            <p><?=$acco_data['idAcco'];?></p>
+                        </div> -->
                         <div class="card_box" id="acco_box">
                             <h4>Soort Accommodatie</h4>                        
                             <p><?=$acco_data['soort'];?></p>
@@ -108,6 +98,11 @@
                             <h4>Faciliteiten</h4>
                             <p><?=$acco_data['faciliteit'];?></p>
                         </div>
+                        <div class="card_box" id="acco_box">
+                            <fiure>
+                                <img src="../UPLOAD-IMG/<?php echo $acco_data['picture'];?>">
+                            </figure>
+                        </div>
                         <?php
                     }
                 }
@@ -115,6 +110,13 @@
                 </div>
             </section>
         </div>
+
+        <form action="../INCLUDES/boeking.inc.php" method="POST">
+            <input type="text" name="pk_reis" value="<?=$get_reis_id?>">
+            <input type="text" name="nr" value="<?=$get_reis_nr?>">
+            <button class="boek_btn" type="submit" name="boeking_btn">Boek</button>
+        </form>
+
     </main>
 </div>
 

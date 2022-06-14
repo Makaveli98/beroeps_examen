@@ -27,7 +27,6 @@ include '../INCLUDES/authentication.php';
                             <tr>
                                 <td><?=$row_b['naam_bstm']; ?></td>
                                 <td><?=$row_b['r_nummer']; ?></td>
-                                <td><?=$row_b['acco']; ?></td>
                             </tr>
                             <?php
                         }

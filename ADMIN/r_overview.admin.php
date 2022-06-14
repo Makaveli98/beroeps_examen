@@ -37,7 +37,16 @@ include '../INCLUDES/authentication.php';
                                 <td><?=$row['check_in']; ?></td>   
                                 <td><?=$row['vertrek_date']; ?></td>   
                                 <td><?=$row['reis_nr']; ?></td>
-                                <td><?=$row['prijs']; ?></td>   
+                                <td><?=$row['prijs']; ?></td>
+                                <form action="reis.bewerk.php" method="POST">
+                                    <td><button name="update_reis">Update</button></td>
+                                    <td><input type="hidden" name="reis_hidden" value="<?=$row['idReis'];?>"></td>
+                                </form>
+
+                                <form action="../INCLUDES/admin.inc.php" method="POST">
+                                    <td><input name="hidden_v_reis" type="hidden" value="<?=$row['idReis']?>"></td>
+                                    <td><a href="r_overview.admin.php"><button name="delete_reis">Verwijder</button></a></td>
+                                </form>   
                             </tr>
                             <?php
                         }

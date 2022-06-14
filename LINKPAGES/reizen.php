@@ -23,8 +23,7 @@
                 </thead>
                 <tbody>
                     <?php
-                    $query = mysqli_query($conn, "SELECT * FROM reis");
-                    $query_2 = mysqli_query($conn, "SELECT * FROM bestemming");
+                    $query = mysqli_query($conn, "SELECT * FROM reis INNER JOIN bestemming ON reis.bestemmingID = bestemming.idBestemming");
                     if(mysqli_num_rows($query) > 0) {
                         while($row = mysqli_fetch_array($query)){
                             ?>
@@ -39,18 +38,11 @@
                                 <td><?=$row['prijs']; ?></td>
                                 <td>
                                     <form action="boeking.php?=<?=$row['idReis']?>" method="POST">
-                                        <button name="bekijk_btn">BOEKEN</button>
-                                        <input type="text" name="id_reis" value="<?=$row['idReis'];?>">
-                                        <input type="text" name="id_bestemming" value="<?=$row['bestemmingID'];?>">
-                                        <?php 
-                                        while($row_2 = mysqli_fetch_array($query_2))
-                                        {
-                                            ?>
-                                            <input type="text" name="id_acco" value="<?=$row_2['accommodatieID'];?>">
-                                            <?php
-                                            
-                                        }
-                                        ?>
+                                        <button name="bekijk_btn">Bekijk</button>
+                                        <input type="hidden" name="id_reis" value="<?=$row['idReis'];?>">
+                                        <input type="hidden" name="nr_reis" value="<?=$row['reis_nr'];?>">
+                                        <input type="hidden" name="id_bestemming" value="<?=$row['bestemmingID'];?>">
+                                        <input type="hidden" name="id_acco" value="<?=$row['accommodatieID'];?>">                                                            
                                     </form>
                                 </td>
                             </tr>

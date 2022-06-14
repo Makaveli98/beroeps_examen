@@ -1,13 +1,12 @@
 <?php
-session_start();
+// session_start();
 require 'dbh.inc.php';
-if(isset($_POST['reis_btn'])) 
+if(isset($_POST['boeking_btn'])) 
 {
-    if($_SESSION['auth']) 
-    {
-        $reisID = $_POST['id_reis'];
-        // $naam_bstm = $_POST['bstm'];
-        $r_nummer = $_POST['r_nr'];
+    // if($_SESSION['auth']) 
+    // {
+        $reisID = $_POST['pk_reis'];
+        $r_nummer = $_POST['nr'];
     
         $res_query = mysqli_query($conn, "INSERT INTO boeking (reisID, r_nummer,  naam_bstm) 
         VALUES ('$reisID', '$r_nummer', 
@@ -20,14 +19,14 @@ if(isset($_POST['reis_btn']))
         }
         else 
         {
-            header('Location: ../LINKPAGES/reizen.php?FAIL');
+            header('Location: ../LINKPAGES/boeking.php?FAIL');
             exit(0);
         }
         exit(0);
-    }
-    else 
-    {
-        header('Location: ../LINKPAGES/reizen.php?NOT AUTH');
-        exit(0);
-    }
+    // }
+    // else 
+    // {
+    //     header('Location: ../LINKPAGES/reizen.php?NOT AUTH');
+    //     exit(0);
+    // }
 }

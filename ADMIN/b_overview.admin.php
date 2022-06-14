@@ -29,7 +29,16 @@ include '../INCLUDES/authentication.php';
                             <td><?=$row['plaats']; ?></td>
                             <td><?=$row['land']; ?></td>
                             <td><?=$row['provincie']; ?></td>
-                            <td><?=$row['accommodatie']; ?></td>   
+                            <td><?=$row['accommodatie']; ?></td>
+                            <form action="bstm.bewerk.php" method="POST">
+                                <td><button name="update_bstm">Update</button></td>
+                                <td><input type="hidden" name="bstm_hidden" value="<?=$row['idBestemming'];?>"></td>
+                            </form>
+
+                            <form action="../INCLUDES/admin.inc.php" method="POST">
+                                <td><input name="hidden_v_bstm" type="hidden" value="<?=$row['idBestemming']?>"></td>
+                                <td><a href="b_overview.admin.php"><button name="delete_bstm">Verwijder</button></a></td>
+                            </form>   
                         </tr>
                         <?php
                     }

@@ -142,8 +142,33 @@ html, body {
 #acco_box {
     border: solid 1px black;
     width: unset;
+    padding: 5px;
+    justify-content: flex-start;
 }
 
-.acco_box > * {
-    padding: 15px;
+#acco_box h4 {
+    min-width: 12vw;
+}
+
+#acco_box > * {
+    padding: 5px;
+}
+
+#acco_box p {
+    /* border: solid 1px black; */
+}
+
+
+div.card_box:nth-child(6) > fiure:nth-child(1) {
+    margin: auto;
+   }
+
+   div.card_box:nth-child(6) > fiure:nth-child(1) > img:nth-child(1) {
+    height: 39vh;
+    width: 38vw;
+   }
+   
+.boek_btn {
+    /* width: 50px;
+    height: 50px; */
 }

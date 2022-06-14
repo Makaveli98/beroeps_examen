@@ -29,7 +29,17 @@ include '../INCLUDES/authentication.php';
                                 <td><?=$row['soort']; ?></td>
                                 <td><?=$row['kamer']; ?></td>
                                 <td><?=$row['ligging']; ?></td>
-                                <td><?=$row['faciliteit']; ?></td>   
+                                <td><?=$row['faciliteit']; ?></td>
+
+                                <form action="acco.bewerk.php" method="POST">
+                                    <td><button name="update_acco">Update</button></td>
+                                    <td><input type="hidden" name="acco_hidden" value="<?=$row['idAcco'];?>"></td>
+                                </form>
+
+                                <form action="../INCLUDES/admin.inc.php" method="POST">
+                                    <td><input name="hidden_v_acco" type="hidden" value="<?=$row['idAcco']?>"></td>
+                                    <td><a href="a_overview.admin.php"><button name="delete_acco">Verwijder</button></a></td>
+                                </form>      
                             </tr>
                             <?php
                         }

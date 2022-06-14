@@ -24,7 +24,9 @@
                                 <td><?=$row['soort']; ?></td>
                                 <td><?=$row['kamer']; ?></td>
                                 <td><?=$row['ligging']; ?></td>
-                                <td><?=$row['faciliteit']; ?></td>   
+                                <td><?=$row['faciliteit']; ?></td>  
+                                <td><input type="text" value="<?=$row['idAcco'];?>"></td>  
+                                 
                             </tr>
                             <?php
                         }

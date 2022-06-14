@@ -24,6 +24,10 @@ include '../INCLUDES/authentication.php';
                             ?>
                             <tr>
                                 <td><?=$row['naam_fac']; ?></td>
+                                <form action="../INCLUDES/admin.inc.php" method="POST">
+                                    <td><a href="f_overview.admin.php"><button name="delete_fac">Verwijder</button></a></td>
+                                    <td><input name="hidden_v_fac" type="hidden" value="<?=$row['idFac']?>"></td>
+                                </form>
                             </tr>
                             <?php
                         }
