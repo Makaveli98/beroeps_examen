@@ -20,26 +20,26 @@
 
 <header class="header" id="header">
     <div class="header_wrapper" id="header_wrapper">
+
+
         <figure class="figure" id="figure">
             <div class="logo"></div>
         </figure>
 
         <?php if(isset($_SESSION['auth'])) 
         {
-            ?>
-            <div class="user_role">
-            <?php 
+          
             if($_SESSION['auth_role'] == '1')
             {
                 ?>
                 <h3 class="role">Admin</h3>
-                <div id="role">
-                    <?=$_SESSION['auth_user']['user_name'];?>
-                    <a href="../ADMIN/index.admin.php"><button>Go to admin dashboard</button></a>
+                <div class="account_box">
+                    <div class="name_box"><h4><?=$_SESSION['auth_user']['user_name'];?></h4></div>
+                    <a href="../ADMIN/index.admin.php"><button>Admin Dashboard</button></a>
                     <form action="../INCLUDES/logout.inc.php" method="POST">
-                        <button type="submit" class="logout_btn" id="btn" name="logout_btn">Log Out</button>
+                        <a href=""><button type="submit" class="logout_btn" id="logout_btn" name="logout_btn">Log Out</button></a>
                     </form>
-                </div>        
+                </div>       
                 <?php
             }elseif($_SESSION['auth_role'] == '0' || $_SESSION['auth_role'] == NULL) 
             {
@@ -53,9 +53,7 @@
                 </div>     
                 <?php
             }
-            ?>
-            </div>
-            <?php
+           
         } else 
         {
             ?>

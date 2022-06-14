@@ -28,7 +28,7 @@ include '../INCLUDES/authentication.php';
                             $query_b = mysqli_query($conn, "SELECT * FROM bestemming");
                             while($data_b = mysqli_fetch_array($query_b)) {
                                 ?>
-                                    <option value="<?= $data_b['idBestemming']; ?>"><?= $data_b['plaats']; ?></option>
+                                    <option value="<?= $data_b['plaats']; ?>"><?= $data_b['plaats']; ?></option>
                                 <?php
                             }   
                             ?>

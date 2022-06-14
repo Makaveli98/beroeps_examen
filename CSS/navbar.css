@@ -1,22 +1,27 @@
 .navbar {
-    margin-bottom: 5vh;
-    margin-top: 5vh;
+    margin-top: 5em;
 }
 
 .navbar_wrapper ul {
     display: flex;
-    gap: 3em;
+    gap: 2em;
     list-style: none;
-    padding: 20px;
-    justify-content: center;
+    padding: 5px;
+    justify-content: flex-start;
+    margin-left: 2vw;
 }
 
 .navbar_wrapper li {
     text-align: center;
-    padding: 5px;
 }
 
-.linkbox {
-    text-decoration: none;
+.navbar_wrapper a {
+    color: #2323a6;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 2.5;
+    font-weight: bold;
+    text-decoration: solid;
 }
+
 

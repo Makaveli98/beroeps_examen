@@ -1,37 +1,7 @@
 <?php
 require 'dbh.inc.php';
 
-// bestemming invoeren
-    if(isset($_POST['bestemming_submit'])) 
-    {
-        $accoID = $_POST['accomodatie'];
-        $bestemming_plaats = mysqli_real_escape_string($conn, $_POST['plaats']);
-        $bestemming_land = mysqli_real_escape_string($conn, $_POST['land']);
-        $bestemming_provincie = mysqli_real_escape_string($conn, $_POST['provincie']);
-
-        if(empty($accoID) || empty($bestemming_plaats) || empty($bestemming_land) || empty($bestemming_provincie)) 
-        {
-            header("Location: ../ADMIN/bestemming.admin.php?EMPTY-FIELDS");
-            exit(0);
-        } else 
-        { 
-            $query_b = mysqli_query($conn, "INSERT INTO bestemming (accommodatieID, plaats, land, provincie, accommodatie) 
-            VALUES ('$accoID', '$bestemming_plaats', '$bestemming_land', '$bestemming_provincie', 
-            (SELECT soort FROM accommodatie WHERE idAcco = $accoID))") or die (mysqli_error($conn));
-            if ($query_b) 
-            {
-                header("Location: ../ADMIN/bestemming.admin.php?succes");
-                exit(0);   
-            } else 
-            {
-                header("Location: ../ADMIN/bestemming.admin.php?no-succes");
-                exit(0);
-            }
-        }   
-    }   
-// end bestemming
-
-// reizen invoeren
+// Input Reis
     if(isset($_POST['reis_submit'])) 
     {
         $bstmID = $_POST['bestemming'];
@@ -67,9 +37,39 @@ require 'dbh.inc.php';
             }
         }   
     }   
-// end reis
+// end Input
 
-// accommodatie invoeren
+// Input Bestemming
+    if(isset($_POST['bestemming_submit'])) 
+    {
+        $accoID = $_POST['accomodatie'];
+        $bestemming_plaats = mysqli_real_escape_string($conn, $_POST['plaats']);
+        $bestemming_land = mysqli_real_escape_string($conn, $_POST['land']);
+        $bestemming_provincie = mysqli_real_escape_string($conn, $_POST['provincie']);
+
+        if(empty($accoID) || empty($bestemming_plaats) || empty($bestemming_land) || empty($bestemming_provincie)) 
+        {
+            header("Location: ../ADMIN/bestemming.admin.php?EMPTY-FIELDS");
+            exit(0);
+        } else 
+        { 
+            $query_b = mysqli_query($conn, "INSERT INTO bestemming (accommodatieID, plaats, land, provincie, accommodatie) 
+            VALUES ('$accoID', '$bestemming_plaats', '$bestemming_land', '$bestemming_provincie', 
+            (SELECT soort FROM accommodatie WHERE idAcco = $accoID))") or die (mysqli_error($conn));
+            if ($query_b) 
+            {
+                header("Location: ../ADMIN/bestemming.admin.php?succes");
+                exit(0);   
+            } else 
+            {
+                header("Location: ../ADMIN/bestemming.admin.php?no-succes");
+                exit(0);
+            }
+        }   
+    }   
+// end Input
+
+// Input Accommodatie
     if(isset($_POST['submit_accommodatie'])) {
         $fac = $_POST['checkbox_fac'];
         $converter = implode($fac);
@@ -121,9 +121,9 @@ require 'dbh.inc.php';
             }
         }
     }
-// end accommodatie
+// end Input
 
-// faciliteit invoeren
+// Input Faciliteit
     if(isset($_POST['faciliteit_submit'])) {
         $faciliteit = mysqli_real_escape_string($conn, $_POST['faciliteit']);
         
@@ -144,48 +144,42 @@ require 'dbh.inc.php';
             }
         }
     }
-// end faciliteit
+// end Input
 
 
-// delete faciliteit
-    if(isset($_POST['delete_fac'])) 
+// Update Reis
+    if(isset($_POST['reis_update'])) 
     {
-        $id_fac = $_POST['hidden_v_fac'];
+        $get_reis_id = $_POST['reis_h'];
+        $get_reis_bstm = $_POST['bestemming'];
+        $get_reis_periode = $_POST['periode'];
+        $get_reis_type = $_POST['reis_type'];
+        $get_reis_vertrek = $_POST['vertrek'];
+        $get_reis_check = $_POST['check_in'];
+        $get_reis_datum = $_POST['vertrek_date'];
+        $get_reis_nr = $_POST['reis_nummer'];
+        $get_reis_prijs = $_POST['prijs'];
 
-            $sql_delete_fac = mysqli_query($conn, "DELETE FROM faciliteit WHERE idFac = '$id_fac'");
-            if($sql_delete_fac) 
-            {
-                header('Location: ../ADMIN/f_overview.admin.php?DELETE SUCCES');
+        $update_query_reis = mysqli_query($conn, "UPDATE reis 
+        SET bestemming = '$get_reis_bstm', periode = '$get_reis_periode', reis_type = '$get_reis_type', departure = '$get_reis_vertrek', 
+        check_in = '$get_reis_check', vertrek_date = '$get_reis_datum', reis_nr = '$get_reis_nr', prijs = '$get_reis_prijs' 
+        WHERE idReis = '$get_reis_id'");
+
+        if($update_query_reis)
+        {
+            header('Location: ../ADMIN/r_overview.admin.php?UPDATE SUCCES');
                 exit(0);
-            } else 
-            {
-                header('Location: ../ADMIN/f_overview_admin.php?DELETE FAIL');
+        } else 
+        {
+            header('Location: ../ADMIN/reis.bewerk.php?UPDATE FAIL');
                 exit(0);
-            }
+        }
+
     }
-// end faciliteit delete
 
-// delete bstm
-    if(isset($_POST['delete_bstm'])) 
-    {
-        $id_bstm = $_POST['hidden_v_bstm'];
+// end Update
 
-            $sql_delete_bstm = mysqli_query($conn, "DELETE FROM bestemming WHERE idBestemming = '$id_bstm'");
-            if($sql_delete_bstm) 
-            {
-                header('Location: ../ADMIN/b_overview.admin.php?DELETE SUCCES');
-                exit(0);
-            } else 
-            {
-                header('Location: ../ADMIN/b_overview_admin.php?DELETE FAIL');
-                exit(0);
-            }
-    }
-// end delete bstm
-
-
-// bewerk bestemming
-
+// Update Bestemming
     if(isset($_POST['bstm_update'])) 
     {
         $get_bstm_id = $_POST['bstm_h'];
@@ -195,7 +189,8 @@ require 'dbh.inc.php';
         $up_acco_bstm = $_POST['accomodatie'];
 
         $update_query_bstm = mysqli_query($conn, "UPDATE bestemming 
-        SET plaats = '$up_plaats_bstm', land = '$up_land_bstm', provincie = '$up_provincie_bstm', accommodatie = '$up_acco_bstm' WHERE idBestemming = '$get_bstm_id'");
+        SET plaats = '$up_plaats_bstm', land = '$up_land_bstm', provincie = '$up_provincie_bstm', accommodatie = '$up_acco_bstm' 
+        WHERE idBestemming = '$get_bstm_id'");
 
         if($update_query_bstm)
         {
@@ -209,10 +204,9 @@ require 'dbh.inc.php';
 
     }
 
-// end bewerk bestemming
+// end Update
 
-// update accommodatie
-        
+// Update Accommodatie
     if(isset($_POST['acco_update'])) 
     {
         $get_acco_id = $_POST['acco_h'];
@@ -223,35 +217,35 @@ require 'dbh.inc.php';
         $up_kamer_acco = $_POST['kamer'];
         $up_ligging_acco = $_POST['ligging'];
 
-        $img_name = $_FILES['image']['name'];
-        $img_size = $_FILES['image']['size'];
-        $img_tmp = $_FILES['image']['tmp_name'];
-        $error = $_FILES['image']['error'];
+        $img_name_upd = $_FILES['image']['name'];
+        $img_size_upd = $_FILES['image']['size'];
+        $img_tmp_upd = $_FILES['image']['tmp_name'];
+        $error_upd = $_FILES['image']['error'];
 
 
-        if($error === 0) 
+        if($error_upd === 0) 
         {
-            if($img_size > 1000000)
+            if($img_size_upd > 1000000)
             {
-                header('Location: ../ADMIN/accommodatie.admin.php?FILE TO LARGE');
+                header('Location: ../ADMIN/acco.bewerk.php?FILE TO LARGE');
                 exit(0);
             } else 
             {
-                $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-                $img_ex_lc = strtolower($img_ex);
-                $allowed_exs = array("jpg", "jpeg", "png");
+                $img_ex_upd = pathinfo($img_name_upd, PATHINFO_EXTENSION);
+                $img_ex_lc_upd = strtolower($img_ex_upd);
+                $allowed_exs_upd = array("jpg", "jpeg", "png");
 
-                if(in_array($img_ex_lc, $allowed_exs)) 
+                if(in_array($img_ex_lc_upd, $allowed_exs_upd)) 
                 {
-                    $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
-                    $img_upload_path = '../UPLOAD-IMG/'.$new_img_name;
-                    move_uploaded_file($img_tmp, $img_upload_path);
+                    $new_img_name_upd = uniqid("IMG-", true).'.'.$img_ex_lc_upd;
+                    $img_upload_path_upd = '../UPLOAD-IMG/'.$new_img_name_upd;
+                    move_uploaded_file($img_tmp, $img_upload_path_upd);
 
 
 
                     $update_query_acco = mysqli_query($conn, "UPDATE accommodatie 
-                    SET soort = '$up_soort_acco', kamer = '$up_kamer_acco', ligging = '$up_ligging_acco', faciliteit = '$converter_acco', picture = '$new_img_name' 
-                    WHERE idAccommodatie = '$get_acco_id'");
+                    SET soort = '$up_soort_acco', kamer = '$up_kamer_acco', ligging = '$up_ligging_acco', faciliteit = '$converter_acco', picture = '$new_img_name_upd' 
+                    WHERE idAcco = '$get_acco_id'");
 
                     if($update_query_acco)
                     {
@@ -272,38 +266,76 @@ require 'dbh.inc.php';
         }
     }
  
-// end update accommodatie
+// end Update
 
-
-// update reis
-    if(isset($_POST['reis_update'])) 
+// Delete Reis 
+    if(isset($_POST['delete_reis'])) 
+    {
+        $id_reis = $_POST['hidden_v_reis'];
+        $sql_delete_reis = mysqli_query($conn, "DELETE FROM reis WHERE idReis = '$id_reis'");
+        if($sql_delete_reis) 
         {
-            $get_reis_id = $_POSTP['reis_h'];
+            header('Location: ../ADMIN/r_overview.admin.php?DELETE SUCCES');
+            exit(0);
+        } else 
+        {
+            header('Location: ../ADMIN/r_overview_admin.php?DELETE FAIL');
+            exit(0);
+        }
+    }
+// end Delete
 
-            $get_reis_bstm = $_POST['bestemming'];
-            $get_reis_periode = $_POST['periode'];
-            $get_reis_type = $_POST['reis_type'];
-            $get_reis_vrtk = $_POST['vertrek'];
-            $get_reis_check = $_POST['check_in'];
-            $get_reis_vdate = $_POST['vertrek_date'];
-            $get_reis_nr = $_POST['reis_nummer'];
-            $get_reis_prijs = $_POST['prijs'];
+// Delete Bestemming
+    if(isset($_POST['delete_bstm'])) 
+    {
+        $id_bstm = $_POST['hidden_v_bstm'];
 
-            $update_query_reis = mysqli_query($conn, "UPDATE reis 
-            SET bestemming = '$get_reis_bstm', periode = '$get_reis_periode', reis_type = '$get_reis_type', departure = '$get_reis_vrtk', 
-            check_in = '$get_reis_check', vertrek_date = '$get_reis_vdate', reis_nr = '$get_reis_nr', prijs = '$get_reis_prijs' 
-            WHERE idReis = '$get_reis_id'");
-
-            if($update_query_reis)
+            $sql_delete_bstm = mysqli_query($conn, "DELETE FROM bestemming WHERE idBestemming = '$id_bstm'");
+            if($sql_delete_bstm) 
             {
-                header('Location: ../ADMIN/r_overview.admin.php?UPDATE SUCCES');
-                    exit(0);
+                header('Location: ../ADMIN/b_overview.admin.php?DELETE SUCCES');
+                exit(0);
             } else 
             {
-                header('Location: ../ADMIN/reis.bewerk.php?UPDATE FAIL');
-                    exit(0);
+                header('Location: ../ADMIN/b_overview_admin.php?DELETE FAIL');
+                exit(0);
             }
+    }
+// end Delete
 
-        }
+// Delete Accommodatie
+    if(isset($_POST['delete_acco'])) 
+    {
+        $id_acco = $_POST['hidden_v_acco'];
 
-// end update reis
+            $sql_delete_acco = mysqli_query($conn, "DELETE FROM accommodatie WHERE idAcco = '$id_acco'");
+            if($sql_delete_acco) 
+            {
+                header('Location: ../ADMIN/a_overview.admin.php?DELETE SUCCES');
+                exit(0);
+            } else 
+            {
+                header('Location: ../ADMIN/a_overview_admin.php?DELETE FAIL');
+                exit(0);
+            }
+    }
+// end Delete
+
+
+// Delete Faciliteit
+    if(isset($_POST['delete_fac'])) 
+    {
+        $id_fac = $_POST['hidden_v_fac'];
+
+            $sql_delete_fac = mysqli_query($conn, "DELETE FROM faciliteit WHERE idFac = '$id_fac'");
+            if($sql_delete_fac) 
+            {
+                header('Location: ../ADMIN/f_overview.admin.php?DELETE SUCCES');
+                exit(0);
+            } else 
+            {
+                header('Location: ../ADMIN/f_overview_admin.php?DELETE FAIL');
+                exit(0);
+            }
+    }
+// end Delete

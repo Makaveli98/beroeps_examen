@@ -15,7 +15,7 @@ if(isset($_POST['login_btn'])) {
         foreach($login_query_run as $data)
         {
             $user_id = $data['userID'];
-            $user_name = $data['voornaam']. ''.$data['tvg']. '' .$data['achternaam'];
+            $user_name = $data['voornaam']. "" .$data['tvg']. "" .$data['achternaam'];
             $user_email = $data['email'];
             $role = $data['role'];
         }

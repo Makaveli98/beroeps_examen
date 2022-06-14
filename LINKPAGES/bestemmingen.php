@@ -1,8 +1,10 @@
 <div id="container">
     <main id="main">
-    <?php include '../PHP/navbar.php'; ?>
+    <?php include '../PHP/navbar.php'; 
+    ?>
+        <div class="empty_div"></div>
         <div id="table_content">
-            <h1>Overzicht Bestemmingen</h1>
+            <h2>Bestemmingen</h2>
             <table>
                 <thead>
                     <tr>
@@ -12,33 +14,38 @@
                         <th>Accommodatie</th>
                     </tr>
                 </thead>
-                <tbody>
-                <?php
-                $query = "SELECT * FROM bestemming";
-                $query_run = mysqli_query($conn, $query);
 
-                if(mysqli_num_rows($query_run) > 0) {
-                    while($row = mysqli_fetch_array($query_run)){
-                    ?>
-                    <tr>
-                        <td><?=$row['plaats']; ?></td>
-                        <td><?=$row['land']; ?></td>
-                        <td><?=$row['provincie']; ?></td>
-                        <td><?=$row['accommodatie']; ?></td>   
-                    </tr>
-                    <?php
+                <?php 
+                $query = mysqli_query($conn, "SELECT * FROM bestemming");
+                if(mysqli_num_rows($query) > 0)
+                {
+                    while($row = mysqli_fetch_assoc($query)) 
+                    {
+                        ?>
+                        <tbody>
+                            <tr>
+                                <td><?=$row['plaats'];?></td>
+                                <td><?=$row['land'];?></td>
+                                <td><?=$row['provincie'];?></td>
+                                <td><?=$row['accommodatie'];?></td>
+                            </tr>
+                        </tbody>
+                        <?php
                     }
-                }
-                else {
+                } else 
+                {
                     ?>
                     <tr>
-                        <td colspan="4">No Record Found</td>
+                        <td>No Record Found</td>
+                        <td>No Record Found</td>
+                        <td>No Record Found</td>
+                        <td>No Record Found</td>
                     </tr>
                     <?php
-                }
+                }    
                 ?>
-                </tbody>
             </table>
+
         </div>
     </main>
 </div>

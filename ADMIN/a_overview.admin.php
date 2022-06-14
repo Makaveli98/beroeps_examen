@@ -32,13 +32,15 @@ include '../INCLUDES/authentication.php';
                                 <td><?=$row['faciliteit']; ?></td>
 
                                 <form action="acco.bewerk.php" method="POST">
+                                    <td><input type="text" name="acco_hidden" value="<?=$row['idAcco'];?>"></td>
                                     <td><button name="update_acco">Update</button></td>
-                                    <td><input type="hidden" name="acco_hidden" value="<?=$row['idAcco'];?>"></td>
+                        
                                 </form>
 
                                 <form action="../INCLUDES/admin.inc.php" method="POST">
-                                    <td><input name="hidden_v_acco" type="hidden" value="<?=$row['idAcco']?>"></td>
                                     <td><a href="a_overview.admin.php"><button name="delete_acco">Verwijder</button></a></td>
+                                    <td><input name="hidden_v_acco" type="text" value="<?=$row['idAcco']?>"></td>
+
                                 </form>      
                             </tr>
                             <?php

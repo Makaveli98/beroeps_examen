@@ -1,46 +1,48 @@
 <div id="container">
     <main id="main">
     <?php include '../PHP/navbar.php'; ?>
-        <div id="table_content">
-            <h1>Overzicht Accommodatie</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Soort</th>
-                        <th>Kamer</th>
-                        <th>Ligging</th>
-                        <th>Faciliteit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php
-                    $query = "SELECT * FROM accommodatie";
-                    $query_run = mysqli_query($conn, $query);
 
-                    if(mysqli_num_rows($query_run) > 0) {
-                        while($row = mysqli_fetch_array($query_run)){
-                            ?>
-                            <tr>
-                                <td><?=$row['soort']; ?></td>
-                                <td><?=$row['kamer']; ?></td>
-                                <td><?=$row['ligging']; ?></td>
-                                <td><?=$row['faciliteit']; ?></td>  
-                                <td><input type="text" value="<?=$row['idAcco'];?>"></td>  
-                                 
-                            </tr>
-                            <?php
-                        }
-                    }
-                    else {
-                        ?>
-                        <tr>
-                            <td colspan="3">No Record Found</td>
-                        </tr>
-                        <?php
-                    }
+        <div class="empty_div"></div>
+        
+        <div class="acco_container">
+            <?php
+            $query = mysqli_query($conn, "SELECT * FROM accommodatie");
+            if(mysqli_num_rows($query) > 0)
+            {
+                while($data = mysqli_fetch_assoc($query)) 
+                {
                     ?>
-                </tbody>
-            </table>
+                    <div class="box_wrapper">
+                        <div class="box_data" id="">
+                            <h4>Soort Accommodatie</h4>                        
+                            <p><?=$data['soort'];?></p>
+                        </div>
+
+                        <div class="box_data" id="">
+                            <h4>Aantal Kamers</h4>
+                            <p><?=$data['kamer'];?></p>
+                        </div>
+
+                        <div class="box_data" id="">
+                            <h4>Ligging</h4>
+                            <p><?=$data['ligging'];?></p>
+                        </div>
+
+                        <div class="box_data" id="">
+                            <h4>Faciliteiten</h4>
+                            <p><?=$data['faciliteit'];?></p>
+                        </div>
+
+                        <div class="box_data" id="">
+                            <fiure class="img_card">
+                                <img src="../UPLOAD-IMG/<?php echo $data['picture'];?>">
+                            </figure>
+                        </div>
+                    </div>
+                    <?php
+                }
+            }
+            ?>
         </div>
     </main>
 </div>
