@@ -5,13 +5,12 @@
 <div id="container">
     <main id="main">
         <?php include '../PHP/navbar.php';?>
-        <h1 class="h1">Reis Informatie</h1>
         <div class="boeking_info">
             <section class="info_card">
                 <div class="info_card_reizen">
                     <?php 
                     $get_reis_id = $_POST['id_reis'];
-                    $get_reis_nr = $_POST['nr_reis'];
+                    // $get_reis_nr = $_POST['nr_reis'];
                     $query_reizen = mysqli_query($conn, "SELECT * FROM reis WHERE idReis = $get_reis_id");
 
                     if(mysqli_num_rows($query_reizen) > 0) 
@@ -74,35 +73,36 @@
                 $query_acco = mysqli_query($conn, "SELECT * FROM accommodatie WHERE idAcco = $qet_id_acco");
                 if(mysqli_num_rows($query_acco) > 0)
                 {
-                    while($acco_data = mysqli_fetch_array($query_acco))
+                    while($data = mysqli_fetch_assoc($query_acco))
                     {
                         ?>
-                        <div></div>
-                        <!-- <div class="card_box" id="acco_box">
-                            <h4>ID</h4>                        
-                            <p><?=$acco_data['idAcco'];?></p>
-                        </div> -->
-                        <div class="card_box" id="acco_box">
+                       <div class="box_wrapper" id="wrapper">
+                        <div class="box_data" id="data">
                             <h4>Soort Accommodatie</h4>                        
-                            <p><?=$acco_data['soort'];?></p>
+                            <p><?=$data['soort'];?></p>
                         </div>
-                        <div class="card_box" id="acco_box">
+
+                        <div class="box_data" id="data">
                             <h4>Aantal Kamers</h4>
-                            <p><?=$acco_data['kamer'];?></p>
+                            <p><?=$data['kamer'];?></p>
                         </div>
-                        <div class="card_box" id="acco_box">
+
+                        <div class="box_data" id="data">
                             <h4>Ligging</h4>
-                            <p><?=$acco_data['ligging'];?></p>
+                            <p><?=$data['ligging'];?></p>
                         </div>
-                        <div class="card_box" id="acco_box">
+
+                        <div class="box_data" id="data">
                             <h4>Faciliteiten</h4>
-                            <p><?=$acco_data['faciliteit'];?></p>
+                            <p class="fac_text"><?=$data['faciliteit'];?></p>
                         </div>
-                        <div class="card_box" id="acco_box">
-                            <fiure>
-                                <img src="../UPLOAD-IMG/<?php echo $acco_data['picture'];?>">
+
+                        <div class="box_data" id="img_data">
+                            <fiure id="img_box" class="img_card">
+                                <img src="../UPLOAD-IMG/<?php echo $data['picture'];?>">
                             </figure>
                         </div>
+                    </div>
                         <?php
                     }
                 }
@@ -111,9 +111,8 @@
             </section>
         </div>
 
-        <form action="../INCLUDES/boeking.inc.php" method="POST">
-            <input type="text" name="pk_reis" value="<?=$get_reis_id?>">
-            <input type="text" name="nr" value="<?=$get_reis_nr?>">
+        <form class="boeking_form" action="../INCLUDES/boeking.inc.php" method="POST">
+            <input type="hidden" name="pk_reis" value="<?=$get_reis_id?>">
             <button class="boek_btn" type="submit" name="boeking_btn">Boek</button>
         </form>
 

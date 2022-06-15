@@ -7,8 +7,8 @@ include '../INCLUDES/authentication.php';
     include 'navbar.admin.php';?>
     <main id="main_a">
         <h1>Overzicht Reizen</h1>
-        <div id="table_content_a">
-            <table>
+        <div class="table_content" id="admin_table">
+            <table id="reis_tbl">
                 <thead>
                     <tr>
                         <th>Plaats</th>
@@ -19,6 +19,10 @@ include '../INCLUDES/authentication.php';
                         <th>Vertrek Datum</th>
                         <th>Reis Nummer</th>
                         <th>Prijs</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,7 +58,7 @@ include '../INCLUDES/authentication.php';
                     else {
                         ?>
                         <tr>
-                            <td colspan="3">No Record Found</td>
+                            <td>No Record Found</td>
                         </tr>
                         <?php
                     }

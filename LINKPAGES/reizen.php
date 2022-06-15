@@ -5,7 +5,7 @@
             <input id="input_search" name="search" placeholder="Search">
             <button type="submit" name="submit_search">Search</button>
         </form>
-        <div id="table_content">
+        <div class="table_content">
             <h2>Reizen</h2>
             <table>
                 <thead>

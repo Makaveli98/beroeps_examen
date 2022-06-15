@@ -28,13 +28,13 @@
                             <p><?=$data['ligging'];?></p>
                         </div>
 
-                        <div class="box_data" id="">
+                        <div class="box_data" id="fac_box">
                             <h4>Faciliteiten</h4>
-                            <p><?=$data['faciliteit'];?></p>
+                            <p class="fac_text"><?=$data['faciliteit'];?></p>
                         </div>
 
                         <div class="box_data" id="">
-                            <fiure class="img_card">
+                            <fiure id="box_figure" class="img_card">
                                 <img src="../UPLOAD-IMG/<?php echo $data['picture'];?>">
                             </figure>
                         </div>

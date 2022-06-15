@@ -7,14 +7,18 @@ include '../INCLUDES/authentication.php';
     include 'navbar.admin.php';?>
     <main id="main_a">
         <h1>Overzicht Bestemming</h1>
-        <div id="table_content_a">
-            <table>
+        <div class="table_content" id="admin_table">
+            <table id="bstm_tbl">
                 <thead>
                     <tr>
                         <th>Plaats</th>
                         <th>Land</th>
                         <th>Provincie</th>
                         <th>Accommodatie</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

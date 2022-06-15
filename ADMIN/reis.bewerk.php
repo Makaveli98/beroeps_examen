@@ -101,6 +101,7 @@ include '../INCLUDES/authentication.php';
                     <div class="submit_btn" id="reis_btn">
                         <button type="submit" name="reis_update">Update</button>
                     </div>
+                    
                     </form>
                 <?php
             }
@@ -108,10 +109,8 @@ include '../INCLUDES/authentication.php';
             ?>
             
         </div>
+
         
-        <div class="overview" id="ov_btn">
-            <a href="r_overview.admin.php"><button type="">Overzicht</button></a>
-        </div>
     </main>
 </div>
 

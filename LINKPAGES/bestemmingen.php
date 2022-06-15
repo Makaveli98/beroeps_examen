@@ -3,7 +3,7 @@
     <?php include '../PHP/navbar.php'; 
     ?>
         <div class="empty_div"></div>
-        <div id="table_content">
+        <div class="table_content">
             <h2>Bestemmingen</h2>
             <table>
                 <thead>

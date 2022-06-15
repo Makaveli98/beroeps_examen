@@ -64,8 +64,10 @@ include '../INCLUDES/authentication.php';
             </form>
         </div>
 
-        <div class="overview" id="ov_btn">
-            <a href="a_overview.admin.php"><button type="">Overzicht</button></a>
+        <div class="overview" id="overview_btns">
+            <div class="overview_btn" id="overview_acco">
+                <a href="a_overview.admin.php"><button type="">Overzicht</button></a>
+            </div>
         </div>
     </main>
 </div>

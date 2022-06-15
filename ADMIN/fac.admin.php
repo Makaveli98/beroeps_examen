@@ -21,8 +21,10 @@ include '../INCLUDES/authentication.php';
             </form>
         </div>
 
-        <div class="overview" id="ov_btn">
-            <a href="f_overview.admin.php"><button type="">Overzicht</button></a>
+        <div class="overview" id="overview_btns">
+            <div class="overview_btn" id="overview_fac">
+                <a href="f_overview.admin.php"><button type="">Overzicht</button></a>
+            </div>
         </div>
     </main>
 </div>

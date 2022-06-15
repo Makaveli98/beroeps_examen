@@ -7,14 +7,18 @@ include '../INCLUDES/authentication.php';
     include 'navbar.admin.php';?>
     <main id="main_a">
         <h1>Overzicht Accommodatie</h1>
-        <div id="table_content_a">
-            <table>
+        <div class="table_content" id="admin_table">
+            <table id="acco_tbl">
                 <thead>
                     <tr>
                         <th>Soort</th>
                         <th>Kamers</th>
                         <th>Ligging</th>
                         <th>Faciliteit</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,14 +36,14 @@ include '../INCLUDES/authentication.php';
                                 <td><?=$row['faciliteit']; ?></td>
 
                                 <form action="acco.bewerk.php" method="POST">
-                                    <td><input type="text" name="acco_hidden" value="<?=$row['idAcco'];?>"></td>
+                                    <td><input type="hidden" name="acco_hidden" value="<?=$row['idAcco'];?>"></td>
                                     <td><button name="update_acco">Update</button></td>
                         
                                 </form>
 
                                 <form action="../INCLUDES/admin.inc.php" method="POST">
                                     <td><a href="a_overview.admin.php"><button name="delete_acco">Verwijder</button></a></td>
-                                    <td><input name="hidden_v_acco" type="text" value="<?=$row['idAcco']?>"></td>
+                                    <td><input name="hidden_v_acco" type="hidden" value="<?=$row['idAcco']?>"></td>
 
                                 </form>      
                             </tr>

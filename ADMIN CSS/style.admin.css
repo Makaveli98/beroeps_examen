@@ -27,35 +27,30 @@
     border-radius: 10px;
     width: 15vw;
     padding: 15px;
-    margin-bottom: 2vh;
-}
-
-.input select {
-    width: 100%;
-    background-color: #fffbde;
+    margin-bottom: .5em;
+    background-color: khaki;
 }
 
 .input label {
-    width: 100%;
     margin-bottom: 2vh;
     display: inline-block;
-    width: 100px;
     padding: 5px;
 }
 
 .input select {
-    border: solid 2px #1b228c;
+    background-color: #d1d1ff;
     padding: 5px;
+    border: solid 2px #1a1a68;
     border-radius: 5px;
 
 }
 
 .input input {
-    border: solid 2px #1b228c;
+    border: solid 2px #1a1a68;
     padding: 5px;
     border-radius: 5px;
     width: 100%;
-    background-color: #fffbde;
+    background-color: #d1d1ff;
 }
 
 .dummy_div {
@@ -63,7 +58,7 @@
 }
 
 .dummy_div2 {
-    height: 10vh;
+    height: 16vh;
 }
 
 #checkbox_container {
@@ -103,8 +98,8 @@
 .submit_btn button {
     width: 100%;
     padding: 10px;
-    border: solid 2px #bdc1412e;
-    background-color: #bdc1412e;
+    border: solid 2px #1a1a68;
+    background-color: #1a1a68;
     color: #fffbde;
     border-radius: 5px;
     letter-spacing: 1px;
@@ -113,21 +108,17 @@
 
 /* reis */
 #reis_btn {
-    width: 80%;
     padding: 0;
-    margin-top: 10vh;
 }
 
 /* bestemming */
 #bstm_btn {
-    width: 80%;
     padding: 0;
     margin-top: 3.5vh;
 }
 
 /* accommodatie */
 #acco_btn {
-    width: 80%;
     padding: 0;
 }
 
@@ -137,44 +128,27 @@
 }
 
 #fac_btn {
-    width: 26%;
     padding: 0;
-    margin-top: 2.5vh;
+    /* margin-top: 1em; */
 }
 
 
 /* overview */
 
 #overview_btns {
-    position: fixed;
-    bottom: .2vh;
-    width: 85%;
+    position: absolute;
+    top: 3vh;
     display: flex;
-    right: 0;
-    left: 0;
-    margin-left: 14.9%;
-    justify-content: space-between;
-    z-index: 2;
-}
-
-.overview_btn {
-    background: #1b228c;
-    border-radius: 5px;
+    gap: 1em;
+    right: 1vw;
 }
 
 .overview_btn button {
-    padding: 10px;
-    font-size: 0.9rem;
-    border: solid 1px #1b228c;
-    background: #1b228c;
-    color: #fffbde;
-    padding-left: 50px;
-    padding-right: 50px;
-}
-
-#overview_bstm {
-    position: relative;
-    left: 0.2vw;
+    padding: 5px;
+    min-width: 12vw;
+    border-radius: 5px;
+    background-color: #d1d1ff;
+    border: solid 1px #d1d1ff;
 }
 
 
@@ -228,3 +202,45 @@
     padding: 10px;
     width: 5.5vw;
 }
+
+.name_fac {
+    border: solid 1px #1a1a68;
+    background-color: #d1d1ff;
+    border-radius: 10px;
+    min-width: 15vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;    
+    justify-content: space-around;
+}
+
+.fac_container {
+    position: relative;
+    top: 6em;
+    width: 100%;
+}
+
+.fac_wrapper {
+    width: 80%;
+    margin: auto;
+    border: solid 2px khaki;
+    border-radius: 25px;    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
+    padding: 20px;
+}
+
+.name_fac h4 {
+    padding: 10px;
+    text-align: center;
+    min-width: 9vw;
+}
+
+.fac_delete_btn {
+    padding: 3px;
+    min-width: 4vw;
+    background-color: khaki;
+    border: khaki;
+    border-radius: 5px;
+  }

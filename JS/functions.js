@@ -1,7 +1,9 @@
 function check_if_admin_page () {
     var header = document.getElementById('header');
+    var account_box = document.getElementById('account');
     var figure = document.getElementById('figure');
     var footer = document.getElementById('footer');
+    var role = document.getElementById('id_role');
 
 
     if(document.URL.includes("index.admin.php") || document.URL.includes("reizen.admin.php") || document.URL.includes("bestemming.admin.php") 
@@ -12,7 +14,8 @@ function check_if_admin_page () {
         // header
         header.style.width = "85%";
         header.style.marginLeft = "auto";
-        header.style.backgroundColor = "unset"; 
+        account_box.style.display = "none";
+        role.style.left = "1em";
 
         // logo
         figure.style.display = "none";

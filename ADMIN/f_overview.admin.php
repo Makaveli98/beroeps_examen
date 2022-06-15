@@ -7,41 +7,30 @@ include '../INCLUDES/authentication.php';
     include 'navbar.admin.php';?>
     <main id="main_a">
         <h1>Overzicht Faciliteiten</h1>
-        <div id="table_content_a">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Faciliteit</th>               
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $query = "SELECT * FROM faciliteit";
-                    $query_run = mysqli_query($conn, $query);
+        <div class="fac_container">
+            <div class="fac_wrapper">
 
-                    if(mysqli_num_rows($query_run) > 0) {
-                        while($row = mysqli_fetch_array($query_run)){
-                            ?>
-                            <tr>
-                                <td><?=$row['naam_fac']; ?></td>
-                                <form action="../INCLUDES/admin.inc.php" method="POST">
-                                    <td><a href="f_overview.admin.php"><button name="delete_fac">Verwijder</button></a></td>
-                                    <td><input name="hidden_v_fac" type="hidden" value="<?=$row['idFac']?>"></td>
-                                </form>
-                            </tr>
-                            <?php
-                        }
-                    }
-                    else {
-                        ?>
-                        <tr>
-                            <td colspan="3">No Record Found</td>
-                        </tr>
-                        <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
+            <?php
+            $query = "SELECT * FROM faciliteit";
+            $query_run = mysqli_query($conn, $query);
+
+            if(mysqli_num_rows($query_run) > 0) {
+                while($row = mysqli_fetch_array($query_run)){
+                ?>
+                <form action="../INCLUDES/admin.inc.php" method="POST">
+                    <div class="name_fac"><h4><?=$row['naam_fac'];?></h4>
+                        <input type="hidden" name="pk_acco" value="<?=$row['idAcco'];?>">
+                        <a href="f_overview_admin.php"><button class="fac_delete_btn" name="delete_fac">Delete</button></a>
+                    </div>
+                </form>
+                <?php
+                }
+            }
+            else {
+                echo "No Records Found";
+            }
+            ?>
+            </div>
         </div>
 
         <section id="overview_btns">

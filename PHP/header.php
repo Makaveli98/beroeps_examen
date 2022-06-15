@@ -32,8 +32,8 @@
             if($_SESSION['auth_role'] == '1')
             {
                 ?>
-                <h3 class="role">Admin</h3>
-                <div class="account_box">
+                <h3 id="id_role" class="role">Admin</h3>
+                <div id="account" class="account_box">
                     <div class="name_box"><h4><?=$_SESSION['auth_user']['user_name'];?></h4></div>
                     <a href="../ADMIN/index.admin.php"><button>Admin Dashboard</button></a>
                     <form action="../INCLUDES/logout.inc.php" method="POST">
