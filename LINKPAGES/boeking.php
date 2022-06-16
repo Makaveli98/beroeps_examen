@@ -70,8 +70,7 @@ require '../PHP/header.php';
 
                 <div class="info_card_accommodatie">
                 <?php 
-                $qet_id_acco = $_POST['id_acco'];
-                $query_acco = mysqli_query($conn, "SELECT * FROM accommodatie WHERE idAcco = $qet_id_acco");
+                $query_acco = mysqli_query($conn, "SELECT * FROM accommodatie;");
                 if(mysqli_num_rows($query_acco) > 0)
                 {
                     while($data = mysqli_fetch_assoc($query_acco))

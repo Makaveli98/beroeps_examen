@@ -32,6 +32,23 @@ include '../INCLUDES/authentication.php';
                     <input type="text" name="ligging" placeholder="ligging...">
                 </div>
 
+
+                <div>
+                    <label for="">Bestemming</label><br>
+                    <select name="bestemming">
+                            <option value="">--BESTEMMING--</option>
+                        <?php
+                        $sql_b = mysqli_query($conn, "SELECT * FROM bestemming");
+                        while($data_b = mysqli_fetch_array($sql_b)) {
+                            ?>
+                                <option value="<?= $data_b['idBestemming']; ?>"><?= $data_b['plaats']; ?></option>
+                            <?php
+                        }   
+                        ?>
+                    </select>
+                </div>
+
+                <!-- input field voor de foto -->
                 <div>
                     <label for="img">Foto</label>
                     <input type="file" accept="image/jpg, image/jpeg, image/png" name="image" class="">

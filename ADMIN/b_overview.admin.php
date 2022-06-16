@@ -11,10 +11,12 @@ include '../INCLUDES/authentication.php';
             <table id="bstm_tbl">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Plaats</th>
                         <th>Land</th>
                         <th>Provincie</th>
                         <th>Accommodatie</th>
+                        <th>ID Acco</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -23,17 +25,17 @@ include '../INCLUDES/authentication.php';
                 </thead>
                 <tbody>
                 <?php
-                $query = "SELECT * FROM bestemming";
-                $query_run = mysqli_query($conn, $query);
-
-                if(mysqli_num_rows($query_run) > 0) {
-                    while($row = mysqli_fetch_array($query_run)){
+                $query = mysqli_query($conn, "SELECT * FROM bestemming INNER JOIN accommodatie ON bestemming.idBestemming = accommodatie.bstmID");
+                if(mysqli_num_rows($query) > 0) {
+                    foreach($query as $row){
                         ?>
                         <tr>
+                            <td><?=$row['idBestemming']; ?></td>
                             <td><?=$row['plaats']; ?></td>
                             <td><?=$row['land']; ?></td>
                             <td><?=$row['provincie']; ?></td>
-                            <td><?=$row['accommodatie']; ?></td>
+                            <td><?=$row['soort']; ?></td>
+                            <td><?=$row['idAcco']; ?></td>
                             <form action="bstm.bewerk.php" method="POST">
                                 <td><button name="update_bstm">Update</button></td>
                                 <td><input type="hidden" name="bstm_hidden" value="<?=$row['idBestemming'];?>"></td>

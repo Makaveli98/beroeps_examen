@@ -12,7 +12,6 @@ include '../INCLUDES/authentication.php';
             <form id="input_reis" class="input" action="../INCLUDES/admin.inc.php" method="POST">
 
                 <!-- select field voor bestemmingen -->
-                <!-- pakt dus de plaats vanuit de table: bestemmingen en zet het in een drop down list -->
                 <div>
                     <label for="">Bestemming</label><br>
                     <select name="bestemming">

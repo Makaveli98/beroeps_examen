@@ -72,7 +72,8 @@ require_once 'dbh.inc.php';
     if(isset($_POST['submit_accommodatie'])) {
         $fac = $_POST['checkbox_fac'];
         $converter = implode($fac);
-
+        
+        $get_bstmID = mysqli_real_escape_string($conn, $_POST['bestemming']);
         $soort = mysqli_real_escape_string($conn, $_POST['soort']);
         $kamer = mysqli_real_escape_string($conn, $_POST['kamer']);
         $ligging = mysqli_real_escape_string($conn, $_POST['ligging']);
@@ -100,8 +101,9 @@ require_once 'dbh.inc.php';
                     $img_upload_path = '../UPLOAD-IMG/'.$new_img_name;
                     move_uploaded_file($img_tmp, $img_upload_path);
 
-                    $query_a = mysqli_query($conn, "INSERT INTO accommodatie (soort, kamer, ligging, faciliteit, picture)
-                    VALUES ('$soort', '$kamer', '$ligging', '$converter', '$new_img_name')");
+                    $query_a = mysqli_query($conn, "INSERT INTO accommodatie (bstmID, soort, kamer, ligging, faciliteit, picture, bstm_naam)
+                    VALUES ('$get_bstmID', '$soort', '$kamer', '$ligging', '$converter', '$new_img_name',
+                    (SELECT plaats FROM bestemming WHERE idBestemming = $get_bstmID))") or die (mysqli_error($conn));
 
                     if($query_a)
                     {

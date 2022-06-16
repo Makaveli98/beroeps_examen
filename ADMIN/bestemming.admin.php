@@ -29,32 +29,6 @@ include '../INCLUDES/authentication.php';
                     <input type="text" name="provincie" placeholder="provincie...">
                 </div>
 
-                <div id="checkbox_container">
-                    <label for="">Accommodatie</label>
-                    <section class="checkbox_wrapper">
-                        <?php 
-                        $sql = mysqli_query($conn, "SELECT * FROM accommodatie");
-                        if(mysqli_num_rows($sql) > 0)
-                        {
-                        foreach($sql as $sql_data)
-                        {
-                            ?>
-                            <section id="checkbox_div">
-                                <input class="checkbox" type="checkbox" name="checkbox_acco[]" value="<?=$sql_data['soort'];?>" >
-                                <p id="checkbox_text"><?=$sql_data['soort'];?></p>
-                            </section>
-                            <?php
-                        }
-                        } else 
-                        {
-                            echo "LEEG";
-                        }
-                        ?>
-                    </section>
-                </div>
-
-
-
                 <!-- submit button -->
                 <div class="submit_btn" id="bstm_btn">
                     <button type="submit" name="bestemming_submit">Add</button>
