@@ -1,5 +1,6 @@
 <?php
 require '../PHP/header.php';
+$query = mysqli_query($conn, "SELECT * FROM bestemming;");
 ?>
 
 <div id="container">
@@ -15,12 +16,11 @@ require '../PHP/header.php';
                         <th>Plaats</th>
                         <th>Land</th>
                         <th>Provincie</th>
-                        <th>Accommodatie</th>
+                        <th></th>
                     </tr>
                 </thead>
 
                 <?php 
-                $query = mysqli_query($conn, "SELECT * FROM bestemming");
                 if(mysqli_num_rows($query) > 0)
                 {
                     while($row = mysqli_fetch_assoc($query)) 
@@ -31,7 +31,7 @@ require '../PHP/header.php';
                                 <td><?=$row['plaats'];?></td>
                                 <td><?=$row['land'];?></td>
                                 <td><?=$row['provincie'];?></td>
-                                <td><?=$row['accommodatie'];?></td>
+                                <td> <input type="hidden" name="id_bstm" value="<?=$row['idBestemming'];?>"></td>                                                          
                             </tr>
                         </tbody>
                         <?php

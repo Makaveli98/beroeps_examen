@@ -15,7 +15,7 @@
     <div class="admin_navbar_wrapper">
         <ul>
             <li>
-                <a href="index.admin.php" id="dashboard"> <h3>Boekingen</h3> </a>
+                <a href="index.admin.php" id="dashboard"> <h3>Dashboard</h3> </a>
             </li>
 
             <li>

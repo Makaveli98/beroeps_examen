@@ -18,6 +18,7 @@ if(isset($_POST['login_btn'])) {
             $user_id = $data['idUser'];
             $user_name = $data['voornaam']. "" .$data['tvg']. "" .$data['achternaam'];
             $user_email = $data['email'];
+            $user_tnr = $data['telefoon_nr'];
             $role = $data['role'];
         }
 
@@ -27,6 +28,7 @@ if(isset($_POST['login_btn'])) {
             'user_id'=>$user_id,
             'user_name'=>$user_name,
             'user_email'=>$user_email,
+            'user_tnr'=>$user_tnr
         ];
         
         if($_SESSION['auth_role'] == '1')

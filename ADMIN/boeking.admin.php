@@ -6,14 +6,15 @@ include '../INCLUDES/authentication.php';
     <?php include '../PHP/header.php';
     include 'navbar.admin.php';?>
     <main id="main_a">
-        <h1>Overzicht Accommodatie</h1>
+        <h1>Overzicht Boekingen</h1>
         <div id="table_content_a">
             <table>
                 <thead>
                     <tr>
+                        <th>Boeking</th>
+                        <th>User</th>
+                        <th>Reis</th>
                         <th>Bestemming</th>
-                        <th>Reis Nummer</th>
-                        <!-- <th>Accommodatie</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -25,8 +26,10 @@ include '../INCLUDES/authentication.php';
                         while($row_b = mysqli_fetch_array($query_run_b)){
                             ?>
                             <tr>
-                                <td><?=$row_b['naam_bstm']; ?></td>
-                                <td><?=$row_b['r_nummer']; ?></td>
+                                <td><?=$row_b['idBoeking'];?>BoekingsID</td>
+                                <td><?=$row_b['userID'];?>UserID</td>
+                                <td><?=$row_b['reisID'];?>ReisID</td>
+                                <td><?=$row_b['bstmID'];?>BestemmingID</td>
                             </tr>
                             <?php
                         }
@@ -34,7 +37,7 @@ include '../INCLUDES/authentication.php';
                     else {
                         ?>
                         <tr>
-                            <td colspan="3">No Record Found</td>
+                            <td>No Record Found</td>
                         </tr>
                         <?php
                     }

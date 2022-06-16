@@ -18,13 +18,13 @@
 #input_content {
     width: 100%;
     position: relative;
-    top: 7em;
+    top: 2em;
 }
 
 .input {
     margin: auto;
     display: flex;
-    border: solid 2px blue;
+    /* border: solid 2px blue; */
     flex-wrap: wrap;
     align-items: center;
 
@@ -138,14 +138,16 @@
         position: absolute;
         right: 4.3vw;
         bottom: 1.5vh;
+        z-index: 2;
     }
 
     /* bestemming */
     #bstm_btn {
         padding: 0;
         position: absolute;
-        right: 8.5vw;
+        right: 4.5vw;
         bottom: 1.5vh;
+        z-index: 2;
     }
 
     /* accommodatie */
@@ -154,11 +156,13 @@
         position: absolute;
         right: 4vw;
         bottom: 0;
+        z-index: 2;
     }
 
     /* faciliteit */
     #fac_btn {
         padding: 0;
+        z-index: 2;
     }
 
     /* overview btns */
@@ -168,6 +172,7 @@
         display: flex;
         gap: 1em;
         right: 1vw;
+        z-index: 2;
     }
 
     .overview_btn button {
@@ -274,4 +279,6 @@
     background-color: khaki;
     border: khaki;
     border-radius: 5px;
+    position: relative;
+    z-index: 2;
   }

@@ -44,17 +44,16 @@ require_once 'dbh.inc.php';
         $bstm_plaats = mysqli_real_escape_string($conn, $_POST['plaats']);
         $land = mysqli_real_escape_string($conn, $_POST['land']);
         $provincie = mysqli_real_escape_string($conn, $_POST['provincie']);
-        $accommodatie = $_POST['checkbox_acco'];
-        $conv_acco = implode($accommodatie);
 
-        if(empty($bstm_plaats) || empty($land) || empty($provincie) || empty($accommodatie)) 
+        if(empty($bstm_plaats) || empty($land) || empty($provincie)) 
         {
             header("Location: ../ADMIN/bestemming.admin.php?EMPTY-FIELDS");
             exit(0);
-        } else 
+        } 
+        else 
         { 
-            $query_b = mysqli_query($conn, "INSERT INTO bestemming (plaats, land, provincie, accommodatie) 
-            VALUES ('$bstm_plaats', '$land', '$provincie', '$conv_acco')") or die (mysqli_error($conn));
+            $query_b = mysqli_query($conn, "INSERT INTO bestemming (plaats, land, provincie) 
+            VALUES ('$bstm_plaats', '$land', '$provincie')") or die (mysqli_error($conn));
             if ($query_b) 
             {
                 header("Location: ../ADMIN/bestemming.admin.php?succes");
@@ -69,9 +68,11 @@ require_once 'dbh.inc.php';
 // end Input
 
 // Input Accommodatie
-    if(isset($_POST['submit_accommodatie'])) {
-        $fac = $_POST['checkbox_fac'];
-        $converter = implode($fac);
+    if(isset($_POST['submit_accommodatie']) && isset($_POST['checkbox_fac'])) {
+        // $array = array($fac);
+        $converter = implode(",  ", $_POST['checkbox_fac']);
+        // print_r($converter);
+        // exit(0);
         
         $get_bstmID = mysqli_real_escape_string($conn, $_POST['bestemming']);
         $soort = mysqli_real_escape_string($conn, $_POST['soort']);
@@ -100,20 +101,29 @@ require_once 'dbh.inc.php';
                     $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
                     $img_upload_path = '../UPLOAD-IMG/'.$new_img_name;
                     move_uploaded_file($img_tmp, $img_upload_path);
-
-                    $query_a = mysqli_query($conn, "INSERT INTO accommodatie (bstmID, soort, kamer, ligging, faciliteit, picture, bstm_naam)
-                    VALUES ('$get_bstmID', '$soort', '$kamer', '$ligging', '$converter', '$new_img_name',
-                    (SELECT plaats FROM bestemming WHERE idBestemming = $get_bstmID))") or die (mysqli_error($conn));
-
-                    if($query_a)
+        
+                    if(empty($get_bstmID) || empty($soort) || empty($kamer) || empty($ligging) || empty($converter) || empty($new_img_name)) 
                     {
-                        header('Location: ../ADMIN/accommodatie.admin.php?succes');
+                        header('Location: ../ADMIN/accommodatie.admin.php?EMPTY FIELDS');
                         exit(0);
-                    } else 
+                    } 
+                    else 
                     {
-                        header('Location: ../ADMIN/accommodatie.admin.php?try again');
-                        exit(0);
+                        $query_a = mysqli_query($conn, "INSERT INTO accommodatie (bstmID, soort, kamer, ligging, faciliteit, picture, bstm_naam)
+                        VALUES ('$get_bstmID', '$soort', '$kamer', '$ligging', '$converter', '$new_img_name',
+                        (SELECT plaats FROM bestemming WHERE idBestemming = $get_bstmID))") or die (mysqli_error($conn));
+    
+                        if($query_a)
+                        {
+                            header('Location: ../ADMIN/accommodatie.admin.php?succes');
+                            exit(0);
+                        } else 
+                        {
+                            header('Location: ../ADMIN/accommodatie.admin.php?try again');
+                            exit(0);
+                        }
                     }
+                   
                 } else 
                 {
                     header('Location: ../ADMIN/accommodatie.admin.php?Cant Upload Typefile');
@@ -270,6 +280,8 @@ require_once 'dbh.inc.php';
  
 // end Update
 
+
+
 // Delete Reis 
     if(isset($_POST['delete_reis'])) 
     {
@@ -277,11 +289,11 @@ require_once 'dbh.inc.php';
         $sql_delete_reis = mysqli_query($conn, "DELETE FROM reis WHERE idReis = '$id_reis'");
         if($sql_delete_reis) 
         {
-            header('Location: ../ADMIN/r_overview.admin.php?DELETE SUCCES');
+            header('Location: ../ADMIN/reizen.admin.php?DELETE SUCCES');
             exit(0);
         } else 
         {
-            header('Location: ../ADMIN/r_overview_admin.php?DELETE FAIL');
+            header('Location: ../ADMIN/reizen.php?DELETE FAIL');
             exit(0);
         }
     }
@@ -295,11 +307,11 @@ require_once 'dbh.inc.php';
             $sql_delete_bstm = mysqli_query($conn, "DELETE FROM bestemming WHERE idBestemming = '$id_bstm'");
             if($sql_delete_bstm) 
             {
-                header('Location: ../ADMIN/b_overview.admin.php?DELETE SUCCES');
+                header('Location: ../ADMIN/bestemming.admin.php?DELETE SUCCES');
                 exit(0);
             } else 
             {
-                header('Location: ../ADMIN/b_overview_admin.php?DELETE FAIL');
+                header('Location: ../ADMIN/bestemming.admin.php?DELETE FAIL');
                 exit(0);
             }
     }
@@ -313,11 +325,11 @@ require_once 'dbh.inc.php';
             $sql_delete_acco = mysqli_query($conn, "DELETE FROM accommodatie WHERE idAcco = '$id_acco'");
             if($sql_delete_acco) 
             {
-                header('Location: ../ADMIN/a_overview.admin.php?DELETE SUCCES');
+                header('Location: ../ADMIN/accommodatie.admin.php?DELETE SUCCES');
                 exit(0);
             } else 
             {
-                header('Location: ../ADMIN/a_overview_admin.php?DELETE FAIL');
+                header('Location: ../ADMIN/accommodatie.admin.php?DELETE FAIL');
                 exit(0);
             }
     }
@@ -332,11 +344,11 @@ require_once 'dbh.inc.php';
             $sql_delete_fac = mysqli_query($conn, "DELETE FROM faciliteit WHERE idFac = '$id_fac'");
             if($sql_delete_fac) 
             {
-                header('Location: ../ADMIN/f_overview.admin.php?DELETE SUCCES');
+                header('Location: ../ADMIN/fac.admin.php?DELETE SUCCES');
                 exit(0);
             } else 
             {
-                header('Location: ../ADMIN/f_overview_admin.php?DELETE FAIL');
+                header('Location: ../ADMIN/fac.admin.php?DELETE FAIL');
                 exit(0);
             }
     }

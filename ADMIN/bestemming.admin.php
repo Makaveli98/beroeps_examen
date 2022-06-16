@@ -36,9 +36,61 @@ include '../INCLUDES/authentication.php';
             </form>
         </div>
 
+
+
+        <!-- Overzicht -->
+        <div class="table_content" id="admin_table">
+            <h1>Overzicht Bestemming</h1>
+            <table id="bstm_tbl">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Plaats</th>
+                        <th>Land</th>
+                        <th>Provincie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                $query = mysqli_query($conn, "SELECT * FROM bestemming"); 
+                // -- INNER JOIN accommodatie ON bestemming.idBestemming = accommodatie.bstmID");
+                if(mysqli_num_rows($query) > 0) {
+                    foreach($query as $row){
+                        ?>
+                        <tr>
+                            <td><?=$row['idBestemming']; ?></td>
+                            <td><?=$row['plaats']; ?></td>
+                            <td><?=$row['land']; ?></td>
+                            <td><?=$row['provincie']; ?></td>
+            
+                            <form action="bstm.bewerk.php" method="POST">
+                                <td><button name="update_bstm">Update</button></td>
+                                <td><input type="hidden" name="bstm_hidden" value="<?=$row['idBestemming'];?>"></td>
+                            </form>
+
+                            <form action="../INCLUDES/admin.inc.php" method="POST">
+                                <td><input name="hidden_v_bstm" type="hidden" value="<?=$row['idBestemming']?>"></td>
+                                <td><a href="b_overview.admin.php"><button name="delete_bstm">Verwijder</button></a></td>
+                            </form>   
+                        </tr>
+                        <?php
+                    }
+                }
+                else {
+                    ?>
+                    <tr>
+                        <td colspan="4">No Record Found</td>
+                    </tr>
+                    <?php
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>  
+
         <div class="overview" id="overview_btns">
             <div class="overview_btn" id="overview_bstm">
-                <a href="b_overview.admin.php"><button type="">Overzicht</button></a>
+                <a href="bstm.bewerk.php"><button type="">Update</button></a>
             </div>
         </div>
     </main>

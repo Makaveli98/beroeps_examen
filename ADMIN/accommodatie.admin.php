@@ -41,7 +41,8 @@ include '../INCLUDES/authentication.php';
                         $sql_b = mysqli_query($conn, "SELECT * FROM bestemming");
                         while($data_b = mysqli_fetch_array($sql_b)) {
                             ?>
-                                <option value="<?= $data_b['idBestemming']; ?>"><?= $data_b['plaats']; ?></option>
+                                <option value="<?= $data_b['idBestemming']; ?>"><?= $data_b['plaats']
+                                , " --- " , $data_b['idBestemming'], "  ";?>ID</option>
                             <?php
                         }   
                         ?>
@@ -86,9 +87,67 @@ include '../INCLUDES/authentication.php';
             </form>
         </div>
 
+
+        <!-- Overzicht -->
+        <div class="table_content" id="admin_table">
+        <h1>Overzicht Accommodatie</h1>
+            <table id="acco_tbl">
+                <thead>
+                    <tr>
+                        <th>Bestemming ID</th>
+                        <th>Bestemming</th>
+                        <th>Soort</th>
+                        <th>Kamers</th>
+                        <th>Ligging</th>
+                        <th>Faciliteit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $query = "SELECT * FROM accommodatie INNER JOIN bestemming ON accommodatie.bstmID = bestemming.idBestemming";
+                    $query_run = mysqli_query($conn, $query);
+
+                    if(mysqli_num_rows($query_run) > 0) {
+                        while($row = mysqli_fetch_array($query_run)){
+                            ?>
+                            <tr>
+                                <td><?=$row['idBestemming']; ?></td>
+                                <td><?=$row['plaats']; ?></td>
+                                <td><?=$row['soort']; ?></td>
+                                <td><?=$row['kamer']; ?></td>
+                                <td><?=$row['ligging']; ?></td>
+                                <td><?=$row['faciliteit']; ?></td>
+
+                                <form action="acco.bewerk.php" method="POST">
+                                    <td><input type="hidden" name="acco_hidden" value="<?=$row['idAcco'];?>"></td>
+                                    <td><button name="update_acco">Update</button></td>
+                        
+                                </form>
+
+                                <form action="../INCLUDES/admin.inc.php" method="POST">
+                                    <td><a href="a_overview.admin.php"><button name="delete_acco">Verwijder</button></a></td>
+                                    <td><input name="hidden_v_acco" type="hidden" value="<?=$row['idAcco']?>"></td>
+
+                                </form>      
+                            </tr>
+                            <?php
+                        }
+                    }
+                    else {
+                        ?>
+                        <tr>
+                            <td colspan="6">No Record Found</td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
         <div class="overview" id="overview_btns">
             <div class="overview_btn" id="overview_acco">
-                <a href="a_overview.admin.php"><button type="">Overzicht</button></a>
+                <a href="acco.bewerk.php"><button type="">Update</button></a>
             </div>
         </div>
     </main>

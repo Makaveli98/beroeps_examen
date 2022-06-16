@@ -37,4 +37,4 @@ function check_if_boeking_page() {
 }
 
 check_if_admin_page();
-check_if_boeking_page();
+// check_if_boeking_page();

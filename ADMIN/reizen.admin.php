@@ -20,7 +20,7 @@ include '../INCLUDES/authentication.php';
                         $query_b = mysqli_query($conn, "SELECT * FROM bestemming");
                         while($data_b = mysqli_fetch_array($query_b)) {
                             ?>
-                                <option value="<?= $data_b['idBestemming']; ?>"><?= $data_b['plaats']; ?></option>
+                                <option value="<?= $data_b['idBestemming']; ?>"><?= $data_b['plaats'], " --- ", $data_b['idBestemming'], "  ";?>ID</option>
                             <?php
                         }   
                         ?>
@@ -95,10 +95,71 @@ include '../INCLUDES/authentication.php';
                 </div>
             </form>
         </div>
+
+
         
+        <!-- Overzicht -->
+        <div class="table_content" id="admin_table">
+            <h1>Overzicht Reizen</h1>
+            <table id="reis_tbl">
+                <thead>
+                    <tr>
+                        <th>Plaats</th>
+                        <th>Periode</th>
+                        <th>Type</th>
+                        <th>Vertrek</th>
+                        <th>Check-in-balie</th>
+                        <th>Vertrek Datum</th>
+                        <th>Reis Nummer</th>
+                        <th>Prijs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $query = "SELECT * FROM reis";
+                    $query_run = mysqli_query($conn, $query);
+
+                    if(mysqli_num_rows($query_run) > 0) {
+                        while($row = mysqli_fetch_array($query_run)){
+                            ?>
+                            <tr>
+                                <td><?=$row['bestemming']; ?></td>
+                                <td><?=$row['periode']; ?></td>
+                                <td><?=$row['reis_type']; ?></td>
+                                <td><?=$row['departure']; ?></td>   
+                                <td><?=$row['check_in']; ?></td>   
+                                <td><?=$row['vertrek_date']; ?></td>   
+                                <td><?=$row['reis_nr']; ?></td>
+                                <td><?=$row['prijs']; ?></td>
+                                <form action="reis.bewerk.php" method="POST">
+                                    <td><button name="update_reis">Update</button></td>
+                                    <td><input type="hidden" name="reis_hidden" value="<?=$row['idReis'];?>"></td>
+                                </form>
+
+                                <form action="../INCLUDES/admin.inc.php" method="POST">
+                                    <td><input name="hidden_v_reis" type="hidden" value="<?=$row['idReis']?>"></td>
+                                    <td><a href="r_overview.admin.php"><button name="delete_reis">Verwijder</button></a></td>
+                                </form>   
+                            </tr>
+                            <?php
+                        }
+                    }
+                    else {
+                        ?>
+                        <tr>
+                            <td colspan="8">No Record Found</td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- to update btn -->
         <div class="overview" id="overview_btns">
             <div class="overview_btn" id="overview_reis">
-                <a href="r_overview.admin.php"><button type="">Overzicht</button></a>
+                <a href="reis.bewerk.php"><button type="">Update</button></a>
             </div>
         </div>
     </main>

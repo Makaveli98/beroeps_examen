@@ -21,9 +21,31 @@ include '../INCLUDES/authentication.php';
             </form>
         </div>
 
-        <div class="overview" id="overview_btns">
-            <div class="overview_btn" id="overview_fac">
-                <a href="f_overview.admin.php"><button type="">Overzicht</button></a>
+
+        <!-- Overzicht -->
+        <h1>Overzicht Faciliteiten</h1>
+        <div class="fac_container">
+            <div class="fac_wrapper">
+            <?php
+            $query = "SELECT * FROM faciliteit";
+            $query_run = mysqli_query($conn, $query);
+
+            if(mysqli_num_rows($query_run) > 0) {
+                while($row = mysqli_fetch_array($query_run)){
+                ?>
+                <form action="../INCLUDES/admin.inc.php" method="POST">
+                    <div class="name_fac"><h4><?=$row['naam_fac'];?></h4>
+                        <input type="hidden" name="fac_naam" value="<?=$row['idFac'];?>">
+                        <a href="f_overview_admin.php"><button class="fac_delete_btn" name="delete_fac">Delete</button></a>
+                    </div>
+                </form>
+                <?php
+                }
+            }
+            else {
+                echo "No Records Found";
+            }
+            ?>
             </div>
         </div>
     </main>
