@@ -1,10 +1,9 @@
 <?php 
-include '../INCLUDES/authentication.php';
+require '../PHP/header.php';
 ?>
 
 <div id="container_a">
-    <?php include '../PHP/header.php';
-    include 'navbar.admin.php';?>
+    <?php include 'navbar.admin.php';?>
 
     <main id="main_a">
         <h1>Bestemming Invoegen</h1>
@@ -28,11 +27,7 @@ include '../INCLUDES/authentication.php';
                     <label for="">Provincie:</label><br>
                     <input type="text" name="provincie" placeholder="provincie...">
                 </div>
-
-                <!-- submit button -->
-                <div class="submit_btn" id="bstm_btn">
-                    <button type="submit" name="bestemming_submit">Add</button>
-                </div> 
+                <button class="submit_btn" id="btn_bstm" type="submit" name="bestemming_submit">Toevoegen</button>
             </form>
         </div>
 
@@ -64,12 +59,12 @@ include '../INCLUDES/authentication.php';
                             <td><?=$row['provincie']; ?></td>
             
                             <form action="bstm.bewerk.php" method="POST">
+                                <td><input type="text" name="bstm_hidden" value="<?=$row['idBestemming'];?>"></td>
                                 <td><button name="update_bstm">Update</button></td>
-                                <td><input type="hidden" name="bstm_hidden" value="<?=$row['idBestemming'];?>"></td>
                             </form>
 
                             <form action="../INCLUDES/admin.inc.php" method="POST">
-                                <td><input name="hidden_v_bstm" type="hidden" value="<?=$row['idBestemming']?>"></td>
+                                <td><input name="hidden_v_bstm" type="text" value="<?=$row['idBestemming']?>"></td>
                                 <td><a href="b_overview.admin.php"><button name="delete_bstm">Verwijder</button></a></td>
                             </form>   
                         </tr>
@@ -87,12 +82,6 @@ include '../INCLUDES/authentication.php';
                 </tbody>
             </table>
         </div>  
-
-        <div class="overview" id="overview_btns">
-            <div class="overview_btn" id="overview_bstm">
-                <a href="bstm.bewerk.php"><button type="">Update</button></a>
-            </div>
-        </div>
     </main>
 </div>
 

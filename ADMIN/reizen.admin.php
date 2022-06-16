@@ -1,10 +1,9 @@
 <?php 
-include '../INCLUDES/authentication.php';
+require '../PHP/header.php';
 ?>
 
 <div id="container_a">
-    <?php include '../PHP/header.php';
-    include 'navbar.admin.php';?>
+    <?php include 'navbar.admin.php';?>
 
     <main id="main_a">
         <h1>Reis Invoegen</h1>
@@ -88,11 +87,7 @@ include '../INCLUDES/authentication.php';
                     <label for="">Prijs</label><br>
                     <input type="text" name="prijs" placeholder="Prijs...">
                 </div>
-
-                <!-- submit button -->
-                <div class="submit_btn" id="reis_btn">
-                    <button type="submit" name="reis_submit">Add</button>
-                </div>
+                <button class="submit_btn" id="btn_reis" type="submit" name="reis_submit">Toevoegen</button>
             </form>
         </div>
 
@@ -133,12 +128,12 @@ include '../INCLUDES/authentication.php';
                                 <td><?=$row['prijs']; ?></td>
                                 <form action="reis.bewerk.php" method="POST">
                                     <td><button name="update_reis">Update</button></td>
-                                    <td><input type="hidden" name="reis_hidden" value="<?=$row['idReis'];?>"></td>
+                                    <td><input type="text" name="reis_hidden" value="<?=$row['idReis'];?>"></td>
                                 </form>
 
                                 <form action="../INCLUDES/admin.inc.php" method="POST">
                                     <td><input name="hidden_v_reis" type="hidden" value="<?=$row['idReis']?>"></td>
-                                    <td><a href="r_overview.admin.php"><button name="delete_reis">Verwijder</button></a></td>
+                                    <td><a href="reizen.admin.php"><button name="delete_reis">Verwijder</button></a></td>
                                 </form>   
                             </tr>
                             <?php
@@ -154,13 +149,6 @@ include '../INCLUDES/authentication.php';
                     ?>
                 </tbody>
             </table>
-        </div>
-
-        <!-- to update btn -->
-        <div class="overview" id="overview_btns">
-            <div class="overview_btn" id="overview_reis">
-                <a href="reis.bewerk.php"><button type="">Update</button></a>
-            </div>
         </div>
     </main>
 </div>

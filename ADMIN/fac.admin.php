@@ -1,10 +1,9 @@
 <?php 
-include '../INCLUDES/authentication.php';
+require '../PHP/header.php';
 ?>
 
 <div id="container_a">
-    <?php include '../PHP/header.php';
-    include 'navbar.admin.php';?>
+    <?php include 'navbar.admin.php';?>
  
     <main id="main_a">
         <h1>Faciliteit Invoegen</h1>
@@ -14,10 +13,7 @@ include '../INCLUDES/authentication.php';
                     <label for="">Faciliteit:</label>
                     <input type="text" name="faciliteit" placeholder="Faciliteit...">
                 </div>
-
-                <div class="submit_btn" id="fac_btn">
-                    <button type="submit" name="faciliteit_submit">Add</button>
-                </div>
+                <button class="submit_btn" id="btn_fac" type="submit" name="faciliteit_submit">Add</button>
             </form>
         </div>
 

@@ -179,7 +179,7 @@ require_once 'dbh.inc.php';
 
         if($update_query_reis)
         {
-            header('Location: ../ADMIN/r_overview.admin.php?UPDATE SUCCES');
+            header('Location: ../ADMIN/reis.bewerk.php?UPDATE SUCCES');
                 exit(0);
         } else 
         {
@@ -194,19 +194,17 @@ require_once 'dbh.inc.php';
 // Update Bestemming
     if(isset($_POST['bstm_update'])) 
     {
-        $get_bstm_id = mysqli_real_escape_string($conn, $_POST['bstm_h']);
-        $up_plaats_bstm = mysqli_real_escape_string($conn, $_POST['plaats']);
-        $up_land_bstm = mysqli_real_escape_string($conn, $_POST['land']);
-        $up_provincie_bstm = mysqli_real_escape_string($conn, $_POST['provincie']);
-        $up_acco_bstm = mysqli_real_escape_string($conn, $_POST['accomodatie']);
+        $get_bstm_id = mysqli_real_escape_string($conn, $_POST['id_bestemming']);
+        $upd_plaats_bstm = mysqli_real_escape_string($conn, $_POST['plaats']);
+        $upd_land_bstm = mysqli_real_escape_string($conn, $_POST['land']);
+        $upd_provincie_bstm = mysqli_real_escape_string($conn, $_POST['provincie']);
 
-        $update_query_bstm = mysqli_query($conn, "UPDATE bestemming 
-        SET plaats = '$up_plaats_bstm', land = '$up_land_bstm', provincie = '$up_provincie_bstm', accommodatie = '$up_acco_bstm' 
-        WHERE idBestemming = '$get_bstm_id'");
+        $update_query_bstm = mysqli_query($conn, "UPDATE bestemming SET plaats = '$upd_plaats_bstm', 
+        land = '$upd_land_bstm', provincie = '$upd_provincie_bstm' WHERE idBestemming = '$get_bstm_id'");
 
         if($update_query_bstm)
         {
-            header('Location: ../ADMIN/b_overview.admin.php?UPDATE SUCCES');
+            header('Location: ../ADMIN/bestemming.admin.php?UPDATE SUCCES');
                 exit(0);
         } else 
         {
@@ -221,7 +219,7 @@ require_once 'dbh.inc.php';
 // Update Accommodatie
     if(isset($_POST['acco_update'])) 
     {
-        $get_acco_id = mysqli_real_escape_string($conn, $_POST['acco_h']);
+        $get_acco_id = mysqli_real_escape_string($conn, $_POST['id_acco']);
         $up_acco_fac = $_POST['checkbox_fac'];
         $converter_acco = implode($up_acco_fac);
         
@@ -261,7 +259,7 @@ require_once 'dbh.inc.php';
 
                     if($update_query_acco)
                     {
-                        header('Location: ../ADMIN/a_overview.admin.php?UPDATE SUCCES');
+                        header('Location: ../ADMIN/accommodatie.admin.php?UPDATE SUCCES');
                         exit(0);
                     } else 
                     {
@@ -270,7 +268,7 @@ require_once 'dbh.inc.php';
                     }
                 } else 
                 {
-                    header('Location: ../ADMIN/accommodatie.admin.php?Cant Upload Typefile');
+                    header('Location: ../ADMIN/acco.bewerk.php?Cant Upload Typefile');
                     exit(0);
                 }
                 

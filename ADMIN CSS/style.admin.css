@@ -116,8 +116,11 @@
 
 .submit_btn {
     border: none;
-    padding: 0;
     background-color: #1b228c;
+    color: whitesmoke;
+    padding: 10px;
+    min-width: 8vw;
+    border-radius: 10px;
 }
 
 .submit_btn button {
@@ -133,36 +136,46 @@
 
 /* buttons */
     /* reis */
-    #reis_btn {
-        padding: 0;
-        position: absolute;
-        right: 4.3vw;
-        bottom: 1.5vh;
+    #btn_reis {
+        position: relative;
+        left: 10vw;
+        bottom: 4vh;
         z-index: 2;
     }
 
     /* bestemming */
-    #bstm_btn {
-        padding: 0;
+    #btn_bstm {
         position: absolute;
-        right: 4.5vw;
-        bottom: 1.5vh;
-        z-index: 2;
+        right: 25vw;
+        bottom: 16vh;
+        z-index: 999;
+    }
+
+    #btn_bstm_terug {
+        position: absolute;
+        right: 38vw;
+        bottom: 16vh;
+        z-index: 999;
     }
 
     /* accommodatie */
-    #acco_btn {
-        padding: 0;
+    #btn_acco {
         position: absolute;
-        right: 4vw;
         bottom: 0;
-        z-index: 2;
+        right: 4vw;
+    }
+
+    #btn_acco_terug {
+        position: absolute;
+        bottom: 0;
+        right: 13vw;
     }
 
     /* faciliteit */
-    #fac_btn {
-        padding: 0;
-        z-index: 2;
+    #btn_fac {
+        position: relative;
+        z-index: 999;
+        width: 100%;
     }
 
     /* overview btns */
@@ -199,6 +212,11 @@
         border: solid 1px #1b228c;
         background: #1b228c;
         color: #fffbde;
+    }
+
+    #reis_tbl button {
+        position: relative;
+        z-index: 999;
     }
     
 /* end buttons */

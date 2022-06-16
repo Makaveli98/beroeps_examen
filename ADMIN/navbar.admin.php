@@ -1,5 +1,3 @@
-
-
 <nav class="admin_navbar">
     <!-- username -->
     <div class="user_name">

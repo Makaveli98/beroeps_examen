@@ -1,70 +1,48 @@
 <?php 
-include '../INCLUDES/authentication.php';
+require '../PHP/header.php';
 ?>
 
 <div id="container_a">
-    <?php include '../PHP/header.php';
-    include 'navbar.admin.php';?>
+    <?php include 'navbar.admin.php';?>
 
     <main id="main_a">
         <h1>Bestemming Updaten</h1>
         <div id="input_content">
-            <?php 
-            if(isset($_POST['update_bstm']))
+            <?php
+            $get_idBstm = mysqli_real_escape_string($conn, $_POST['bstm_hidden']);
+            $sql_update = mysqli_query($conn, "SELECT * FROM bestemming WHERE idBestemming = $get_idBstm");
+            if(mysqli_num_rows($sql_update) > 0) 
             {
-                $get_bstm_id = $_POST['bstm_hidden'];
-                ?>
-                <form class="input" action="../INCLUDES/admin.inc.php" method="POST">
-                    <input type="hidden" name="bstm_h" value="<?=$get_bstm_id?>"> 
-                    
-                    <!-- input field voor de plaats van de bestemming -->
-                    <div>
-                        <label for="">Plaats:</label><br>
-                        <input type="text" name="plaats" placeholder="Plaats...">
-                    </div>
+                while($update = mysqli_fetch_array($sql_update)) 
+                {
+                    ?>
+                    <form id="input_bstm" class="input" action="../INCLUDES/admin.inc.php" method="POST">
 
-                    <!-- input field voor het land van de bestemming -->
-                    <div>
-                        <label for="">Land:</label><br>
-                        <input type="text" name="land" placeholder="Land...">
-                    </div>
+                        <!-- input field voor de plaats van de bestemming -->
+                        <div>
+                            <label for="">Plaats:</label><br>
+                            <input type="text" name="plaats" placeholder="Plaats..." value="<?=$update['plaats'];?>">
+                        </div>
 
-                    <!-- input field voor de provincie van de bestemming -->
-                    <div>
-                        <label for="">Provincie:</label><br>
-                        <input type="text" name="provincie" placeholder="provincie...">
-                    </div>
+                        <!-- input field voor het land van de bestemming -->
+                        <div>
+                            <label for="">Land:</label><br>
+                            <input type="text" name="land" placeholder="Land..." value="<?=$update['land'];?>">
+                        </div>
 
-                    <!-- input field voor de accommodatie -->
-                    <div>
-                        <label for="">Accommodatie</label><br>
-                        <select class="dropdown" name="accomodatie">
-                            <option>----- ACCOMMODATIE -----</option>
-                            <?php 
-                            $query_a = mysqli_query($conn, "SELECT * FROM `accommodatie`");
-                            while ($data_a = mysqli_fetch_array($query_a)){
-                                ?>  
-                                    <option value="<?= $data_a['soort']; ?>"><?= $data_a['soort']; ?></option>
-                                <?php
-                            }
-                                ?>
-                        </select>
-                    </div>
-
-                    <section class="dummy_div"></section>
-
-                    <!-- submit button -->
-                    <div class="submit_btn" id="bstm_btn">
-                        <button type="submit" name="bstm_update">Update</button>
-                    </div> 
-                </form>        
-                <?php
+                        <!-- input field voor de provincie van de bestemming -->
+                        <div>
+                            <label for="">Provincie:</label><br>
+                            <input type="text" name="provincie" placeholder="provincie..." value="<?=$update['provincie'];?>">
+                        </div>
+                            <input type="text" name="id_bestemming" value="<?=$update['idBestemming'];?>">
+                            <a href="bestemming.admin.php"><button class="submit_btn" id="" type="submit">Terug</button></a>
+                            <button class="submit_btn" id="btn_bstm" type="submit" name="bstm_update">Update</button>
+                        </form>
+                    <?php
+                }
             }
             ?>
-        </div>
-
-        <div class="overview" id="ov_btn">
-            <a href="b_overview.admin.php"><button type="">Overzicht</button></a>
         </div>
     </main>
 </div>

@@ -1,10 +1,9 @@
 <?php 
-include '../INCLUDES/authentication.php';
+require '../PHP/header.php';
 ?>
 
 <div id="container_a">
-    <?php include '../PHP/header.php';
-    include 'navbar.admin.php';?>
+    <?php include 'navbar.admin.php';?>
     <main id="main_a">
         <h1>Overzicht Boekingen</h1>
         <div class="table_content" id="admin_table">
