@@ -1,16 +1,15 @@
 <?php
-require 'dbh.inc.php';
+require_once 'dbh.inc.php';
 
 // Input Reis
     if(isset($_POST['reis_submit'])) 
     {
-        $bstmID = $_POST['bestemming'];
-        // $acco = $_POST['acco'];
+        $bstmID = mysqli_real_escape_string($conn, $_POST['bestemming']);
         $r_periode = mysqli_real_escape_string($conn, $_POST['periode']);
         $r_type = mysqli_real_escape_string($conn, $_POST['reis_type']);
         $r_dep = mysqli_real_escape_string($conn, $_POST['vertrek']);
-        $r_check = $_POST['check_in'];
-        $r_vrtk = $_POST['vertrek_date'];
+        $r_check = mysqli_real_escape_string($conn, $_POST['check_in']);
+        $r_vrtk = mysqli_real_escape_string($conn, $_POST['vertrek_date']);
         $r_nr = mysqli_real_escape_string($conn, $_POST['reis_nummer']);
         $r_prijs = mysqli_real_escape_string($conn, $_POST['prijs']);
 
@@ -42,20 +41,20 @@ require 'dbh.inc.php';
 // Input Bestemming
     if(isset($_POST['bestemming_submit'])) 
     {
-        $accoID = $_POST['accomodatie'];
-        $bestemming_plaats = mysqli_real_escape_string($conn, $_POST['plaats']);
-        $bestemming_land = mysqli_real_escape_string($conn, $_POST['land']);
-        $bestemming_provincie = mysqli_real_escape_string($conn, $_POST['provincie']);
+        $bstm_plaats = mysqli_real_escape_string($conn, $_POST['plaats']);
+        $land = mysqli_real_escape_string($conn, $_POST['land']);
+        $provincie = mysqli_real_escape_string($conn, $_POST['provincie']);
+        $accommodatie = $_POST['checkbox_acco'];
+        $conv_acco = implode($accommodatie);
 
-        if(empty($accoID) || empty($bestemming_plaats) || empty($bestemming_land) || empty($bestemming_provincie)) 
+        if(empty($bstm_plaats) || empty($land) || empty($provincie) || empty($accommodatie)) 
         {
             header("Location: ../ADMIN/bestemming.admin.php?EMPTY-FIELDS");
             exit(0);
         } else 
         { 
-            $query_b = mysqli_query($conn, "INSERT INTO bestemming (accommodatieID, plaats, land, provincie, accommodatie) 
-            VALUES ('$accoID', '$bestemming_plaats', '$bestemming_land', '$bestemming_provincie', 
-            (SELECT soort FROM accommodatie WHERE idAcco = $accoID))") or die (mysqli_error($conn));
+            $query_b = mysqli_query($conn, "INSERT INTO bestemming (plaats, land, provincie, accommodatie) 
+            VALUES ('$bstm_plaats', '$land', '$provincie', '$conv_acco')") or die (mysqli_error($conn));
             if ($query_b) 
             {
                 header("Location: ../ADMIN/bestemming.admin.php?succes");
@@ -73,6 +72,7 @@ require 'dbh.inc.php';
     if(isset($_POST['submit_accommodatie'])) {
         $fac = $_POST['checkbox_fac'];
         $converter = implode($fac);
+
         $soort = mysqli_real_escape_string($conn, $_POST['soort']);
         $kamer = mysqli_real_escape_string($conn, $_POST['kamer']);
         $ligging = mysqli_real_escape_string($conn, $_POST['ligging']);
@@ -150,15 +150,15 @@ require 'dbh.inc.php';
 // Update Reis
     if(isset($_POST['reis_update'])) 
     {
-        $get_reis_id = $_POST['reis_h'];
-        $get_reis_bstm = $_POST['bestemming'];
-        $get_reis_periode = $_POST['periode'];
-        $get_reis_type = $_POST['reis_type'];
-        $get_reis_vertrek = $_POST['vertrek'];
-        $get_reis_check = $_POST['check_in'];
-        $get_reis_datum = $_POST['vertrek_date'];
-        $get_reis_nr = $_POST['reis_nummer'];
-        $get_reis_prijs = $_POST['prijs'];
+        $get_reis_id = mysqli_real_escape_string($conn, $_POST['reis_h']);
+        $get_reis_bstm = mysqli_real_escape_string($conn, $_POST['bestemming']);
+        $get_reis_periode = mysqli_real_escape_string($conn,  $_POST['periode']);
+        $get_reis_type = mysqli_real_escape_string($conn,  $_POST['reis_type']);
+        $get_reis_vertrek = mysqli_real_escape_string($conn, $_POST['vertrek']);
+        $get_reis_check = mysqli_real_escape_string($conn, $_POST['check_in']);
+        $get_reis_datum = mysqli_real_escape_string($conn, $_POST['vertrek_date']);
+        $get_reis_nr = mysqli_real_escape_string($conn, $_POST['reis_nummer']);
+        $get_reis_prijs = mysqli_real_escape_string($conn, $_POST['prijs']);
 
         $update_query_reis = mysqli_query($conn, "UPDATE reis 
         SET bestemming = '$get_reis_bstm', periode = '$get_reis_periode', reis_type = '$get_reis_type', departure = '$get_reis_vertrek', 
@@ -182,11 +182,11 @@ require 'dbh.inc.php';
 // Update Bestemming
     if(isset($_POST['bstm_update'])) 
     {
-        $get_bstm_id = $_POST['bstm_h'];
-        $up_plaats_bstm = $_POST['plaats'];
-        $up_land_bstm = $_POST['land'];
-        $up_provincie_bstm = $_POST['provincie'];
-        $up_acco_bstm = $_POST['accomodatie'];
+        $get_bstm_id = mysqli_real_escape_string($conn, $_POST['bstm_h']);
+        $up_plaats_bstm = mysqli_real_escape_string($conn, $_POST['plaats']);
+        $up_land_bstm = mysqli_real_escape_string($conn, $_POST['land']);
+        $up_provincie_bstm = mysqli_real_escape_string($conn, $_POST['provincie']);
+        $up_acco_bstm = mysqli_real_escape_string($conn, $_POST['accomodatie']);
 
         $update_query_bstm = mysqli_query($conn, "UPDATE bestemming 
         SET plaats = '$up_plaats_bstm', land = '$up_land_bstm', provincie = '$up_provincie_bstm', accommodatie = '$up_acco_bstm' 
@@ -209,18 +209,18 @@ require 'dbh.inc.php';
 // Update Accommodatie
     if(isset($_POST['acco_update'])) 
     {
-        $get_acco_id = $_POST['acco_h'];
+        $get_acco_id = mysqli_real_escape_string($conn, $_POST['acco_h']);
         $up_acco_fac = $_POST['checkbox_fac'];
         $converter_acco = implode($up_acco_fac);
         
-        $up_soort_acco = $_POST['soort'];
-        $up_kamer_acco = $_POST['kamer'];
-        $up_ligging_acco = $_POST['ligging'];
+        $up_soort_acco = mysqli_real_escape_string($conn, $_POST['soort']);
+        $up_kamer_acco = mysqli_real_escape_string($conn, $_POST['kamer']);
+        $up_ligging_acco = mysqli_real_escape_string($conn, $_POST['ligging']);
 
-        $img_name_upd = $_FILES['image']['name'];
-        $img_size_upd = $_FILES['image']['size'];
-        $img_tmp_upd = $_FILES['image']['tmp_name'];
-        $error_upd = $_FILES['image']['error'];
+        $img_name_upd = mysqli_real_escape_string($conn, $_FILES['image']['name']);
+        $img_size_upd = mysqli_real_escape_string($conn, $_FILES['image']['size']);
+        $img_tmp_upd = mysqli_real_escape_string($conn, $_FILES['image']['tmp_name']);
+        $error_upd = mysqli_real_escape_string($conn, $_FILES['image']['error']);
 
 
         if($error_upd === 0) 
@@ -271,7 +271,7 @@ require 'dbh.inc.php';
 // Delete Reis 
     if(isset($_POST['delete_reis'])) 
     {
-        $id_reis = $_POST['hidden_v_reis'];
+        $id_reis = mysqli_real_escape_string($conn, $_POST['hidden_v_reis']);
         $sql_delete_reis = mysqli_query($conn, "DELETE FROM reis WHERE idReis = '$id_reis'");
         if($sql_delete_reis) 
         {
@@ -288,7 +288,7 @@ require 'dbh.inc.php';
 // Delete Bestemming
     if(isset($_POST['delete_bstm'])) 
     {
-        $id_bstm = $_POST['hidden_v_bstm'];
+        $id_bstm = mysqli_real_escape_string($conn, $_POST['hidden_v_bstm']);
 
             $sql_delete_bstm = mysqli_query($conn, "DELETE FROM bestemming WHERE idBestemming = '$id_bstm'");
             if($sql_delete_bstm) 
@@ -306,7 +306,7 @@ require 'dbh.inc.php';
 // Delete Accommodatie
     if(isset($_POST['delete_acco'])) 
     {
-        $id_acco = $_POST['hidden_v_acco'];
+        $id_acco = mysqli_real_escape_string($conn, $_POST['hidden_v_acco']);
 
             $sql_delete_acco = mysqli_query($conn, "DELETE FROM accommodatie WHERE idAcco = '$id_acco'");
             if($sql_delete_acco) 
@@ -325,7 +325,7 @@ require 'dbh.inc.php';
 // Delete Faciliteit
     if(isset($_POST['delete_fac'])) 
     {
-        $id_fac = $_POST['hidden_v_fac'];
+        $id_fac = mysqli_real_escape_string($conn, $_POST['fac_naam']);
 
             $sql_delete_fac = mysqli_query($conn, "DELETE FROM faciliteit WHERE idFac = '$id_fac'");
             if($sql_delete_fac) 

@@ -15,7 +15,7 @@
     <div class="admin_navbar_wrapper">
         <ul>
             <li>
-                <a href="index.admin.php" id="dashboard"> <h3>Dashboard</h3> </a>
+                <a href="index.admin.php" id="dashboard"> <h3>Boekingen</h3> </a>
             </li>
 
             <li>
@@ -33,10 +33,10 @@
             <li>
                 <a href="fac.admin.php" id="faciliteit_link"> <h3>Faciliteit</h3> </a>
             </li>
-
+<!-- 
             <li>
                 <a href="boeking.admin.php" id="boeking_link"> <h3>Boeking</h3> </a>
-            </li>
+            </li> -->
 
               <li>
                 <a href="../php/index.php" id=""> <h3>User Page</h3> </a>

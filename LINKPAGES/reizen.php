@@ -1,3 +1,7 @@
+<?php
+require '../PHP/header.php';
+?>
+
 <div id="container">
     <main id="main">
     <?php include '../PHP/navbar.php'; ?>
@@ -19,7 +23,8 @@
                 </thead>
 
                 <?php 
-                $query = mysqli_query($conn, "SELECT * FROM reis INNER JOIN bestemming ON reis.bestemmingID = bestemming.idBestemming");
+                $query = mysqli_query($conn, "SELECT * FROM reis INNER JOIN bestemming 
+                ON reis.bestemmingID = bestemming.idBestemming");
                 if(mysqli_num_rows($query) > 0)
                 {
                     while($row = mysqli_fetch_assoc($query)) 
@@ -34,9 +39,8 @@
                                 <td>
                                     <form action="boeking.php" method="POST">
                                         <button name="bekijk_btn">Check</button>
-                                        <input type="hidden" name="id_reis" value="<?=$row['idReis'];?>">
-                                        <input type="hidden" name="id_bestemming" value="<?=$row['bestemmingID'];?>">
-                                        <input type="hidden" name="id_acco" value="<?=$row['accommodatieID'];?>">
+                                        <input type="text" name="id_reis" value="<?=$row['idReis'];?>">
+                                        <input type="text" name="id_bestemming" value="<?=$row['bestemmingID'];?>">
                                     </form>
                                 </td>
                             </tr>

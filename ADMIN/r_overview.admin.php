@@ -59,6 +59,17 @@ include '../INCLUDES/authentication.php';
                         ?>
                         <tr>
                             <td>No Record Found</td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
+                            <td>  </td>
                         </tr>
                         <?php
                     }

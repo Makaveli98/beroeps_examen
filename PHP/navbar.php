@@ -1,7 +1,3 @@
-<?php 
-include '../INCLUDES/authentication.php';
-include 'header.php';
-?>
 <nav class="navbar" id="navbar">
     <div class="navbar_wrapper">
         <ul>

@@ -1,6 +1,5 @@
 <?php
-
-require ('dbh.inc.php');
+require_once ('dbh.inc.php');
 
 if(isset($_POST['signup_btn'])) 
 {
@@ -26,12 +25,13 @@ if(isset($_POST['signup_btn']))
         }
         else 
         {
-            $u_query = "INSERT INTO users (voornaam, tvg, achternaam, email, telefoon_nr, DoB, pwd, pwd_rep) VALUES ('$fname', '$tvg', '$lname', '$mail', '$tel_nr', '$DoB', '$pwd', '$r_pwd')";
+            $u_query = "INSERT INTO users (voornaam, tvg, achternaam, email, telefoon_nr, DoB, pwd, pwd_rep) 
+            VALUES ('$fname', '$tvg', '$lname', '$mail', '$tel_nr', '$DoB', '$pwd', '$r_pwd')";
             $u_query_run = mysqli_query($conn, $u_query);
 
             if($u_query_run) 
             {
-                header('Location: ../PHP/login.php?Register=succes');
+                header('Location: ../PHP/index.php?Register=succes');
                 exit();
             }
             else 

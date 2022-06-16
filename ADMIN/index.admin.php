@@ -6,27 +6,34 @@ include '../INCLUDES/authentication.php';
     <?php include '../PHP/header.php';
     include 'navbar.admin.php';?>
     <main id="main_a">
-        <h1>Overzicht Accommodatie</h1>
-        <div id="table_content_a">
-            <table>
+        <h1>Admin Dashboard</h1>
+        <div class="table_content">
+            <h2 class="title_boeking">Boekingen</h2>
+            <table id="boeking_tbl">
                 <thead>
                     <tr>
+                        <th>Naam Klant</th>
                         <th>Bestemming</th>
                         <th>Reis Nummer</th>
+                        <th>Periode</th>
+                        <th>Prijs</th>
                         <!-- <th>Accommodatie</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $query_b = "SELECT * FROM boeking";
-                    $query_run_b = mysqli_query($conn, $query_b);
+                    $sql = "SELECT * FROM boeking INNER JOIN reis 
+                    ON boeking.reisID = reis.idReis";
+                    $sql_run = mysqli_query($conn, $sql);
 
-                    if(mysqli_num_rows($query_run_b) > 0) {
-                        while($row_b = mysqli_fetch_array($query_run_b)){
+                    if(mysqli_num_rows($sql_run) > 0) {
+                        while($f_data = mysqli_fetch_array($sql_run)){
                             ?>
                             <tr>
-                                <td><?=$row_b['naam_bstm']; ?></td>
-                                <td><?=$row_b['r_nummer']; ?></td>
+                                <td><?=$f_data['bestemming']; ?></td>
+                                <td><?=$f_data['reis_nr']; ?></td>
+                                <td><?=$f_data['periode']; ?></td>
+                                <td><?=$f_data['prijs']; ?></td>
                             </tr>
                             <?php
                         }
@@ -34,7 +41,11 @@ include '../INCLUDES/authentication.php';
                     else {
                         ?>
                         <tr>
-                            <td colspan="3">No Record Found</td>
+                            <td>No Record Found</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <?php
                     }
@@ -42,24 +53,6 @@ include '../INCLUDES/authentication.php';
                 </tbody>
             </table>
         </div>
-
-        <!-- <section id="overview_btns">
-            <div class="overview_btn" id="overview_bstm">
-                <a href="b_overview.admin.php"><button type="">Overzicht Bestemming</button></a>
-            </div>
-
-            <div class="overview_btn" id="overview_fac">
-                <a href="f_overview.admin.php"><button type="">Overzicht Faciliteit</button></a>
-            </div>
-            
-            <div class="overview_btn" id="overview_reizen">
-                <a href="r_overview.admin.php"><button type="">Overzicht Reizen</button></a>
-            </div>
-
-            <div class="overview_btn" id="btn_back">
-                <a href="accommodatie.admin.php"><button type="">Toevoegen</button></a>
-            </div>
-        </section> -->
     </main>
 </div>
 

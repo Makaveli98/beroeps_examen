@@ -19,7 +19,7 @@ include '../INCLUDES/authentication.php';
                 ?>
                 <form action="../INCLUDES/admin.inc.php" method="POST">
                     <div class="name_fac"><h4><?=$row['naam_fac'];?></h4>
-                        <input type="hidden" name="pk_acco" value="<?=$row['idAcco'];?>">
+                        <input type="hidden" name="fac_naam" value="<?=$row['idFac'];?>">
                         <a href="f_overview_admin.php"><button class="fac_delete_btn" name="delete_fac">Delete</button></a>
                     </div>
                 </form>

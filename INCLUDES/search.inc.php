@@ -1,5 +1,5 @@
 <?php
-include 'dbh.inc.php';
+require_once 'dbh.inc.php';
 
 if(isset($_POST['submit_search'])) 
 {    

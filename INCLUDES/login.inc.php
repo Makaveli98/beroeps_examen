@@ -1,6 +1,7 @@
-<?php 
+<?php
+require_once('dbh.inc.php');
+ob_start(); 
 session_start();
-include('dbh.inc.php');
 
 if(isset($_POST['login_btn'])) {
 
@@ -14,7 +15,7 @@ if(isset($_POST['login_btn'])) {
     {
         foreach($login_query_run as $data)
         {
-            $user_id = $data['userID'];
+            $user_id = $data['idUser'];
             $user_name = $data['voornaam']. "" .$data['tvg']. "" .$data['achternaam'];
             $user_email = $data['email'];
             $role = $data['role'];

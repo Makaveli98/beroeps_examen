@@ -1,24 +1,25 @@
-<?php 
-// include '../INCLUDES/authentication.php';
+<?php
+require '../PHP/header.php';
 ?>
 
 <div id="container">
     <main id="main">
         <?php include '../PHP/navbar.php';?>
         <div class="boeking_info">
+            <h2 class="t_boeking">Boeking</h2>
+
             <section class="info_card">
                 <div class="info_card_reizen">
                     <?php 
                     $get_reis_id = $_POST['id_reis'];
-                    // $get_reis_nr = $_POST['nr_reis'];
-                    $query_reizen = mysqli_query($conn, "SELECT * FROM reis WHERE idReis = $get_reis_id");
+                    $query_reizen = mysqli_query($conn, "SELECT * FROM reis  WHERE idReis = $get_reis_id");
 
                     if(mysqli_num_rows($query_reizen) > 0) 
                     {
                         while($reis_data = mysqli_fetch_array($query_reizen)) 
                         {
                             ?>
-                            <div class="card_box">
+                            <div class="card_box" id="boeking_box">
                                 <div class="box">
                                     <h3>Bestemming</h3>
                                     <div class="info_box"><?=$reis_data['bestemming'];?></div>
@@ -29,7 +30,7 @@
                                 </div>
                             </div>
 
-                            <div class="card_box">    
+                            <div class="card_box" id="boeking_box">    
                                 <div class="box">
                                     <h3>Type</h3>
                                     <div class="info_box"><?=$reis_data['reis_type'];?></div>
@@ -40,7 +41,7 @@
                                 </div>
                             </div>
 
-                            <div class="card_box">   
+                            <div class="card_box" id="boeking_box">   
                                 <div class="box">
                                     <h3>Check-in-balie</h3>
                                     <div class="info_box"><?=$reis_data['check_in'];?></div>
@@ -51,7 +52,7 @@
                                 </div>
                             </div>
                             
-                            <div class="card_box">    
+                            <div class="card_box" id="boeking_box">    
                                 <div class="box">
                                     <h3>Reis Nummer</h3>
                                     <div class="info_box"><?=$reis_data['reis_nr'];?></div>
@@ -98,7 +99,7 @@
                         </div>
 
                         <div class="box_data" id="img_data">
-                            <fiure id="img_box" class="img_card">
+                            <fiure class="img_box">
                                 <img src="../UPLOAD-IMG/<?php echo $data['picture'];?>">
                             </figure>
                         </div>
@@ -112,7 +113,8 @@
         </div>
 
         <form class="boeking_form" action="../INCLUDES/boeking.inc.php" method="POST">
-            <input type="hidden" name="pk_reis" value="<?=$get_reis_id?>">
+            <input type="text" name="id_user" value="<?=$_SESSION['auth_user']['user_id'];?>">
+            <input type="text" name="pk_reis" value="<?=$get_reis_id?>">
             <button class="boek_btn" type="submit" name="boeking_btn">Boek</button>
         </form>
 

@@ -1,3 +1,7 @@
+<?php
+require '../PHP/header.php';
+?>
+
 <div id="container">
     <main id="main">
         <?php include 'navbar.php';?>

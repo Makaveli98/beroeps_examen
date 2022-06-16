@@ -50,7 +50,17 @@ include '../INCLUDES/authentication.php';
                 else {
                     ?>
                     <tr>
-                        <td colspan="3">No Record Found</td>
+                        <td>No Record Found</td>
+                        <td>  </td>
+                        <td>  </td>
+                        <td>  </td>
+                        <td>  </td>
+                        <td>  </td>
+                        <td>  </td>
+                        <td>  </td>
+
+                      
+                    
                     </tr>
                     <?php
                 }

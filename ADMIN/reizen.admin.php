@@ -8,8 +8,8 @@ include '../INCLUDES/authentication.php';
 
     <main id="main_a">
         <h1>Reis Invoegen</h1>
-        <div class="input_content">
-            <form class="input" action="../INCLUDES/admin.inc.php" method="POST">
+        <div id="input_content">
+            <form id="input_reis" class="input" action="../INCLUDES/admin.inc.php" method="POST">
 
                 <!-- select field voor bestemmingen -->
                 <!-- pakt dus de plaats vanuit de table: bestemmingen en zet het in een drop down list -->
@@ -52,17 +52,17 @@ include '../INCLUDES/authentication.php';
                     <select name="vertrek">
                         <option value="">--DEPARTURE--</option>
 
-                        <option value="vliegtuig">Hal 1</option>
-                        <option value="vliegtuig">Hal 2</option>
-                        <option value="vliegtuig">Hal 3</option>
+                        <option>Hal 1</option>
+                        <option>Hal 2</option>
+                        <option>Hal 3</option>
 
-                        <option value="bus">Platform 1</option>
-                        <option value="bus">Platform 2</option>
-                        <option value="bus">Platform 3</option>
+                        <option>Platform 1</option>
+                        <option>Platform 2</option>
+                        <option>Platform 3</option>
 
-                        <option value="auto">Platform 4</option>
-                        <option value="auto">Platform 5</option>
-                        <option value="auto">Platform 6</option>
+                        <option>Platform 4</option>
+                        <option>Platform 5</option>
+                        <option>Platform 6</option>
                     </select>
                 </div>
             

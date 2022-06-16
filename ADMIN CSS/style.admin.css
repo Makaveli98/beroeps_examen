@@ -15,73 +15,98 @@
     top: 5vh;
 }
 
-.input {
-    columns: 3;
-    padding: 150px;
+#input_content {
+    width: 100%;
     position: relative;
+    top: 7em;
+}
+
+.input {
+    margin: auto;
+    display: flex;
+    border: solid 2px blue;
+    flex-wrap: wrap;
+    align-items: center;
+
+    gap: row;
+    position: relative;
+    padding: 65px;
+    gap: .8em;
+    width: 100%;
 }   
 
 .input div {
-    width: 15vw;
     border: solid 1px #1b228c;
     border-radius: 10px;
-    width: 15vw;
-    padding: 15px;
-    margin-bottom: .5em;
     background-color: khaki;
+    min-width: 14vw;
+    padding: 15px;
 }
 
-.input label {
-    margin-bottom: 2vh;
-    display: inline-block;
-    padding: 5px;
-}
-
-.input select {
-    background-color: #d1d1ff;
-    padding: 5px;
-    border: solid 2px #1a1a68;
-    border-radius: 5px;
-
-}
-
-.input input {
-    border: solid 2px #1a1a68;
-    padding: 5px;
-    border-radius: 5px;
-    width: 100%;
-    background-color: #d1d1ff;
-}
-
-.dummy_div {
-    height: 20vh;
-}
-
-.dummy_div2 {
-    height: 16vh;
-}
-
-#checkbox_container {
-    width: unset;
-    padding: unset;
-    margin-bottom: unset;
+.checkbox_wrapper {
     display: flex;
     flex-wrap: wrap;
-
-    position: absolute;
-    left: 0;
-    top: 35vh;
-    gap: 1em;
-
-    margin-left: 150px;
-    padding: 20px;
-    width: 37vw;
+    align-items: center;
 }
 
 #checkbox_div {
     display: flex;
     gap: 0.5em;
     padding: 5px;
+    border: unset;
+}
+
+#input_reis div {
+    min-width: 18vw;
+}
+
+#input_bstm div {
+    min-width: 20.6vw;
+}
+
+.input label {
+    margin-bottom: 2vh;
+    display: inline-block;
+}
+
+.input select {
+    background-color: #d1d1ff;
+    border: solid 2px #1a1a68;
+    border-radius: 5px;
+    padding: 5px;
+
+}
+
+.input input {
+    border: solid 2px #1a1a68;
+    border-radius: 5px;
+    background-color: #d1d1ff;
+    width: 100%;
+    padding: 5px;
+}
+
+#input_reis {
+    width: 98%;
+}
+
+#input_fac {
+    flex-direction: column;
+    width: 25%;
+    margin: unset;
+    left: 5vw;
+}
+
+#input_bstm {
+    width: 85%;
+}
+
+#checkbox_container {
+    padding: unset;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    width: 100%;
+    flex-direction: column;
 }
 
 #checkbox_container input {
@@ -106,70 +131,75 @@
     font-size: 1rem;
 }
 
-/* reis */
-#reis_btn {
-    padding: 0;
-}
+/* buttons */
+    /* reis */
+    #reis_btn {
+        padding: 0;
+        position: absolute;
+        right: 4.3vw;
+        bottom: 1.5vh;
+    }
 
-/* bestemming */
-#bstm_btn {
-    padding: 0;
-    margin-top: 3.5vh;
-}
+    /* bestemming */
+    #bstm_btn {
+        padding: 0;
+        position: absolute;
+        right: 8.5vw;
+        bottom: 1.5vh;
+    }
 
-/* accommodatie */
-#acco_btn {
-    padding: 0;
-}
+    /* accommodatie */
+    #acco_btn {
+        padding: 0;
+        position: absolute;
+        right: 4vw;
+        bottom: 0;
+    }
 
-/* faciliteit */
-#input_fac {
-    columns: 1;
-}
+    /* faciliteit */
+    #fac_btn {
+        padding: 0;
+    }
 
-#fac_btn {
-    padding: 0;
-    /* margin-top: 1em; */
-}
+    /* overview btns */
+    #overview_btns {
+        position: absolute;
+        top: 3vh;
+        display: flex;
+        gap: 1em;
+        right: 1vw;
+    }
 
-
-/* overview */
-
-#overview_btns {
-    position: absolute;
-    top: 3vh;
-    display: flex;
-    gap: 1em;
-    right: 1vw;
-}
-
-.overview_btn button {
-    padding: 5px;
-    min-width: 12vw;
-    border-radius: 5px;
-    background-color: #d1d1ff;
-    border: solid 1px #d1d1ff;
-}
+    .overview_btn button {
+        padding: 5px;
+        min-width: 12vw;
+        border-radius: 5px;
+        background-color: #d1d1ff;
+        border: solid 1px #d1d1ff;
+    }
 
 
-#ov_btn {
-    position: absolute;
-    right: .1vw;
-    bottom: 0.3vh;
-    width: 8vw;
-    z-index: 2;
-}
+    #ov_btn {
+        position: absolute;
+        right: .1vw;
+        bottom: 0.3vh;
+        width: 8vw;
+        z-index: 2;
+    }
 
-#ov_btn button {
-    padding: 10px;
-    width: 100%;
-    font-size: 0.9rem;
-    border: solid 1px #1b228c;
-    background: #1b228c;
-    color: #fffbde;
-}
+    #ov_btn button {
+        padding: 10px;
+        width: 100%;
+        font-size: 0.9rem;
+        border: solid 1px #1b228c;
+        background: #1b228c;
+        color: #fffbde;
+    }
+    
+/* end buttons */
 
-.redirect_home {
+
+/* .redirect_home {
     position: absolute;
     left: 15vw;
     top: 0px;
@@ -183,9 +213,9 @@
     color: #fffbde;
     padding: 10px;
     width: 100%;
-}
+} */
 
-#input_search {
+/* #input_search {
     padding: 10px;
     width: 15vw;
 }
@@ -201,7 +231,7 @@
 #search_form button {
     padding: 10px;
     width: 5.5vw;
-}
+} */
 
 .name_fac {
     border: solid 1px #1a1a68;
@@ -224,7 +254,8 @@
     width: 80%;
     margin: auto;
     border: solid 2px khaki;
-    border-radius: 25px;    display: flex;
+    border-radius: 25px;    
+    display: flex;
     flex-wrap: wrap;
     gap: 1em;
     justify-content: center;

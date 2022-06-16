@@ -1,0 +1,6 @@
+$fac = $_POST['checkbox_fac'];
+$converter = implode($fac);
+
+
+ $query_a = mysqli_query($conn, "INSERT INTO accommodatie (soort, kamer, ligging, faciliteit, picture)
+VALUES ('$soort', '$kamer', '$ligging', '$converter', '$new_img_name')");

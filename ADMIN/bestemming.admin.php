@@ -9,7 +9,7 @@ include '../INCLUDES/authentication.php';
     <main id="main_a">
         <h1>Bestemming Invoegen</h1>
         <div id="input_content">
-            <form class="input" action="../INCLUDES/admin.inc.php" method="POST">
+            <form id="input_bstm" class="input" action="../INCLUDES/admin.inc.php" method="POST">
 
                 <!-- input field voor de plaats van de bestemming -->
                 <div>
@@ -29,23 +29,31 @@ include '../INCLUDES/authentication.php';
                     <input type="text" name="provincie" placeholder="provincie...">
                 </div>
 
-                <!-- input field voor de accommodatie -->
-                <div>
-                    <label for="">Accommodatie</label><br>
-                    <select class="dropdown" name="accomodatie">
-                        <option>----- ACCOMMODATIE -----</option>
+                <div id="checkbox_container">
+                    <label for="">Accommodatie</label>
+                    <section class="checkbox_wrapper">
                         <?php 
-                        $query_a = mysqli_query($conn, "SELECT * FROM `accommodatie`");
-                        while ($data_a = mysqli_fetch_array($query_a)){
-                            ?>  
-                                <option value="<?= $data_a['idAcco']; ?>"><?= $data_a['soort']; ?></option>
+                        $sql = mysqli_query($conn, "SELECT * FROM accommodatie");
+                        if(mysqli_num_rows($sql) > 0)
+                        {
+                        foreach($sql as $sql_data)
+                        {
+                            ?>
+                            <section id="checkbox_div">
+                                <input class="checkbox" type="checkbox" name="checkbox_acco[]" value="<?=$sql_data['soort'];?>" >
+                                <p id="checkbox_text"><?=$sql_data['soort'];?></p>
+                            </section>
                             <?php
                         }
-                            ?>
-                    </select>
+                        } else 
+                        {
+                            echo "LEEG";
+                        }
+                        ?>
+                    </section>
                 </div>
 
-                <section class="dummy_div"></section>
+
 
                 <!-- submit button -->
                 <div class="submit_btn" id="bstm_btn">

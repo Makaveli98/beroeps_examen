@@ -71,47 +71,12 @@
     margin: auto;
 }
 
-
-
-
-
-/* 
-#table_content_a {
-    width: 85%;
-    margin: auto;
+#boeking_tbl {
     position: relative;
-    top: 15vh;
-}  
-
-#table_content_a h1 {
-    margin-top: -3vh;
-    margin-bottom: 2vh;
-    color: #2b52b0;
+    top: 12vh;
 }
 
-#table_content_a table {
-    width: 100%;
-    text-align: center;
-    background-color: #b6d0f8c9;
-    border-collapse: collapse;
-    border-spacing: 0;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(32, 32, 32, .3);
+.title_boeking {
+    position: relative;
+    top: 10vh;
 }
-
-#table_content_a th {
-    color: #ffffba;
-    text-transform: uppercase;
-    background-color: #2b52b0;
-}
-
-#table_content_a th, td {
-    padding: 10px 15px;
-}
-
-#table_content_a tr:nth-child(odd) {
-    background-color: #ffffba;
-} */
-
-
