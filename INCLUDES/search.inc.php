@@ -10,7 +10,7 @@ if(isset($_POST['submit_search']))
     if(mysqli_num_rows($query_r) > 0) 
     {
         ?>  
-        <h3>There are <?=$query_results?>results</h3>
+        <h3>There are <?=$query_r?>results</h3>
         <?php
 
         header('Location: ../LINKPAGES/reizen.php');

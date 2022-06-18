@@ -5,25 +5,25 @@ require_once 'dbh.inc.php';
     if(isset($_POST['reis_submit'])) 
     {
         $bstmID = mysqli_real_escape_string($conn, $_POST['bestemming']);
+        $typeID = mysqli_real_escape_string($conn, $_POST['reis_type']);
+        $depID = mysqli_real_escape_string($conn, $_POST['vertrek']);
+
         $r_periode = mysqli_real_escape_string($conn, $_POST['periode']);
-        $r_type = mysqli_real_escape_string($conn, $_POST['reis_type']);
-        $r_dep = mysqli_real_escape_string($conn, $_POST['vertrek']);
         $r_check = mysqli_real_escape_string($conn, $_POST['check_in']);
-        $r_vrtk = mysqli_real_escape_string($conn, $_POST['vertrek_date']);
+        $vtrk_date = mysqli_real_escape_string($conn, $_POST['vertrek_date']);
         $r_nr = mysqli_real_escape_string($conn, $_POST['reis_nummer']);
         $r_prijs = mysqli_real_escape_string($conn, $_POST['prijs']);
 
 
-
-        if(empty($bstmID) || empty($r_periode) || empty($r_type) || empty($r_dep) || empty($r_check) 
-        || empty($r_vrtk)  || empty($r_nr) || empty($r_dep) || empty($r_prijs)) 
+        if(empty($bstmID) || empty($typeID) || empty($depID) || empty($r_periode) || empty($r_check) 
+        || empty($vtrk_date) || empty($r_nr) || empty($r_prijs)) 
         {
             header("Location: ../ADMIN/reizen.admin.php?EMPTY-FIELDS");
             exit(0);
         } else 
         { 
-            $query_r = mysqli_query($conn, "INSERT INTO reis (bestemmingID, periode, reis_type, departure, check_in, vertrek_date, reis_nr, prijs, bestemming)  
-            VALUES ('$bstmID', '$r_periode', '$r_type', '$r_dep', '$r_check', '$r_vrtk', '$r_nr', '$r_prijs', 
+            $query_r = mysqli_query($conn, "INSERT INTO reis (bestemmingID, depID, typeID, periode, check_in, vertrek_date, reis_nr, prijs, bestemming)  
+            VALUES ('$bstmID', '$depID', '$typeID', '$r_periode', '$r_check', '$vtrk_date', '$r_nr', '$r_prijs', 
             (SELECT plaats FROM bestemming WHERE idBestemming = $bstmID))") or die (mysqli_error($conn));
             if ($query_r) 
             {
@@ -68,71 +68,75 @@ require_once 'dbh.inc.php';
 // end Input
 
 // Input Accommodatie
-    if(isset($_POST['submit_accommodatie']) && isset($_POST['checkbox_fac'])) {
-        // $array = array($fac);
-        $converter = implode(",  ", $_POST['checkbox_fac']);
-        // print_r($converter);
-        // exit(0);
-        
-        $get_bstmID = mysqli_real_escape_string($conn, $_POST['bestemming']);
-        $soort = mysqli_real_escape_string($conn, $_POST['soort']);
-        $kamer = mysqli_real_escape_string($conn, $_POST['kamer']);
-        $ligging = mysqli_real_escape_string($conn, $_POST['ligging']);
+    if(isset($_POST['submit_accommodatie']))
+    {
 
-        $img_name = $_FILES['image']['name'];
-        $img_size = $_FILES['image']['size'];
-        $img_tmp = $_FILES['image']['tmp_name'];
-        $error = $_FILES['image']['error'];
-
-        if($error === 0) 
+        if(!empty($_POST['fac_checkbox'])) 
         {
-            if($img_size > 1000000)
-            {
-                header('Location: ../ADMIN/accommodatie.admin.php?FILE TO LARGE');
-                exit(0);
-            } else 
-            {
-                $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-                $img_ex_lc = strtolower($img_ex);
-                $allowed_exs = array("jpg", "jpeg", "png");
+            $checkbox_impl = implode(", ", $_POST['fac_checkbox']);
+            $get_bstmID = mysqli_real_escape_string($conn, $_POST['bestemming']);
+            $soort = mysqli_real_escape_string($conn, $_POST['soort']);
+            $kamer = mysqli_real_escape_string($conn, $_POST['kamer']);
+            $ligging = mysqli_real_escape_string($conn, $_POST['ligging']);
+            $img_name = $_FILES['image']['name'];
+            $img_size = $_FILES['image']['size'];
+            $img_tmp = $_FILES['image']['tmp_name'];
+            $error = $_FILES['image']['error'];
 
-                if(in_array($img_ex_lc, $allowed_exs)) 
+            if($error === 0) 
+            {
+                if($img_size > 1000000)
                 {
-                    $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
-                    $img_upload_path = '../UPLOAD-IMG/'.$new_img_name;
-                    move_uploaded_file($img_tmp, $img_upload_path);
-        
-                    if(empty($get_bstmID) || empty($soort) || empty($kamer) || empty($ligging) || empty($converter) || empty($new_img_name)) 
-                    {
-                        header('Location: ../ADMIN/accommodatie.admin.php?EMPTY FIELDS');
-                        exit(0);
-                    } 
-                    else 
-                    {
-                        $query_a = mysqli_query($conn, "INSERT INTO accommodatie (bstmID, soort, kamer, ligging, faciliteit, picture, bstm_naam)
-                        VALUES ('$get_bstmID', '$soort', '$kamer', '$ligging', '$converter', '$new_img_name',
-                        (SELECT plaats FROM bestemming WHERE idBestemming = $get_bstmID))") or die (mysqli_error($conn));
-    
-                        if($query_a)
-                        {
-                            header('Location: ../ADMIN/accommodatie.admin.php?succes');
-                            exit(0);
-                        } else 
-                        {
-                            header('Location: ../ADMIN/accommodatie.admin.php?try again');
-                            exit(0);
-                        }
-                    }
-                   
+                    header('Location: ../ADMIN/accommodatie.admin.php?FILE TO LARGE');
+                    exit(0);
                 } else 
                 {
-                    header('Location: ../ADMIN/accommodatie.admin.php?Cant Upload Typefile');
-                    exit(0);
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_lc = strtolower($img_ex);
+                    $allowed_exs = array("jpg", "jpeg", "png");
+    
+                    if(in_array($img_ex_lc, $allowed_exs)) 
+                    {
+                        $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
+                        $img_upload_path = '../UPLOAD-IMG/'.$new_img_name;
+                        move_uploaded_file($img_tmp, $img_upload_path);
+            
+                        if(empty($get_bstmID) || empty($soort) || empty($kamer) || empty($ligging) || empty($new_img_name)) 
+                        {
+                            header('Location: ../ADMIN/accommodatie.admin.php?EMPTY FIELDS');
+                            exit(0);
+                        } 
+                        else 
+                        {
+                            $query_a = mysqli_query($conn, "INSERT INTO accommodatie (bstmID, soort, kamer, ligging, faciliteit, picture, bstm_naam)
+                            VALUES ('$get_bstmID', '$soort', '$kamer', '$ligging', '".$checkbox_impl."', '$new_img_name',
+                            (SELECT plaats FROM bestemming WHERE idBestemming = $get_bstmID))") or die (mysqli_error($conn));
+        
+                            if($query_a)
+                            {
+                                header('Location: ../ADMIN/accommodatie.admin.php?succes');
+                                exit(0);
+                            } else 
+                            {
+                                header('Location: ../ADMIN/accommodatie.admin.php?try again');
+                                exit(0);
+                            }
+                        }
+                       
+                    } else 
+                    {
+                        header('Location: ../ADMIN/accommodatie.admin.php?Cant Upload Typefile');
+                        exit(0);
+                    }
+                    
                 }
-                
-            }
+            }   
+        } else 
+        {
+            header('Location: ../ADMIN/accommodatie.admin.php?Empty!!!');
         }
     }
+      
 // end Input
 
 // Input Faciliteit
@@ -152,6 +156,48 @@ require_once 'dbh.inc.php';
                 exit(0);
             } else {
                 header('Location: ../ADMIN/fac.admin.php?SOMETHING-WENT-WRONG');
+                exit(0);
+            }
+        }
+    }
+// end Input
+
+// Input Dep
+    if(isset($_POST['dep_submit'])) {
+        $dep = mysqli_real_escape_string($conn, $_POST['dep']);
+        
+        if(empty($dep)) {
+            header("Location: ../ADMIN/dep.admin.php?empyFields");
+            exit(0);
+        }
+        else {
+            $sql = mysqli_query($conn, "INSERT INTO departures (departure) VALUES ('$dep')");
+            if($sql) {
+                header('Location: ../ADMIN/dep.admin.php?SUCCES');
+                exit(0);
+            } else {
+                header('Location: ../ADMIN/dep.admin.php?SOMETHING-WENT-WRONG');
+                exit(0);
+            }
+        }
+    }
+// end Input
+
+// Input Reis Type
+    if(isset($_POST['type_submit'])) {
+        $type = mysqli_real_escape_string($conn, $_POST['type']);
+        
+        if(empty($type)) {
+            header("Location: ../ADMIN/reis_type.admin.php?empyFields");
+            exit(0);
+        }
+        else {
+            $sql = mysqli_query($conn, "INSERT INTO reis_type (name_type) VALUES ('$type')");
+            if($sql) {
+                header('Location: ../ADMIN/reis_type.admin.php?SUCCES');
+                exit(0);
+            } else {
+                header('Location: ../ADMIN/reis_type.admin.php?SOMETHING-WENT-WRONG');
                 exit(0);
             }
         }
@@ -217,67 +263,73 @@ require_once 'dbh.inc.php';
 // end Update
 
 // Update Accommodatie
-    if(isset($_POST['acco_update'])) 
-    {
-        $get_acco_id = mysqli_real_escape_string($conn, $_POST['id_acco']);
-        $up_acco_fac = $_POST['checkbox_fac'];
-        $converter_acco = implode($up_acco_fac);
-        
-        $up_soort_acco = mysqli_real_escape_string($conn, $_POST['soort']);
-        $up_kamer_acco = mysqli_real_escape_string($conn, $_POST['kamer']);
-        $up_ligging_acco = mysqli_real_escape_string($conn, $_POST['ligging']);
+    if(isset($_POST['acco_update'])) {
 
-        $img_name_upd = mysqli_real_escape_string($conn, $_FILES['image']['name']);
-        $img_size_upd = mysqli_real_escape_string($conn, $_FILES['image']['size']);
-        $img_tmp_upd = mysqli_real_escape_string($conn, $_FILES['image']['tmp_name']);
-        $error_upd = mysqli_real_escape_string($conn, $_FILES['image']['error']);
-
-
-        if($error_upd === 0) 
+        if(!empty($_POST['fac_checkbox']))
         {
-            if($img_size_upd > 1000000)
-            {
-                header('Location: ../ADMIN/acco.bewerk.php?FILE TO LARGE');
-                exit(0);
-            } else 
-            {
-                $img_ex_upd = pathinfo($img_name_upd, PATHINFO_EXTENSION);
-                $img_ex_lc_upd = strtolower($img_ex_upd);
-                $allowed_exs_upd = array("jpg", "jpeg", "png");
+            $checkbox_implode = implode(", ", $_POST['fac_checkbox']);
 
-                if(in_array($img_ex_lc_upd, $allowed_exs_upd)) 
+            $id_acco = mysqli_real_escape_string($conn, $_POST['id_acco']);
+            $bstmID = mysqli_real_escape_string($conn, $_POST['bestemming']);
+            $_soort = mysqli_real_escape_string($conn, $_POST['soort']);
+            $_kamer = mysqli_real_escape_string($conn, $_POST['kamer']);
+            $_ligging = mysqli_real_escape_string($conn, $_POST['ligging']);
+
+            $_img_name = $_FILES['image']['name'];
+            $_img_size = $_FILES['image']['size'];
+            $_img_tmp = $_FILES['image']['tmp_name'];
+            $_error = $_FILES['image']['error'];
+
+            if($_error === 0) 
+            {
+                if($_img_size > 1000000)
                 {
-                    $new_img_name_upd = uniqid("IMG-", true).'.'.$img_ex_lc_upd;
-                    $img_upload_path_upd = '../UPLOAD-IMG/'.$new_img_name_upd;
-                    move_uploaded_file($img_tmp, $img_upload_path_upd);
-
-
-
-                    $update_query_acco = mysqli_query($conn, "UPDATE accommodatie 
-                    SET soort = '$up_soort_acco', kamer = '$up_kamer_acco', ligging = '$up_ligging_acco', faciliteit = '$converter_acco', picture = '$new_img_name_upd' 
-                    WHERE idAcco = '$get_acco_id'");
-
-                    if($update_query_acco)
-                    {
-                        header('Location: ../ADMIN/accommodatie.admin.php?UPDATE SUCCES');
-                        exit(0);
-                    } else 
-                    {
-                        header('Location: ../ADMIN/acco.bewerk.php?UPDATE FAIL');
-                        exit(0);
-                    }
+                    header('Location: ../ADMIN/accommodatie.admin.php?FILETOLARGE');
+                    exit(0);
                 } else 
                 {
-                    header('Location: ../ADMIN/acco.bewerk.php?Cant Upload Typefile');
-                    exit(0);
-                }
-                
-            }
-        }
-    }
- 
-// end Update
+                    $_img_ex = pathinfo($_img_name, PATHINFO_EXTENSION);
+                    $_img_ex_lc = strtolower($_img_ex);
+                    $_allowed_exs = array("jpg", "jpeg", "png");
 
+                    if(in_array($_img_ex_lc, $_allowed_exs)) 
+                    {
+                        $_new_img_name = uniqid("IMG-", true).'.'.$_img_ex_lc;
+                        $_img_upload_path = '../UPLOAD-IMG/'.$_new_img_name;
+                        move_uploaded_file($_img_tmp, $_img_upload_path);
+            
+                        
+                        $sql_update = mysqli_query($conn, "UPDATE accommodatie 
+                        SET soort = '$_soort', kamer = '$_kamer', ligging = '$_ligging', 
+                        faciliteit = '$checkbox_implode', picture = '$_new_img_name' 
+                        WHERE idAcco = '$id_acco'");
+
+                        if($sql_update)
+                        {
+                            header('Location: ../ADMIN/accommodatie.admin.php?UpdateSucces');
+                            exit(0);
+                        } else 
+                        {
+                            header('Location: ../ADMIN/accommodatie.admin.php?UpdateNoSucces');
+                            exit(0);
+                        }
+                    
+                    } else 
+                    {
+                        header('Location: ../ADMIN/accommodatie.admin.php?CantUploadTypefile');
+                        exit(0);
+                    }
+                }
+            }
+        } else 
+        {
+            header('Location: ../ADMIN/accommodatie.admin.php?empty!!!');
+            // header('Location: ../ADMIN/acco.bewerk.php?empty!!!');
+            exit(0);
+        }       
+    }
+    
+// end Update
 
 
 // Delete Reis 
@@ -333,7 +385,6 @@ require_once 'dbh.inc.php';
     }
 // end Delete
 
-
 // Delete Faciliteit
     if(isset($_POST['delete_fac'])) 
     {
@@ -347,6 +398,60 @@ require_once 'dbh.inc.php';
             } else 
             {
                 header('Location: ../ADMIN/fac.admin.php?DELETE FAIL');
+                exit(0);
+            }
+    }
+// end Delete
+
+// Delete Dep
+    if(isset($_POST['delete_dep'])) 
+    {
+        $id_dep = mysqli_real_escape_string($conn, $_POST['departure']);
+
+            $sql_delete_dep = mysqli_query($conn, "DELETE FROM departures WHERE idDeparture = '$id_dep'");
+            if($sql_delete_dep) 
+            {
+                header('Location: ../ADMIN/dep.admin.php?DELETE SUCCES');
+                exit(0);
+            } else 
+            {
+                header('Location: ../ADMIN/dep.admin.php?DELETE FAIL');
+                exit(0);
+            }
+    }
+// end Delete
+
+// Delete Reis Type
+    if(isset($_POST['delete_type'])) 
+    {
+        $id_type = mysqli_real_escape_string($conn, $_POST['reis_type']);
+
+            $sql_delete_type = mysqli_query($conn, "DELETE FROM reis_type WHERE idType = '$id_type'");
+            if($sql_delete_type) 
+            {
+                header('Location: ../ADMIN/reis_type.admin.php?DELETE SUCCES');
+                exit(0);
+            } else 
+            {
+                header('Location: ../ADMIN/reis_type.admin.php?DELETE FAIL');
+                exit(0);
+            }
+    }
+// end Delete
+
+// Delete Boeking
+    if(isset($_POST['delete_boeking'])) 
+    {
+        $id_boeking = mysqli_real_escape_string($conn, $_POST['boeking_id']);
+
+            $sql_delete = mysqli_query($conn, "DELETE FROM boeking WHERE idBoeking = '$id_boeking'");
+            if($sql_delete) 
+            {
+                header('Location: ../ADMIN/index.admin.php?DELETE SUCCES');
+                exit(0);
+            } else 
+            {
+                header('Location: ../ADMIN/index.admin.php?DELETE FAIL');
                 exit(0);
             }
     }

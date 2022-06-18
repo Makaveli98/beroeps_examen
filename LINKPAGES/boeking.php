@@ -1,9 +1,5 @@
 <?php
 require '../PHP/header.php';
-
-$get_reis_id = mysqli_real_escape_string($conn, $_POST['id_reis']);
-$get_bstm_id = mysqli_real_escape_string($conn, $_POST['id_bestemming']);
-$query_reizen = mysqli_query($conn, "SELECT * FROM reis  WHERE idReis = $get_reis_id");
 ?>
 
 <div id="container">
@@ -14,6 +10,8 @@ $query_reizen = mysqli_query($conn, "SELECT * FROM reis  WHERE idReis = $get_rei
             <section class="boeking_content">
                 <div class="info_container" id="reis_info">
                     <?php
+                    $get_reis_id = mysqli_real_escape_string($conn, $_POST['id_reis']);
+                    $query_reizen = mysqli_query($conn, "SELECT * FROM reis INNER JOIN departures ON reis.depID = departures.idDeparture WHERE idReis = $get_reis_id");
                     if(mysqli_num_rows($query_reizen) > 0) 
                     {
                         while($reis_data = mysqli_fetch_array($query_reizen)) 
@@ -74,7 +72,7 @@ $query_reizen = mysqli_query($conn, "SELECT * FROM reis  WHERE idReis = $get_rei
 
                 <div class="info_container" id="acco_info">
                 <?php
-                $get_bstm_id = $_POST['id_bestemming'];
+                $get_bstm_id = mysqli_real_escape_string($conn, $_POST['id_bestemming']);
                 $query_acco = mysqli_query($conn, "SELECT * FROM accommodatie WHERE bstmID = $get_bstm_id;");
                 if(mysqli_num_rows($query_acco) > 0)
                 {
@@ -116,9 +114,9 @@ $query_reizen = mysqli_query($conn, "SELECT * FROM reis  WHERE idReis = $get_rei
             </section>
 
         <form class="boeking_form" action="../INCLUDES/boeking.inc.php" method="POST">
-            <input type="hidden" name="id_user" value="<?=$_SESSION['auth_user']['user_id'];?>">
-            <input type="hidden" name="pk_reis" value="<?=$get_reis_id?>">
-            <input type="hidden" name="pk_bstm" value="<?=$get_bstm_id?>">
+            <input type="hidden" name="id_user" value="<?=$_SESSION['auth_user']['user_id'];?>"></input>
+            <input type="hidden" name="pk_reis" value="<?=$get_reis_id?>"></input>
+            <input type="hidden" name="pk_bstm" value="<?=$get_bstm_id?>"></input>
             <button class="boek_btn" type="submit" name="boeking_btn">Boek</button>
         </form>
 

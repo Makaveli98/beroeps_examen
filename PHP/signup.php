@@ -14,12 +14,12 @@ if(isset($_SESSION['auth']))
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/signup.css">
+    <link rel="stylesheet" href="../CSS/style.css">
 
     <title>Signup</title>
 </head>
 <body>
-<main>
+<main id="signup_main">
     <div class="form_container">
         <h1>Signup</h1>
         <form class="signup_form" action="../INCLUDES/signup.inc.php" method="POST">
@@ -69,6 +69,8 @@ if(isset($_SESSION['auth']))
                 </div>
             </div>
         </form>
+        
+        <a href="index.php"><button id="home_button" type="submit" name="">Home Page</button></a> 
     </div>
 
 </main>

@@ -36,13 +36,13 @@ require '../PHP/header.php';
                             <input type="text" name="provincie" placeholder="provincie..." value="<?=$update['provincie'];?>">
                         </div>
                             <input type="text" name="id_bestemming" value="<?=$update['idBestemming'];?>">
-                            <a href="bestemming.admin.php"><button class="submit_btn" id="" type="submit">Terug</button></a>
                             <button class="submit_btn" id="btn_bstm" type="submit" name="bstm_update">Update</button>
                         </form>
                     <?php
                 }
             }
             ?>
+            <a href="bestemming.admin.php"><button class="submit_btn" id="btn_bstm_terug" type="submit">Terug</button></a>
         </div>
     </main>
 </div>

@@ -107,6 +107,7 @@
     padding: 20px;
     width: 100%;
     flex-direction: column;
+    background-color: unset;
 }
 
 #checkbox_container input {
@@ -121,6 +122,8 @@
     padding: 10px;
     min-width: 8vw;
     border-radius: 10px;
+    position: relative;
+    z-index: 999;
 }
 
 .submit_btn button {
@@ -137,25 +140,45 @@
 /* buttons */
     /* reis */
     #btn_reis {
-        position: relative;
-        left: 10vw;
-        bottom: 4vh;
-        z-index: 2;
+        position: absolute;
+        right: 23vw;
+        bottom: 16vh;
+        z-index: 999;
+    }
+
+    #btn_reis_update {
+        position: absolute;
+        right: 23vw;
+        bottom: 21vh;
+        z-index: 999;
+    }
+
+    #btn_reis_terug {
+        border: none;
+        background-color: #1b228c;
+        color: whitesmoke;
+        padding: 10px;
+        min-width: 8vw;
+        border-radius: 10px;
+        position: absolute;
+        right: 33vw;
+        bottom: 43.2vh;
+        z-index: 999;
     }
 
     /* bestemming */
     #btn_bstm {
         position: absolute;
-        right: 25vw;
-        bottom: 16vh;
+        right: 26vw;
+        top: 22vh;
         z-index: 999;
     }
 
     #btn_bstm_terug {
         position: absolute;
-        right: 38vw;
-        bottom: 16vh;
+        top: 22vh;
         z-index: 999;
+        left: 33vw;
     }
 
     /* accommodatie */
@@ -163,13 +186,16 @@
         position: absolute;
         bottom: 0;
         right: 4vw;
+        z-index: 999;
     }
 
     #btn_acco_terug {
         position: absolute;
         bottom: 0;
         right: 13vw;
+        z-index: 999;
     }
+
 
     /* faciliteit */
     #btn_fac {
@@ -185,7 +211,7 @@
         display: flex;
         gap: 1em;
         right: 1vw;
-        z-index: 2;
+        z-index: 999;
     }
 
     .overview_btn button {
@@ -202,7 +228,7 @@
         right: .1vw;
         bottom: 0.3vh;
         width: 8vw;
-        z-index: 2;
+        z-index: 999;
     }
 
     #ov_btn button {
@@ -238,23 +264,6 @@
     width: 100%;
 } */
 
-/* #input_search {
-    padding: 10px;
-    width: 15vw;
-}
-
-#search_form {
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
-    right: 12.5vw;
-    gap: 0.2em;
-}
-
-#search_form button {
-    padding: 10px;
-    width: 5.5vw;
-} */
 
 .name_fac {
     border: solid 1px #1a1a68;
@@ -299,4 +308,9 @@
     border-radius: 5px;
     position: relative;
     z-index: 2;
-  }
+}
+
+#admin_table button {
+    position: relative;
+    z-index: 999;
+}

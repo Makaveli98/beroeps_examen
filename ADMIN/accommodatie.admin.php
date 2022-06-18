@@ -41,8 +41,8 @@ require '../PHP/header.php';
                         $sql_b = mysqli_query($conn, "SELECT * FROM bestemming");
                         while($data_b = mysqli_fetch_array($sql_b)) {
                             ?>
-                                <option value="<?= $data_b['idBestemming']; ?>"><?= $data_b['plaats']
-                                , " --- " , $data_b['idBestemming'], "  ";?>ID</option>
+                                <option value="<?= $data_b['idBestemming']; ?>">
+                                <?= $data_b['plaats'], " --- " , $data_b['idBestemming'], "  ";?> ID </option>
                             <?php
                         }   
                         ?>
@@ -61,21 +61,23 @@ require '../PHP/header.php';
                     <label for="">Faciliteit</label>
                     <section class="checkbox_wrapper">
                         <?php
-                        $query_a = mysqli_query($conn, "SELECT * FROM faciliteit");
-                        if(mysqli_num_rows($query_a) > 0) {
-                            foreach($query_a as $a_data) {
-                                ?>
-                                <section id="checkbox_div">
-                                    <input class="checkbox" type="checkbox" name="checkbox_fac[]" id="checkbox" value="<?=$a_data['naam_fac'];?>">
-                                    <p id="checkbox_text"><?=$a_data['naam_fac'];?></p>
-                                </input>
-                                </section>
-                                <?php
-                            }   
-                        } else 
-                        {
-                            echo "LEEG";
-                        }
+                            $sql_results = mysqli_query($conn, "SELECT * FROM faciliteit");
+                            if(mysqli_num_rows($sql_results) > 0) {
+                                foreach($sql_results as $sql_result) 
+                                {
+                                   ?>
+                                        <section id="checkbox_div">
+                                            <input class="checkbox" type="checkbox" name="fac_checkbox[]" 
+                                                id="checkbox" value="<?=$sql_result['naam_fac'];?>">
+                                                <p id="checkbox_text"><?=$sql_result['naam_fac'];?></p>
+                                            </input>
+                                        </section>
+                                    <?php
+                                }   
+                            } else 
+                            {
+                                echo "No Records Found";
+                            }
                         ?>
                     </section>
                 </div>                
@@ -96,28 +98,34 @@ require '../PHP/header.php';
                         <th>Kamers</th>
                         <th>Ligging</th>
                         <th>Faciliteit</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $query = "SELECT * FROM accommodatie INNER JOIN bestemming ON accommodatie.bstmID = bestemming.idBestemming";
+                    $query = "SELECT * FROM accommodatie";
                     $query_run = mysqli_query($conn, $query);
 
                     if(mysqli_num_rows($query_run) > 0) {
                         while($row = mysqli_fetch_array($query_run)){
                             ?>
                             <tr>
-                                <td><?=$row['idBestemming']; ?></td>
-                                <td><?=$row['plaats']; ?></td>
+                                <td><?=$row['bstmID']; ?></td>
+                                <td><?=$row['bstm_naam']; ?></td>
                                 <td><?=$row['soort']; ?></td>
                                 <td><?=$row['kamer']; ?></td>
                                 <td><?=$row['ligging']; ?></td>
                                 <td><?=$row['faciliteit']; ?></td>
-
-                                <form action="acco.bewerk.php" method="POST">
-                                    <td><input type="text" name="acco_hidden" value="<?=$row['idAcco'];?>">acco_id</td>
-                                    <td><button name="update_acco">Update</button></td>
-                                </form>
+                                <td>
+                                    <form action="acco.bewerk.php" method="POST">
+                                        <input type="hidden" value="<?=$row['idAcco'];?>" name="idAcco">
+                                        <input type="hidden" value="<?=$row['bstmID'];?>" name="bstmID">
+                                        <input type="hidden" value="<?=$row['faciliteit'];?>" name="checkbox">
+                                        <button>Updaten</button>
+                                    </form>
+                                </td>
 
                                 <form action="../INCLUDES/admin.inc.php" method="POST">
                                     <td><a href="a_overview.admin.php"><button name="delete_acco">Verwijder</button></a></td>
@@ -130,7 +138,7 @@ require '../PHP/header.php';
                     else {
                         ?>
                         <tr>
-                            <td colspan="6">No Record Found</td>
+                            <td colspan="11">No Record Found</td>
                         </tr>
                         <?php
                     }

@@ -50,9 +50,9 @@ session_start();
             }elseif($_SESSION['auth_role'] == '0' || $_SESSION['auth_role'] == NULL) 
             {
                 ?>
-                <h3 class="role">User</h3>
-                <div id="role">
-                    <?=$_SESSION['auth_user']['user_name'];?>
+                <h3 id="id_role">User</h3>
+                <div id="account" class="account_box">
+                <div class="name_box"><h4><?=$_SESSION['auth_user']['user_name'];?></h4></div>
                     <form action="../INCLUDES/logout.inc.php" method="POST">
                         <button type="submit" class="logout_btn" id="btn" name="logout_btn">Log Out</button>
                     </form>   
@@ -63,8 +63,8 @@ session_start();
         } else 
         {
             ?>
-                <h3 id="guest_id">Guest</h3>
-                <div id="role">
+                <h3 id="id_role">Guest</h3>
+                <div id="guest" class="account_box">
                     <form class="login_form" action="../INCLUDES/login.inc.php" method="POST">
                         <div>
                             <label>User ID:</label>
@@ -80,6 +80,9 @@ session_start();
                             <button type="submit" name="login_btn">Login</button>
                         </div>
                     </form>
+                    <div>
+                        <a href="signup.php" name="signup_link">Sign Up</a>
+                    </div>
                 </div>
             <?php
         }

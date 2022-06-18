@@ -43,12 +43,15 @@ require '../PHP/header.php';
                         <th>Plaats</th>
                         <th>Land</th>
                         <th>Provincie</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php
                 $query = mysqli_query($conn, "SELECT * FROM bestemming"); 
-                // -- INNER JOIN accommodatie ON bestemming.idBestemming = accommodatie.bstmID");
                 if(mysqli_num_rows($query) > 0) {
                     foreach($query as $row){
                         ?>
@@ -59,13 +62,13 @@ require '../PHP/header.php';
                             <td><?=$row['provincie']; ?></td>
             
                             <form action="bstm.bewerk.php" method="POST">
-                                <td><input type="text" name="bstm_hidden" value="<?=$row['idBestemming'];?>"></td>
+                                <td><input type="hidden" name="bstm_hidden" value="<?=$row['idBestemming'];?>"></td>
                                 <td><button name="update_bstm">Update</button></td>
                             </form>
 
                             <form action="../INCLUDES/admin.inc.php" method="POST">
-                                <td><input name="hidden_v_bstm" type="text" value="<?=$row['idBestemming']?>"></td>
-                                <td><a href="b_overview.admin.php"><button name="delete_bstm">Verwijder</button></a></td>
+                                <td><input name="hidden_v_bstm" type="hidden" value="<?=$row['idBestemming']?>"></td>
+                                <td><a href=""><button name="delete_bstm">Verwijder</button></a></td>
                             </form>   
                         </tr>
                         <?php
@@ -74,7 +77,7 @@ require '../PHP/header.php';
                 else {
                     ?>
                     <tr>
-                        <td colspan="4">No Record Found</td>
+                        <td colspan="8">No Record Found</td>
                     </tr>
                     <?php
                 }

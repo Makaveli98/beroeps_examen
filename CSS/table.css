@@ -46,7 +46,7 @@
 #admin_table {
     width: 100%;
     margin-bottom: 8em;
-    margin-top: 4em;
+    margin-top: -2em;
 }
 
 #reis_tbl {
@@ -79,4 +79,13 @@
 .title_boeking {
     position: relative;
     top: 10vh;
+}
+
+.table_content_wrapper {
+    /* display: flex; */
+    /* width: 75%; */
+    /* position: relative;
+    top: 10vh; */
+    /* justify-content: center; */
+    /* align-items: center; */
 }

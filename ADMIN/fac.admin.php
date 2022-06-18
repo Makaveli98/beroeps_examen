@@ -13,7 +13,7 @@ require '../PHP/header.php';
                     <label for="">Faciliteit:</label>
                     <input type="text" name="faciliteit" placeholder="Faciliteit...">
                 </div>
-                <button class="submit_btn" id="btn_fac" type="submit" name="faciliteit_submit">Add</button>
+                <button class="submit_btn" id="btn_fac" type="submit" name="faciliteit_submit">Toevoegen</button>
             </form>
         </div>
 

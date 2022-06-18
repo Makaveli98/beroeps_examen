@@ -1,5 +1,10 @@
 <?php 
 require '../PHP/header.php';
+if($_SESSION['auth_role'] == '0' || $_SESSION['auth_role'] == NULL)
+{   
+    header('Location: ../PHP/index.php?YouAreNotTheAdmin');
+    exit(0);
+}
 ?>
 
 <div id="container_a">
@@ -16,24 +21,33 @@ require '../PHP/header.php';
                         <th>User</th>
                         <th>Email</th>
                         <th>Telefoonnummer</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    
-                    $query_b = "SELECT * FROM boeking INNER JOIN reis ON boeking.reisID = reis.idReis";
+                    $id_user = $_SESSION['auth_user']['user_id'];
+                    $query_b = "SELECT * FROM boeking INNER JOIN users ON boeking.userID = users.idUser
+                    INNER JOIN reis ON boeking.reisID = reis.idReis";
                     $query_run_b = mysqli_query($conn, $query_b);
 
                     if(mysqli_num_rows($query_run_b) > 0) {
                         while($row_b = mysqli_fetch_array($query_run_b)){
                             ?>
                             <tr>
-                                <td><?=$row_b['idBoeking'];?></td>
+                                <td name="boeking_id" value="<?=$row_b['idBoeking'];?>"><?=$row_b['idBoeking'];?></td>
                                 <td><?=$row_b['bestemming'];?></td>
                                 <td><?=$row_b['periode'];?></td>
-                                <td><?=$_SESSION['auth_user']['user_name']?></td>
-                                <td><?=$_SESSION['auth_user']['user_email']?></td>
-                                <td><?=$_SESSION['auth_user']['user_tnr']?></td>
+                                <td><?=$row_b['voornaam'];?></td>
+                                <td><?=$row_b['email'];?></td>
+                                <td><?=$row_b['telefoon_nr'];?></td>
+                                <td>    
+                                    <form action="../INCLUDES/admin.inc.php" method="POST">
+                                        <input type="hidden" name="boeking_id" value="<?=$row_b['idBoeking'];?>">
+                                        <td><a href="index.admin.php"><button name="delete_boeking">Verwijder</button></a></td>
+                                    </form> 
+                                </td>
                             </tr>
                             <?php
                         }
@@ -41,7 +55,7 @@ require '../PHP/header.php';
                     else {
                         ?>
                         <tr>
-                            <td colspan="6">No Record Found</td>
+                            <td colspan="7">No Record Found</td>
                         </tr>
                         <?php
                     }

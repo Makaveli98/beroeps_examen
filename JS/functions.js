@@ -10,7 +10,7 @@ function check_if_admin_page () {
     || document.URL.includes("accommodatie.admin.php") || document.URL.includes("fac.admin.php") || document.URL.includes("r_overview.admin.php") 
     || document.URL.includes("b_overview.admin.php") || document.URL.includes("a_overview.admin.php") || document.URL.includes("f_overview.admin.php")
     || document.URL.includes("boeking.admin.php") || document.URL.includes("acco.bewerk.php") || document.URL.includes("bstm.bewerk.php") 
-    || document.URL.includes("reis.bewerk.php")) 
+    || document.URL.includes("reis.bewerk.php") || document.URL.includes("dep.admin.php")) 
     {
         // header
         header.style.width = "85%";

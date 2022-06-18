@@ -9,11 +9,11 @@ require '../PHP/header.php';
         <h1>Reis Updaten</h1>
         <div id="input_content">   
         <?php
-        $get_idReis = mysqli_real_escape_string($conn, $_POST['reis_hidden']);
-        $sql_update = mysqli_query($conn, "SELECT * FROM reis WHERE idReis = $get_idReis");
-        if(mysqli_num_rows($sql_update) > 0) 
+        $get_reis_id = mysqli_real_escape_string($conn, $_POST['id_reis']);
+        $sql_reis = mysqli_query($conn, "SELECT * FROM reis WHERE idReis = $get_reis_id");
+        if(mysqli_num_rows($sql_reis) > 0) 
         {
-            while($update = mysqli_fetch_array($sql_update)) 
+            while($sql_results = mysqli_fetch_array($sql_reis)) 
             {
                 ?>
                 <form id="input_reis" class="input" action="../INCLUDES/admin.inc.php" method="POST">
@@ -24,10 +24,19 @@ require '../PHP/header.php';
                         <select name="bestemming">
                                 <option value="">--BESTEMMING--</option>
                             <?php
-                            $query_b = mysqli_query($conn, "SELECT * FROM bestemming");
-                            while($data_b = mysqli_fetch_array($query_b)) {
+                            $get_bstm_id = mysqli_real_escape_string($conn, $_POST['id_bstm']);
+                            $sql_bstm = mysqli_query($conn, "SELECT * FROM bestemming");
+                            foreach($sql_bstm as $data_bstm) {
                                 ?>
-                                    <option value="<?= $data_b['idBestemming']; ?>"><?= $data_b['plaats'], " --- ", $data_b['idBestemming'], "  ";?>ID</option>
+                                    <option value="<?=$data_bstm['idBestemming'];?>"
+                                        <?php
+                                        if($get_bstm_id == $data_bstm['idBestemming'])
+                                        {
+                                            echo "selected";
+                                        }
+                                        ?>
+                                    
+                                    ><?= $data_bstm['plaats'], " --- ", $data_bstm['idBestemming'], "  ";?>ID</option>
                                 <?php
                             }   
                             ?>
@@ -37,7 +46,7 @@ require '../PHP/header.php';
                     <!-- input field voor periode -->
                     <div>
                         <label for="">Periode</label><br>
-                        <input type="text" name="periode" placeholder="Periode..." value="<?=$update['periode'];?>">
+                        <input type="text" name="periode" placeholder="Periode..." value="<?=$sql_results['periode'];?>">
                     </div>
 
                     <!-- select field voor reis type -->
@@ -45,10 +54,23 @@ require '../PHP/header.php';
                         <label for="">Reis Type</label><br>
                         <select name="reis_type">
                             <option value="">--TYPE--</option>
-
-                            <option value="auto">Auto</option>
-                            <option value="bus">Bus</option>
-                            <option value="vliegtuig">Vliegtuig</option>
+                            <?php
+                            $get_type_id = mysqli_real_escape_string($conn, $_POST['type']);
+                            $sql_type = mysqli_query($conn, "SELECT * FROM reis_type");
+                            foreach($sql_type as $data_type) 
+                            {
+                                ?>
+                                    <option value="<?=$data_type['idType'];?>"
+                                        <?php
+                                        if($get_type_id == $data_type['idType'])
+                                        {
+                                            echo "selected";
+                                        }
+                                        ?>
+                                    ><?=$data_type['name_type'];?></option>
+                                <?php
+                            }   
+                            ?>
                         </select>
                     </div>
 
@@ -56,49 +78,55 @@ require '../PHP/header.php';
                     <div>
                         <label for="">Departure</label><br>
                         <select name="vertrek">
-                            <option value="">--DEPARTURE--</option>
-
-                            <option>Hal 1</option>
-                            <option>Hal 2</option>
-                            <option>Hal 3</option>
-
-                            <option>Platform 1</option>
-                            <option>Platform 2</option>
-                            <option>Platform 3</option>
-
-                            <option>Platform 4</option>
-                            <option>Platform 5</option>
-                            <option>Platform 6</option>
+                                <option value="">--DEPARTURE--</option>
+                            <?php
+                            $get_dep_id = mysqli_real_escape_string($conn, $_POST['departure']);
+                            $sql_dep = mysqli_query($conn, "SELECT * FROM departures");
+                            foreach($sql_dep as $data_dep) 
+                            {
+                                ?>
+                                    <option value="<?=$data_dep['idDeparture'];?>"
+                                        <?php
+                                        if($get_dep_id == $data_dep['idDeparture'])
+                                        {
+                                            echo "selected";
+                                        }
+                                        ?>
+                                    
+                                    ><?=$data_dep['departure'];?></option>
+                                <?php
+                            }   
+                            ?>
                         </select>
                     </div>
+                   
 
                     <!-- input field voor check-in -->
                     <div>
                         <label for="">Check-in-balie</label><br>
-                        <input type="number" name="check_in" min="1" max="24" value="<?=$update['periode'];?>">
+                        <input type="number" name="check_in" min="1" max="24" value="<?=$sql_results['check_in'];?>">
                     </div>
 
                     <!-- input field voor vertrek datum -->
                     <div>
                         <label for="">Vertrek Datum</label><br>
-                        <input type="datetime-local" name="vertrek_date" value="<?=$update['vertrek_date'];?>">
+                        <input type="datetime" name="vertrek_date" value="<?=$sql_results['vertrek_date'];?>">
                     </div>
 
                     <!-- input field voor reisnummer -->
                     <div>
                         <label for="">Reisnummer</label><br>
-                        <input type="text" name="reis_nummer" placeholder="Reis Nummer..." value="<?=$update['reis_nr'];?>">
+                        <input type="text" name="reis_nummer" placeholder="Reis Nummer..." value="<?=$sql_results['reis_nr'];?>">
                     </div>
 
                     <!-- input field voor prijs -->
                     <div>
                         <label for="">Prijs</label><br>
-                        <input type="text" name="prijs" placeholder="Prijs..." value="<?=$update['prijs'];?>" >
+                        <input type="text" name="prijs" placeholder="Prijs..." value="<?=$sql_results['prijs'];?>" >
                     </div>
 
-                    <input type="text" name="id_reis" value="<?=$update['idReis'];?>">
-                    <a href="bestemming.admin.php"><button class="submit_btn" id="" type="submit">Terug</button></a>
-                    <button class="submit_btn" id="btn_reis" type="submit" name="reis_update">Update</button>
+                    <input type="text" name="id_reis" value="<?=$sql_results['idReis'];?>">
+                    <button class="submit_btn" id="btn_reis_update" type="submit" name="reis_update">Update</button>
 
                     </form>
                 <?php
@@ -106,6 +134,7 @@ require '../PHP/header.php';
         }
         ?>
         </div>
+        <a href="reizen.admin.php"><button class="submit_btn" id="btn_reis_terug" type="submit">Terug</button></a>
     </main>
 </div>
 

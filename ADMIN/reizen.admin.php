@@ -17,7 +17,7 @@ require '../PHP/header.php';
                             <option value="">--BESTEMMING--</option>
                         <?php
                         $query_b = mysqli_query($conn, "SELECT * FROM bestemming");
-                        while($data_b = mysqli_fetch_array($query_b)) {
+                        while($data_b = mysqli_fetch_assoc($query_b)) {
                             ?>
                                 <option value="<?= $data_b['idBestemming']; ?>"><?= $data_b['plaats'], " --- ", $data_b['idBestemming'], "  ";?>ID</option>
                             <?php
@@ -37,30 +37,32 @@ require '../PHP/header.php';
                     <label for="">Reis Type</label><br>
                     <select name="reis_type">
                         <option value="">--TYPE--</option>
-
-                        <option value="auto">Auto</option>
-                        <option value="bus">Bus</option>
-                        <option value="vliegtuig">Vliegtuig</option>
+                        <?php
+                        $sql = mysqli_query($conn, "SELECT * FROM reis_type");
+                        while($sql_data = mysqli_fetch_assoc($sql))
+                        {
+                            ?>
+                                <option value="<?=$sql_data['idType'];?>"><?=$sql_data['name_type'];?></option>
+                            <?php
+                        }
+                        ?>
                     </select>
                 </div>
                 
                 <!-- select field voor departure -->
                 <div>
                     <label for="">Departure</label><br>
+
                     <select name="vertrek">
                         <option value="">--DEPARTURE--</option>
-
-                        <option>Hal 1</option>
-                        <option>Hal 2</option>
-                        <option>Hal 3</option>
-
-                        <option>Platform 1</option>
-                        <option>Platform 2</option>
-                        <option>Platform 3</option>
-
-                        <option>Platform 4</option>
-                        <option>Platform 5</option>
-                        <option>Platform 6</option>
+                        <?php
+                        $query = mysqli_query($conn, "SELECT * FROM departures");
+                        while($data = mysqli_fetch_assoc($query)) {
+                            ?>
+                                <option value="<?=$data['idDeparture'];?>"><?=$data['departure'];?></option>
+                            <?php
+                        }   
+                        ?>
                     </select>
                 </div>
             
@@ -95,7 +97,7 @@ require '../PHP/header.php';
         
         <!-- Overzicht -->
         <div class="table_content" id="admin_table">
-            <h1>Overzicht Reizen</h1>
+            <h1 id="reis_title">Overzicht Reizen</h1>
             <table id="reis_tbl">
                 <thead>
                     <tr>
@@ -107,11 +109,15 @@ require '../PHP/header.php';
                         <th>Vertrek Datum</th>
                         <th>Reis Nummer</th>
                         <th>Prijs</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $query = "SELECT * FROM reis";
+                    $query = "SELECT * FROM reis INNER JOIN departures ON reis.depID = departures.idDeparture 
+                    INNER JOIN reis_type ON reis.typeID = reis_type.idType";
                     $query_run = mysqli_query($conn, $query);
 
                     if(mysqli_num_rows($query_run) > 0) {
@@ -120,16 +126,21 @@ require '../PHP/header.php';
                             <tr>
                                 <td><?=$row['bestemming']; ?></td>
                                 <td><?=$row['periode']; ?></td>
-                                <td><?=$row['reis_type']; ?></td>
+                                <td><?=$row['name_type']; ?></td>
                                 <td><?=$row['departure']; ?></td>   
                                 <td><?=$row['check_in']; ?></td>   
                                 <td><?=$row['vertrek_date']; ?></td>   
                                 <td><?=$row['reis_nr']; ?></td>
                                 <td><?=$row['prijs']; ?></td>
-                                <form action="reis.bewerk.php" method="POST">
-                                    <td><button name="update_reis">Update</button></td>
-                                    <td><input type="text" name="reis_hidden" value="<?=$row['idReis'];?>"></td>
-                                </form>
+                                <td>
+                                    <form action="reis.bewerk.php" method="POST">
+                                        <input type="hidden" value="<?=$row['idReis']?>" name="id_reis"></input>
+                                        <input type="hidden" value="<?=$row['bestemmingID']?>" name="id_bstm"></input>
+                                        <input type="hidden" value="<?=$row['typeID']?>" name="type"></input>
+                                        <input type="hidden" value="<?=$row['idDeparture']?>" name="departure"></input>
+                                        <button name="update_reis">Update</button></a>
+                                    </form>
+                                </td>
 
                                 <form action="../INCLUDES/admin.inc.php" method="POST">
                                     <td><input name="hidden_v_reis" type="hidden" value="<?=$row['idReis']?>"></td>
