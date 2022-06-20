@@ -1,5 +1,10 @@
 <?php 
 require '../PHP/header.php';
+if($_SESSION['auth_role'] == '0' || $_SESSION['auth_role'] == NULL)
+{   
+    header('Location: ../PHP/index.php?YouAreNotTheAdmin');
+    exit(0);
+}
 ?>
 
 
@@ -98,8 +103,8 @@ require '../PHP/header.php';
                         <th>Kamers</th>
                         <th>Ligging</th>
                         <th>Faciliteit</th>
-                        <th></th>
-                        <th></th>
+                        <th>Update</th>
+                        <th>Delete</th>
                         <th></th>
                     </tr>
                 </thead>

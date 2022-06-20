@@ -23,10 +23,6 @@
             <li>
                 <a href="fac.admin.php" id="faciliteit_link"> <h3>Faciliteit</h3> </a>
             </li>
-            
-            <li>
-                <a href="reis_type.admin.php" id="type_link"> <h3>Reis Type</h3> </a>
-            </li> 
           
             <li>
                 <a href="dep.admin.php" id="dep_link"> <h3>Departures</h3> </a>

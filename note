@@ -1,9 +1,0 @@
-<?php
-                        $sql = mysqli_query($conn, "SELECT * FROM reistype");
-                        while($sql_data = mysqli_fetch_assoc($sql))
-                        {
-                            ?>
-                                <option value="<?=$sql_data['idType'];?>"><?=$sql_data['name_type'];?></option>
-                            <?php
-                        }
-                        ?>

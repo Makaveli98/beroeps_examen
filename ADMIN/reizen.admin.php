@@ -1,5 +1,10 @@
 <?php 
 require '../PHP/header.php';
+if($_SESSION['auth_role'] == '0' || $_SESSION['auth_role'] == NULL)
+{   
+    header('Location: ../PHP/index.php?YouAreNotTheAdmin');
+    exit(0);
+}
 ?>
 
 <div id="container_a">
@@ -105,9 +110,9 @@ require '../PHP/header.php';
                         <th>Vertrek Datum</th>
                         <th>Reis Nummer</th>
                         <th>Prijs</th>
+                        <th>Update</th>
                         <th></th>
-                        <th></th>
-                        <th></th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -149,7 +154,7 @@ require '../PHP/header.php';
                     else {
                         ?>
                         <tr>
-                            <td colspan="8">No Record Found</td>
+                            <td colspan="11">No Record Found</td>
                         </tr>
                         <?php
                     }

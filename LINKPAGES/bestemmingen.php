@@ -40,10 +40,7 @@ $query = mysqli_query($conn, "SELECT * FROM bestemming;");
                 {
                     ?>
                     <tr>
-                        <td>No Record Found</td>
-                        <td>No Record Found</td>
-                        <td>No Record Found</td>
-                        <td>No Record Found</td>
+                        <td colspan="3">No Record Found</td>
                     </tr>
                     <?php
                 }    

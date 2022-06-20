@@ -21,7 +21,7 @@ require '../PHP/header.php';
                         <th>Periode</th>
                         <th>Reis-type</th>
                         <th>Check-in-balie</th>
-                        <th></th>
+                        <th>Check</th>
                     </tr>
                 </thead>
 

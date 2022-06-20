@@ -43,6 +43,8 @@ require '../PHP/header.php';
                     </div>
                     <?php
                 }
+            } else {
+                echo "No Records Found";
             }
             ?>
         </div>

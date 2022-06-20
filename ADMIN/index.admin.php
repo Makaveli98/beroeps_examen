@@ -21,8 +21,7 @@ if($_SESSION['auth_role'] == '0' || $_SESSION['auth_role'] == NULL)
                         <th>User</th>
                         <th>Email</th>
                         <th>Telefoonnummer</th>
-                        <th></th>
-                        <th></th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
