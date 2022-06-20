@@ -34,16 +34,16 @@ require '../PHP/header.php';
                         ?>
                         <tbody>
                             <tr>
-                                <td><?=$row['bestemming'];?></td>
+                                <td><?=$row['plaats'];?></td>
                                 <td><?=$row['periode'];?></td>
-                                <td><?=$row['reis_type'];?></td>
+                                <td><?=$row['naam_type'];?></td>
                                 <td><?=$row['check_in'];?></td>
                                 <td>
                                     <form action="boeking.php" method="POST">
-                                        <button name="bekijk_btn">Check</button>
-                                      
+                                          
                                         <input type="hidden" name="id_reis" value="<?=$row['idReis'];?>">
                                         <input type="hidden" name="id_bestemming" value="<?=$row['idBestemming'];?>">
+                                        <button name="bekijk_btn">Check</button>
                                     </form>
                                 </td>
                             </tr>

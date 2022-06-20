@@ -9,6 +9,7 @@ require '../PHP/header.php';
         <h1>Reis Updaten</h1>
         <div id="input_content">   
         <?php
+        $get_type = mysqli_real_escape_string($conn, $_POST['type']);
         $get_reis_id = mysqli_real_escape_string($conn, $_POST['id_reis']);
         $sql_reis = mysqli_query($conn, "SELECT * FROM reis WHERE idReis = $get_reis_id");
         if(mysqli_num_rows($sql_reis) > 0) 
@@ -54,23 +55,50 @@ require '../PHP/header.php';
                         <label for="">Reis Type</label><br>
                         <select name="reis_type">
                             <option value="">--TYPE--</option>
-                            <?php
-                            $get_type_id = mysqli_real_escape_string($conn, $_POST['type']);
-                            $sql_type = mysqli_query($conn, "SELECT * FROM reis_type");
-                            foreach($sql_type as $data_type) 
+                            <option value="Vliegtuig"
+                            <?php 
+                            if($get_type == 'Vliegtuig')
                             {
-                                ?>
-                                    <option value="<?=$data_type['idType'];?>"
-                                        <?php
-                                        if($get_type_id == $data_type['idType'])
-                                        {
-                                            echo "selected";
-                                        }
-                                        ?>
-                                    ><?=$data_type['name_type'];?></option>
-                                <?php
-                            }   
+                                echo "selected";
+                            }
                             ?>
+                            >Vliegtuig</option>
+
+                            <option value="Bus"
+                            <?php 
+                            if($get_type == 'Bus')
+                            {
+                                echo "selected";
+                            }
+                            ?>
+                            >Bus</option>
+
+                            <option value="Auto"
+                            <?php 
+                            if($get_type == 'Auto')
+                            {
+                                echo "selected";
+                            }
+                            ?>
+                            >Auto</option>
+
+                            <option value="Trein"
+                            <?php 
+                            if($get_type == 'Trein')
+                            {
+                                echo "selected";
+                            }
+                            ?>
+                            >Trein</option>
+
+                            <option value="Boot"
+                            <?php 
+                            if($get_type == 'Boot')
+                            {
+                                echo "selected";
+                            }
+                            ?>
+                            >Boot</option>
                         </select>
                     </div>
 

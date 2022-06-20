@@ -36,16 +36,12 @@ require '../PHP/header.php';
                 <div>
                     <label for="">Reis Type</label><br>
                     <select name="reis_type">
-                        <option value="">--TYPE--</option>
-                        <?php
-                        $sql = mysqli_query($conn, "SELECT * FROM reis_type");
-                        while($sql_data = mysqli_fetch_assoc($sql))
-                        {
-                            ?>
-                                <option value="<?=$sql_data['idType'];?>"><?=$sql_data['name_type'];?></option>
-                            <?php
-                        }
-                        ?>
+                        <option value="">--SELECT--</option>
+                        <option value="Vliegtuig">Vliegtuig</option>
+                        <option value="Bus">Bus</option>
+                        <option value="Auto">Auto</option>
+                        <option value="Trein">Trein</option>
+                        <option value="Boot">Boot</option>
                     </select>
                 </div>
                 
@@ -117,16 +113,16 @@ require '../PHP/header.php';
                 <tbody>
                     <?php
                     $query = "SELECT * FROM reis INNER JOIN departures ON reis.depID = departures.idDeparture 
-                    INNER JOIN reis_type ON reis.typeID = reis_type.idType";
+                    INNER JOIN bestemming on reis.bestemmingID = bestemming.idBestemming";
                     $query_run = mysqli_query($conn, $query);
 
                     if(mysqli_num_rows($query_run) > 0) {
                         while($row = mysqli_fetch_array($query_run)){
                             ?>
                             <tr>
-                                <td><?=$row['bestemming']; ?></td>
+                                <td><?=$row['plaats']; ?></td>
                                 <td><?=$row['periode']; ?></td>
-                                <td><?=$row['name_type']; ?></td>
+                                <td><?=$row['naam_type']; ?></td>
                                 <td><?=$row['departure']; ?></td>   
                                 <td><?=$row['check_in']; ?></td>   
                                 <td><?=$row['vertrek_date']; ?></td>   
@@ -136,7 +132,7 @@ require '../PHP/header.php';
                                     <form action="reis.bewerk.php" method="POST">
                                         <input type="hidden" value="<?=$row['idReis']?>" name="id_reis"></input>
                                         <input type="hidden" value="<?=$row['bestemmingID']?>" name="id_bstm"></input>
-                                        <input type="hidden" value="<?=$row['typeID']?>" name="type"></input>
+                                        <input type="hidden" value="<?=$row['naam_type']?>" name="type"></input>
                                         <input type="hidden" value="<?=$row['idDeparture']?>" name="departure"></input>
                                         <button name="update_reis">Update</button></a>
                                     </form>

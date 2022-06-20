@@ -1,45 +1,66 @@
 <?php
-require_once 'dbh.inc.php';
+require '../PHP/header.php';
 
 if(isset($_POST['submit_search'])) 
 {    
     $search = mysqli_real_escape_string($conn, $_POST['search']);
-    $query_r = mysqli_query($conn, "SELECT * FROM reis WHERE bestemming LIKE '%$search%' 
-    OR periode LIKE '%$search%' OR reis_type LIKE '%$search%'") or die (mysqli_error($conn));
+    $sql = "SELECT * FROM reis
+    -- INNER JOIN departures ON reis.typeID = departures.idType 
+    WHERE bestemming LIKE '%$search%' OR periode LIKE '%$search%' OR naam_type LIKE '%$search%'" or die (mysqli_error($conn));
+    $result = mysqli_query($conn, $sql);
+    $query_result = mysqli_num_rows($result);
+    ?>
 
-    if(mysqli_num_rows($query_r) > 0) 
-    {
-        ?>  
-        <h3>There are <?=$query_r?>results</h3>
-        <?php
+    <div id="container">
+        <main id="main">
+            <?php include '../PHP/navbar.php';?>
+            <div class="table_content">
+            <h2>Reizen</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Plaats</th>
+                        <th>Periode</th>
+                        <th>Reis-type</th>
+                        <th>Check-in-balie</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <?php
+                                
+                    if($query_result > 0) 
+                    {
+                        while($row = mysqli_fetch_assoc($result)) {
+                            ?>
+                            <tr>
+                                <td><?=$row['bestemming']; ?></td>
+                                <td><?=$row['periode']; ?></td>
+                                <td><?=$row['naam_type']; ?></td>
+                                <td><?=$row['check_in']; ?></td>   
+                                <td>
+                                    <form action="../LINKPAGES/boeking.php" method="POST">
+                                        <button name="bekijk_btn">Check</button>
+                                      
+                                        <input type="hidden" name="id_reis" value="<?=$row['idReis'];?>">
+                                        <input type="hidden" name="id_bestemming" value="<?=$row['bestemmingID'];?>">
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    } else 
+                    {
+                        header('Location: ../LINKPAGES/reizen.php?no_results_in_query');
+                        exit(0);
+                    }
 
-        header('Location: ../LINKPAGES/reizen.php');
-
-        while($q_data = mysqli_fetch_assoc($query_r)) 
-        {
-            ?>
-            <tr>
-                <td><?=$q_data['bestemming']; ?></td>
-                <td><?=$q_data['periode']; ?></td>
-                <td><?=$q_data['reis_type']; ?></td>
-                <td><?=$q_data['departure']; ?></td>   
-                <td><?=$q_data['check_in']; ?></td>   
-                <td><?=$q_data['vertrek_date']; ?></td>   
-                <td><?=$q_data['reis_nr']; ?></td>
-                <td><?=$q_data['prijs']; ?></td>
-                <td><form action="../INCLUDES/boeking.php" method="POST">
-                    <button name="reis_btn">BOEKEN</button>
-                    <input type="hidden" name="id_reis" value="<?=$q_data['idReis'];?>">
-                    <input type="hidden" name="bstm" value="<?=$q_data['bestemming'];?>">
-                    <input type="hidden" name="r_nr" value="<?=$q_data['reis_nr'];?>">
-                </form></td>
-            </tr>
-            <?php
-        }
-    } else 
-    {
-        ?>
-        <h3>There are no results matching your search!</h3>
-        <?php
-    }
+                ?>
+            </div>
+            <table>
+        </main>
+    </div>
+<?php
 }
+
+
+

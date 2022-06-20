@@ -230,6 +230,14 @@
     margin-left: 3vw;
 }
 
+.btn_div {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1em;
+    position: relative;
+    right: 7vw;
+}
+
 .boek_btn {
     background-color: khaki;
     border: solid 1px #1a1a68;
@@ -237,9 +245,6 @@
     color: #1a1a68;
     padding: 10px;
     min-width: 10vw;
-    position: absolute;
-    bottom: -24vw;
-    right: 2vw;
 }
 
 #guest {

@@ -105,15 +105,16 @@ require '../PHP/header.php';
                 </thead>
                 <tbody>
                     <?php
-                    $query = "SELECT * FROM accommodatie";
+                    $query = "SELECT * FROM accommodatie 
+                    INNER JOIN bestemming ON accommodatie.bstmID = bestemming.idBestemming";
                     $query_run = mysqli_query($conn, $query);
 
                     if(mysqli_num_rows($query_run) > 0) {
                         while($row = mysqli_fetch_array($query_run)){
                             ?>
                             <tr>
-                                <td><?=$row['bstmID']; ?></td>
-                                <td><?=$row['bstm_naam']; ?></td>
+                                <td><?=$row['idBestemming']; ?></td>
+                                <td><?=$row['plaats']; ?></td>
                                 <td><?=$row['soort']; ?></td>
                                 <td><?=$row['kamer']; ?></td>
                                 <td><?=$row['ligging']; ?></td>

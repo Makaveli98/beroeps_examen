@@ -5,7 +5,7 @@ require_once 'dbh.inc.php';
     if(isset($_POST['reis_submit'])) 
     {
         $bstmID = mysqli_real_escape_string($conn, $_POST['bestemming']);
-        $typeID = mysqli_real_escape_string($conn, $_POST['reis_type']);
+        $type = mysqli_real_escape_string($conn, $_POST['reis_type']);
         $depID = mysqli_real_escape_string($conn, $_POST['vertrek']);
 
         $r_periode = mysqli_real_escape_string($conn, $_POST['periode']);
@@ -15,15 +15,16 @@ require_once 'dbh.inc.php';
         $r_prijs = mysqli_real_escape_string($conn, $_POST['prijs']);
 
 
-        if(empty($bstmID) || empty($typeID) || empty($depID) || empty($r_periode) || empty($r_check) 
+        if(empty($bstmID) || empty($type) || empty($depID) || empty($r_periode) || empty($r_check) 
         || empty($vtrk_date) || empty($r_nr) || empty($r_prijs)) 
         {
             header("Location: ../ADMIN/reizen.admin.php?EMPTY-FIELDS");
             exit(0);
         } else 
         { 
-            $query_r = mysqli_query($conn, "INSERT INTO reis (bestemmingID, depID, typeID, periode, check_in, vertrek_date, reis_nr, prijs, bestemming)  
-            VALUES ('$bstmID', '$depID', '$typeID', '$r_periode', '$r_check', '$vtrk_date', '$r_nr', '$r_prijs', 
+            $query_r = mysqli_query($conn, "INSERT INTO reis (bestemmingID, depID, naam_type, periode, check_in, vertrek_date,
+            reis_nr, prijs, bestemming)  
+            VALUES ('$bstmID', '$depID', '$type', '$r_periode', '$r_check', '$vtrk_date', '$r_nr', '$r_prijs', 
             (SELECT plaats FROM bestemming WHERE idBestemming = $bstmID))") or die (mysqli_error($conn));
             if ($query_r) 
             {
@@ -192,7 +193,7 @@ require_once 'dbh.inc.php';
             exit(0);
         }
         else {
-            $sql = mysqli_query($conn, "INSERT INTO reis_type (name_type) VALUES ('$type')");
+            $sql = mysqli_query($conn, "INSERT INTO reistype (name_type) VALUES ('$type')");
             if($sql) {
                 header('Location: ../ADMIN/reis_type.admin.php?SUCCES');
                 exit(0);
@@ -208,34 +209,45 @@ require_once 'dbh.inc.php';
 // Update Reis
     if(isset($_POST['reis_update'])) 
     {
-        $get_reis_id = mysqli_real_escape_string($conn, $_POST['reis_h']);
-        $get_reis_bstm = mysqli_real_escape_string($conn, $_POST['bestemming']);
-        $get_reis_periode = mysqli_real_escape_string($conn,  $_POST['periode']);
-        $get_reis_type = mysqli_real_escape_string($conn,  $_POST['reis_type']);
-        $get_reis_vertrek = mysqli_real_escape_string($conn, $_POST['vertrek']);
-        $get_reis_check = mysqli_real_escape_string($conn, $_POST['check_in']);
-        $get_reis_datum = mysqli_real_escape_string($conn, $_POST['vertrek_date']);
-        $get_reis_nr = mysqli_real_escape_string($conn, $_POST['reis_nummer']);
-        $get_reis_prijs = mysqli_real_escape_string($conn, $_POST['prijs']);
+        $get_reis_id = mysqli_real_escape_string($conn, $_POST['id_reis']);
+        $bstmID = mysqli_real_escape_string($conn, $_POST['bestemming']);
+        $type = mysqli_real_escape_string($conn, $_POST['reis_type']);
+        $depID = mysqli_real_escape_string($conn, $_POST['vertrek']);
 
-        $update_query_reis = mysqli_query($conn, "UPDATE reis 
-        SET bestemming = '$get_reis_bstm', periode = '$get_reis_periode', reis_type = '$get_reis_type', departure = '$get_reis_vertrek', 
-        check_in = '$get_reis_check', vertrek_date = '$get_reis_datum', reis_nr = '$get_reis_nr', prijs = '$get_reis_prijs' 
-        WHERE idReis = '$get_reis_id'");
+        $r_periode = mysqli_real_escape_string($conn, $_POST['periode']);
+        $r_check = mysqli_real_escape_string($conn, $_POST['check_in']);
+        $vtrk_date = mysqli_real_escape_string($conn, $_POST['vertrek_date']);
+        $r_nr = mysqli_real_escape_string($conn, $_POST['reis_nummer']);
+        $r_prijs = mysqli_real_escape_string($conn, $_POST['prijs']);
 
-        if($update_query_reis)
+
+        if(empty($bstmID) || empty($type) || empty($depID) || empty($r_periode) || empty($r_check) 
+        || empty($vtrk_date) || empty($r_nr) || empty($r_prijs)) 
         {
-            header('Location: ../ADMIN/reis.bewerk.php?UPDATE SUCCES');
-                exit(0);
+            header("Location: ../ADMIN/reizen.admin.php?EMPTY-FIELDS");
+            exit(0);
         } else 
-        {
-            header('Location: ../ADMIN/reis.bewerk.php?UPDATE FAIL');
+        { 
+            
+            $update_query_reis = mysqli_query($conn, "UPDATE reis 
+            SET bestemming = '$bstmID', periode = '$r_periode', naam_type = '$type', depID = '$depID', 
+            check_in = '$r_check', vertrek_date = '$vtrk_date', reis_nr = '$r_nr', prijs = '$r_prijs' 
+            WHERE idReis = '$get_reis_id'");
+            if ($update_query_reis) 
+            {
+                header("Location: ../ADMIN/reizen.admin.php?succes");
+                exit(0);   
+            } else 
+            {
+                header("Location: ../ADMIN/reizen.admin.php?no-succes");
                 exit(0);
-        }
-
-    }
+            }
+        }   
+    }  
 
 // end Update
+
+
 
 // Update Bestemming
     if(isset($_POST['bstm_update'])) 
@@ -245,89 +257,123 @@ require_once 'dbh.inc.php';
         $upd_land_bstm = mysqli_real_escape_string($conn, $_POST['land']);
         $upd_provincie_bstm = mysqli_real_escape_string($conn, $_POST['provincie']);
 
-        $update_query_bstm = mysqli_query($conn, "UPDATE bestemming SET plaats = '$upd_plaats_bstm', 
-        land = '$upd_land_bstm', provincie = '$upd_provincie_bstm' WHERE idBestemming = '$get_bstm_id'");
-
-        if($update_query_bstm)
+        if(empty($upd_land_bstm) || empty($upd_land_bstm) || empty($upd_provincie_bstm)) 
         {
-            header('Location: ../ADMIN/bestemming.admin.php?UPDATE SUCCES');
-                exit(0);
+            header('Location: ../ADMIN/bestemming.admin.php?EMPTY!!');
+            exit(0);
         } else 
         {
-            header('Location: ../ADMIN/bstm.bewerk.php?UPDATE FAIL');
+            $update_query_bstm = mysqli_query($conn, "UPDATE bestemming SET plaats = '$upd_plaats_bstm', 
+            land = '$upd_land_bstm', provincie = '$upd_provincie_bstm' WHERE idBestemming = '$get_bstm_id'");
+
+            if($update_query_bstm)
+            {
+                header('Location: ../ADMIN/bestemming.admin.php?UPDATE SUCCES');
                 exit(0);
+            } else 
+            {
+                header('Location: ../ADMIN/bestemming.admin.php?UPDATE FAIL');
+                exit(0);
+            }
         }
+
 
     }
 
 // end Update
 
 // Update Accommodatie
-    if(isset($_POST['acco_update'])) {
+    if(isset($_POST['acco_update']))
+    {
 
-        if(!empty($_POST['fac_checkbox']))
+        if(!empty($_POST['fac_checkbox'])) 
         {
-            $checkbox_implode = implode(", ", $_POST['fac_checkbox']);
+            $checkbox_impl = implode(", ", $_POST['fac_checkbox']);
+            $get_accoID = mysqli_real_escape_string($conn, $_POST['id_acco']);
+            $get_bstmID = mysqli_real_escape_string($conn, $_POST['bestemming']);
 
-            $id_acco = mysqli_real_escape_string($conn, $_POST['id_acco']);
-            $bstmID = mysqli_real_escape_string($conn, $_POST['bestemming']);
-            $_soort = mysqli_real_escape_string($conn, $_POST['soort']);
-            $_kamer = mysqli_real_escape_string($conn, $_POST['kamer']);
-            $_ligging = mysqli_real_escape_string($conn, $_POST['ligging']);
+            $acco = mysqli_real_escape_string($conn, $_POST['soort']);
+            $kamer = mysqli_real_escape_string($conn, $_POST['kamer']);
+            $ligging = mysqli_real_escape_string($conn, $_POST['ligging']);
 
-            $_img_name = $_FILES['image']['name'];
-            $_img_size = $_FILES['image']['size'];
-            $_img_tmp = $_FILES['image']['tmp_name'];
-            $_error = $_FILES['image']['error'];
+            $img_name = $_FILES['image']['name'];
+            $img_size = $_FILES['image']['size'];
+            $img_tmp = $_FILES['image']['tmp_name'];
+            $error = $_FILES['image']['error'];
 
-            if($_error === 0) 
+            if($error === 0) 
             {
-                if($_img_size > 1000000)
+                if($img_size > 1000000)
                 {
-                    header('Location: ../ADMIN/accommodatie.admin.php?FILETOLARGE');
+                    header('Location: ../ADMIN/accommodatie.admin.php?FILE TO LARGE');
                     exit(0);
                 } else 
                 {
-                    $_img_ex = pathinfo($_img_name, PATHINFO_EXTENSION);
-                    $_img_ex_lc = strtolower($_img_ex);
-                    $_allowed_exs = array("jpg", "jpeg", "png");
+                    $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                    $img_ex_lc = strtolower($img_ex);
+                    $allowed_exs = array("jpg", "jpeg", "png");
 
-                    if(in_array($_img_ex_lc, $_allowed_exs)) 
+                    if(in_array($img_ex_lc, $allowed_exs)) 
                     {
-                        $_new_img_name = uniqid("IMG-", true).'.'.$_img_ex_lc;
-                        $_img_upload_path = '../UPLOAD-IMG/'.$_new_img_name;
-                        move_uploaded_file($_img_tmp, $_img_upload_path);
+                        $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
+                        $img_upload_path = '../UPLOAD-IMG/'.$new_img_name;
+                        move_uploaded_file($img_tmp, $img_upload_path);
             
-                        
-                        $sql_update = mysqli_query($conn, "UPDATE accommodatie 
-                        SET soort = '$_soort', kamer = '$_kamer', ligging = '$_ligging', 
-                        faciliteit = '$checkbox_implode', picture = '$_new_img_name' 
-                        WHERE idAcco = '$id_acco'");
-
-                        if($sql_update)
+                        if(empty($get_bstmID) || empty($acco) || empty($kamer) || empty($ligging) || empty($new_img_name)) 
                         {
-                            header('Location: ../ADMIN/accommodatie.admin.php?UpdateSucces');
+                            header('Location: ../ADMIN/accommodatie.admin.php?EMPTY FIELDS');
                             exit(0);
-                        } else 
+                        } 
+                        else 
                         {
-                            header('Location: ../ADMIN/accommodatie.admin.php?UpdateNoSucces');
-                            exit(0);
+                      
+                            $sql_update = mysqli_query($conn, "UPDATE accommodatie 
+                            SET bstmID = '$get_bstmID ', soort = '$acco', kamer = '$kamer', ligging = '$ligging', 
+                            faciliteit = '$checkbox_impl', picture = '$new_img_name' 
+                            WHERE idAcco = '$get_accoID'");
+        
+                            if($sql_update)
+                            {
+                                header('Location: ../ADMIN/accommodatie.admin.php?succes');
+                                exit(0);
+                            } else 
+                            {
+                                header('Location: ../ADMIN/accommodatie.admin.php?try again');
+                                exit(0);
+                            }
                         }
                     
                     } else 
                     {
-                        header('Location: ../ADMIN/accommodatie.admin.php?CantUploadTypefile');
+                        header('Location: ../ADMIN/accommodatie.admin.php?Cant Upload Typefile');
                         exit(0);
                     }
+                    
                 }
-            }
+            }   
         } else 
         {
-            header('Location: ../ADMIN/accommodatie.admin.php?empty!!!');
-            // header('Location: ../ADMIN/acco.bewerk.php?empty!!!');
-            exit(0);
-        }       
+            header('Location: ../ADMIN/accommodatie.admin.php?Empty!!!');
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 // end Update
 
@@ -426,7 +472,7 @@ require_once 'dbh.inc.php';
     {
         $id_type = mysqli_real_escape_string($conn, $_POST['reis_type']);
 
-            $sql_delete_type = mysqli_query($conn, "DELETE FROM reis_type WHERE idType = '$id_type'");
+            $sql_delete_type = mysqli_query($conn, "DELETE FROM reistype WHERE idType = '$id_type'");
             if($sql_delete_type) 
             {
                 header('Location: ../ADMIN/reis_type.admin.php?DELETE SUCCES');
