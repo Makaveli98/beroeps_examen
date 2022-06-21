@@ -136,7 +136,7 @@ if($_SESSION['auth_role'] == '0' || $_SESSION['auth_role'] == NULL)
                                 <td>
                                     <form action="reis.bewerk.php" method="POST">
                                         <input type="hidden" value="<?=$row['idReis']?>" name="id_reis"></input>
-                                        <input type="hidden" value="<?=$row['bestemmingID']?>" name="id_bstm"></input>
+                                        <input type="hidden" value="<?=$row['idBestemming']?>" name="id_bstm"></input>
                                         <input type="hidden" value="<?=$row['naam_type']?>" name="type"></input>
                                         <input type="hidden" value="<?=$row['idDeparture']?>" name="departure"></input>
                                         <button name="update_reis">Update</button></a>

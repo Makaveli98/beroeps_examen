@@ -233,7 +233,7 @@ require_once 'dbh.inc.php';
         { 
             // als de input field niet empty is dan update je de ingevulde gegevens
             $update_query_reis = mysqli_query($conn, "UPDATE reis 
-            SET bestemming = '$bstmID', periode = '$r_periode', naam_type = '$type', depID = '$depID', 
+            SET bestemmingID = '$bstmID', periode = '$r_periode', naam_type = '$type', depID = '$depID', 
             check_in = '$r_check', vertrek_date = '$vtrk_date', reis_nr = '$r_nr', prijs = '$r_prijs' 
             WHERE idReis = '$get_reis_id'");
             if ($update_query_reis) 
