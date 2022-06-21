@@ -7,7 +7,7 @@ if(isset($_SESSION['auth']))
     exit(0);
 }
 ?>
-
+<!-- dit is de signup form -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

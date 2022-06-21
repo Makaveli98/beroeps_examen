@@ -32,14 +32,19 @@ session_start();
             <div class="logo"></div>
         </figure>
 
+        <!-- hier kijk je of je authorised bent dus of de gegevens 
+        die je invoert overeen komen met wat in de database zit -->
         <?php if(isset($_SESSION['auth'])) 
         {
-          
+            
+            // als de ingelogde user de rol 1 (admin) heeft 
             if($_SESSION['auth_role'] == '1')
             {
                 ?>
+                <!-- dan laat je de layout van de admin zien -->
                 <h3 id="id_role" class="role">Admin</h3>
                 <div id="account" class="account_box">
+                    <!-- en hier laat je de naam van de user zien -->
                     <div class="name_box"><h4><?=$_SESSION['auth_user']['user_name'];?></h4></div>
                     <a href="../ADMIN/index.admin.php"><button>Admin Dashboard</button></a>
                     <form action="../INCLUDES/logout.inc.php" method="POST">
@@ -47,11 +52,14 @@ session_start();
                     </form>
                 </div>       
                 <?php
+                // hier kijk je of de ongelogde user de rol 0 of niks heeft en die is dan gelijk aan een normale user
             }elseif($_SESSION['auth_role'] == '0' || $_SESSION['auth_role'] == NULL) 
             {
                 ?>
+                <!-- dan laat je de layout van de user zien -->
                 <h3 id="id_role">User</h3>
                 <div id="account" class="account_box">
+                    <!-- en hier laat je de naam van de user zien -->
                 <div class="name_box"><h4><?=$_SESSION['auth_user']['user_name'];?></h4></div>
                     <form action="../INCLUDES/logout.inc.php" method="POST">
                         <button type="submit" class="logout_btn" id="btn" name="logout_btn">Log Out</button>
@@ -60,7 +68,9 @@ session_start();
                 <?php
             }
            
-        } else 
+        } 
+        // als de user niet authorised dan stuur je de user gewoon terug naar de main page met de login form
+        else 
         {
             ?>
                 <h3 id="id_role">Guest</h3>

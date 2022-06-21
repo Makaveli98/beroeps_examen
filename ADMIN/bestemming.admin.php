@@ -57,22 +57,28 @@ if($_SESSION['auth_role'] == '0' || $_SESSION['auth_role'] == NULL)
                 </thead>
                 <tbody>
                 <?php
+                // hier selecteer ik alles van de table bestemming
                 $query = mysqli_query($conn, "SELECT * FROM bestemming"); 
+                // hier kijk of er data in de table zit
                 if(mysqli_num_rows($query) > 0) {
+                    // zo ja dan zet je data in een variable
                     foreach($query as $row){
                         ?>
                         <tr>
+                            <!-- en hier laat je data dan zien -->
                             <td><?=$row['idBestemming']; ?></td>
                             <td><?=$row['plaats']; ?></td>
                             <td><?=$row['land']; ?></td>
                             <td><?=$row['provincie']; ?></td>
-            
+
                             <form action="bstm.bewerk.php" method="POST">
+                                <!-- hier geef ik de id value mee als er op de knop gedrukt wordt -->
                                 <td><input type="hidden" name="bstm_hidden" value="<?=$row['idBestemming'];?>"></td>
                                 <td><button name="update_bstm">Update</button></td>
                             </form>
 
                             <form action="../INCLUDES/admin.inc.php" method="POST">
+                                <!-- hier geef ik de id value mee als er op de knop gedrukt wordt -->
                                 <td><input name="hidden_v_bstm" type="hidden" value="<?=$row['idBestemming']?>"></td>
                                 <td><a href=""><button name="delete_bstm">Verwijder</button></a></td>
                             </form>   

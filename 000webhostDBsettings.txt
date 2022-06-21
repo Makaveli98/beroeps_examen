@@ -1,0 +1,18 @@
+000webhost
+
+login:
+
+e-mail = r.damann98@gmail.com
+wpd = Makaveli71
+
+Website:
+
+name = 
+pwd = qscsD3tPASDUuNgLM(1w
+
+
+database:
+name = id19139031_beroepsexamen
+username = id19139031_makaveli
+host = localhost
+pwd = z5fBLOP*7G1IpB*b 
