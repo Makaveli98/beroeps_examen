@@ -1,5 +1,18 @@
 <?php
 require_once 'dbh.inc.php';
+session_start();
+$empty = "Empty Fields";
+$succes = "Succes!";
+$fail = "Fail!";
+
+
+
+$_SESSION['messages'] = [
+    'empty'=> $empty,
+    'succes'=> $succes,
+    'fail'=> $fail
+];
+
 
 // Input Reis
     // kijken of de knop ingedrukt wordt 
@@ -21,19 +34,33 @@ require_once 'dbh.inc.php';
         || empty($vtrk_date) || empty($r_nr) || empty($r_prijs)) 
         {
             header("Location: ../ADMIN/reizen.admin.php?EMPTY-FIELDS");
-            echo "Velden moeten ingevuld worden!";
+            ?> <h3 class="message" id="empty"><?=$_SESSION['messages']['empty'];?></h3> <?php
             exit(0);
         } else 
         { 
             // als de input field niet empty is dan voer je de ingevulde gegevens in
+
+
+
+            
+
+
+
             $query_r = mysqli_query($conn, "INSERT INTO reis (bestemmingID, depID, naam_type, periode, check_in, vertrek_date,
             reis_nr, prijs, bestemming)  
             VALUES ('$bstmID', '$depID', '$type', '$r_periode', '$r_check', '$vtrk_date', '$r_nr', '$r_prijs', 
             (SELECT plaats FROM bestemming WHERE idBestemming = $bstmID))") or die (mysqli_error($conn));
+
+
+
+
+
+
+
+
             if ($query_r) 
             {
                 header("Location: ../ADMIN/reizen.admin.php?succes");
-                echo "Succes";
                 exit(0);   
             } else 
             {
@@ -261,7 +288,7 @@ require_once 'dbh.inc.php';
         $upd_provincie_bstm = mysqli_real_escape_string($conn, $_POST['provincie']);
 
         // kijken of de input field empty is
-        if(empty($upd_land_bstm) || empty($upd_land_bstm) || empty($upd_provincie_bstm)) 
+        if(empty($upd_plaats_bstm) || empty($upd_land_bstm) || empty($upd_provincie_bstm)) 
         {
             header('Location: ../ADMIN/bestemming.admin.php?EMPTY!!');
             exit(0);
@@ -361,7 +388,8 @@ require_once 'dbh.inc.php';
                     
                 }
             }   
-        } else 
+        } 
+        else 
         {
             header('Location: ../ADMIN/accommodatie.admin.php?Empty!!!');
         }
